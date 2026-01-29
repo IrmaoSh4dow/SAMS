@@ -20,6 +20,7 @@
             --accent: #EB5757;     /* Rojo emergencia suave */
             --gold: #FFD700;       /* Dorado para destacados */
             --surgeon: #9B59B6;    /* Púrpura para cirujanos */
+            --clinical: #3498DB;   /* Azul para clínico */
             --light: #F8F9FA;
             --light-blue: #E3F2FD;
             --light-green: #E8F5E9;
@@ -427,16 +428,34 @@
             z-index: 10;
         }
 
-        /* Badge para auxiliar */
-        .staff-card.auxiliar {
-            border-top: 5px solid var(--secondary);
+        /* Badge para sub-director */
+        .staff-card.sub-director {
+            border-top: 5px solid #2980B9;
         }
 
-        .staff-card.auxiliar .auxiliar-badge {
+        .staff-card.sub-director .subdirector-badge {
             position: absolute;
             top: 15px;
             left: 15px;
-            background: var(--secondary);
+            background: #2980B9;
+            color: white;
+            padding: 6px 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        /* Badge para médico clínico */
+        .staff-card.clinical {
+            border-top: 5px solid var(--clinical);
+        }
+
+        .staff-card.clinical .clinical-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--clinical);
             color: white;
             padding: 6px 15px;
             font-size: 0.85rem;
@@ -534,6 +553,20 @@
 
         .staff-title {
             color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .subdirector-title {
+            color: #2980B9;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .clinical-title {
+            color: var(--clinical);
             font-weight: 600;
             margin-bottom: 15px;
             font-size: 1rem;
@@ -741,14 +774,19 @@
             color: var(--secondary);
         }
 
-        .badge.aux {
-            background: rgba(39, 174, 96, 0.2);
-            color: var(--secondary);
+        .badge.clinical {
+            background: rgba(52, 152, 219, 0.2);
+            color: var(--clinical);
         }
 
         .badge.surgeon {
             background: rgba(155, 89, 182, 0.2);
             color: var(--surgeon);
+        }
+
+        .badge.subdirector {
+            background: rgba(41, 128, 185, 0.2);
+            color: #2980B9;
         }
 
         /* Responsive Design */
@@ -983,8 +1021,45 @@
                     </div>
                 </div>
                 
+                <!-- Evaristo García - Sub-Director (cambio realizado) -->
+                <div class="staff-card sub-director fade-in delay-2">
+                    <div class="subdirector-badge">SUB-DIRECTOR</div>
+                    <div class="staff-image">
+                        <!-- Usando una imagen temporal de sub-director de Unsplash -->
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                             alt="Evaristo García - Sub-Director">
+                    </div>
+                    <div class="staff-info">
+                        <h3>Sub-Director</h3>
+                        <div class="staff-name">Evaristo García</div>
+                        <p class="subdirector-title">Sub-Director Médico</p>
+                        <p>Responsable de supervisar operaciones médicas y apoyar la dirección en la gestión del hospital.</p>
+                        <div class="badge subdirector">Supervisión</div>
+                        <div class="badge subdirector">Gestión</div>
+                        <div class="badge subdirector">Operaciones</div>
+                    </div>
+                </div>
+                
+                <!-- Thomas Graves - Médico Clínico (cambio realizado) -->
+                <div class="staff-card clinical fade-in delay-3">
+                    <div class="clinical-badge">MÉDICO CLÍNICO</div>
+                    <div class="staff-image">
+                        <img src="img/thomas.jpg" alt="Thomas Graves - Médico Clínico"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1167&q=80';">
+                    </div>
+                    <div class="staff-info">
+                        <h3>Médico Clínico</h3>
+                        <div class="staff-name">Thomas Graves</div>
+                        <p class="clinical-title">Especialista en Clínica y Traumatología</p>
+                        <p>Especializado en medicina clínica con experiencia en traumatología. Atención integral al paciente.</p>
+                        <div class="badge clinical">Medicina Clínica</div>
+                        <div class="badge clinical">Traumatología</div>
+                        <div class="badge clinical">Atención Integral</div>
+                    </div>
+                </div>
+
                 <!-- Empleado del Mes - BADGE CORREGIDO USANDO ::before -->
-                <div class="staff-card featured fade-in delay-2">
+                <div class="staff-card featured fade-in delay-4">
                     <div class="staff-image">
                         <img src="img/samuel.jpg" alt="Samuel - Empleado del Mes"
                              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1167&q=80';">
@@ -997,43 +1072,6 @@
                         <div class="badge">Emergencias</div>
                         <div class="badge">Atención</div>
                         <div class="badge">Dedicación</div>
-                    </div>
-                </div>
-                
-                <!-- Thomas Graves - Auxiliar -->
-                <div class="staff-card auxiliar fade-in delay-3">
-                    <div class="auxiliar-badge">AUXILIAR</div>
-                    <div class="staff-image">
-                        <img src="img/thomas.jpg" alt="Thomas Graves - Auxiliar"
-                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1167&q=80';">
-                    </div>
-                    <div class="staff-info">
-                        <h3>Auxiliar Médico</h3>
-                        <div class="staff-name">Thomas Graves</div>
-                        <p class="staff-title">Auxiliar de EMS</p>
-                        <p>Especialista en apoyo en emergencias y asistencia prehospitalaria. Comprometido con la atención al paciente.</p>
-                        <div class="badge aux">Emergencias</div>
-                        <div class="badge aux">Asistencia</div>
-                        <div class="badge aux">Apoyo</div>
-                    </div>
-                </div>
-
-                <!-- Evaristo García - Médico Cirujano -->
-                <div class="staff-card surgeon fade-in delay-4">
-                    <div class="surgeon-badge">CIRUJANO</div>
-                    <div class="staff-image">
-                        <!-- Usando una imagen temporal de cirujano de Unsplash -->
-                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
-                             alt="Evaristo García - Médico Cirujano">
-                    </div>
-                    <div class="staff-info">
-                        <h3>Médico Cirujano</h3>
-                        <div class="staff-name">Evaristo García</div>
-                        <p class="surgeon-title">Cirujano General</p>
-                        <p>Especialista en cirugía general y de emergencia con más de 15 años de experiencia en intervenciones quirúrgicas complejas.</p>
-                        <div class="badge surgeon">Cirugía</div>
-                        <div class="badge surgeon">Traumatología</div>
-                        <div class="badge surgeon">Emergencias</div>
                     </div>
                 </div>
             </div>
@@ -1158,17 +1196,30 @@
             }, 2000);
         }
         
-        // Efecto especial para la tarjeta de cirujano
-        const surgeonCard = document.querySelector('.staff-card.surgeon');
-        if (surgeonCard) {
+        // Efecto especial para la tarjeta de sub-director
+        const subdirectorCard = document.querySelector('.staff-card.sub-director');
+        if (subdirectorCard) {
             setInterval(() => {
-                surgeonCard.style.boxShadow = '0 10px 30px rgba(155, 89, 182, 0.3)';
-                surgeonCard.style.borderColor = '#AF7AC5';
+                subdirectorCard.style.boxShadow = '0 10px 30px rgba(41, 128, 185, 0.3)';
+                subdirectorCard.style.borderColor = '#5DADE2';
                 setTimeout(() => {
-                    surgeonCard.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.12)';
-                    surgeonCard.style.borderColor = 'var(--surgeon)';
+                    subdirectorCard.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.12)';
+                    subdirectorCard.style.borderColor = '#2980B9';
                 }, 1500);
             }, 3000);
+        }
+        
+        // Efecto especial para la tarjeta de médico clínico
+        const clinicalCard = document.querySelector('.staff-card.clinical');
+        if (clinicalCard) {
+            setInterval(() => {
+                clinicalCard.style.boxShadow = '0 10px 30px rgba(52, 152, 219, 0.3)';
+                clinicalCard.style.borderColor = '#7FB3D5';
+                setTimeout(() => {
+                    clinicalCard.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.12)';
+                    clinicalCard.style.borderColor = 'var(--clinical)';
+                }, 1500);
+            }, 3500);
         }
         
         // Efecto de movimiento para tarjetas caninas
@@ -1203,15 +1254,15 @@
                     bgColor = 'linear-gradient(135deg, #FFF8E1, #FFECB3)';
                     textColor = '#FF8F00';
                     break;
-                case 'auxiliar':
-                    icon = '<i class="fas fa-hands-helping"></i>';
-                    bgColor = 'linear-gradient(135deg, #E8F5E9, #C8E6C9)';
-                    textColor = '#2E7D32';
+                case 'clinical':
+                    icon = '<i class="fas fa-stethoscope"></i>';
+                    bgColor = 'linear-gradient(135deg, #EBF5FB, #D6EAF8)';
+                    textColor = '#2980B9';
                     break;
-                case 'surgeon':
-                    icon = '<i class="fas fa-syringe"></i>';
-                    bgColor = 'linear-gradient(135deg, #F3E5F5, #E1BEE7)';
-                    textColor = '#7B1FA2';
+                case 'subdirector':
+                    icon = '<i class="fas fa-user-tie"></i>';
+                    bgColor = 'linear-gradient(135deg, #E8F4FD, #D4E6F1)';
+                    textColor = '#1B4F72';
                     break;
                 case 'canine':
                     icon = '<i class="fas fa-dog"></i>';
@@ -1252,9 +1303,9 @@
                         } else if (alt.includes('Samuel')) {
                             createPlaceholder(parent, 'featured', 'Samuel', 'Empleado del Mes');
                         } else if (alt.includes('Thomas')) {
-                            createPlaceholder(parent, 'auxiliar', 'Thomas Graves', 'Auxiliar');
+                            createPlaceholder(parent, 'clinical', 'Thomas Graves', 'Médico Clínico');
                         } else if (alt.includes('Evaristo')) {
-                            createPlaceholder(parent, 'surgeon', 'Evaristo García', 'Médico Cirujano');
+                            createPlaceholder(parent, 'subdirector', 'Evaristo García', 'Sub-Director');
                         } else if (alt.includes('Obi') || alt.includes('Milaneso')) {
                             createPlaceholder(parent, 'canine', alt.split(' - ')[0], alt.split(' - ')[1]);
                         } else {
@@ -1277,9 +1328,9 @@
                 } else if (alt.includes('Samuel')) {
                     createPlaceholder(parent, 'featured', 'Samuel', 'Empleado del Mes');
                 } else if (alt.includes('Thomas')) {
-                    createPlaceholder(parent, 'auxiliar', 'Thomas Graves', 'Auxiliar');
+                    createPlaceholder(parent, 'clinical', 'Thomas Graves', 'Médico Clínico');
                 } else if (alt.includes('Evaristo')) {
-                    createPlaceholder(parent, 'surgeon', 'Evaristo García', 'Médico Cirujano');
+                    createPlaceholder(parent, 'subdirector', 'Evaristo García', 'Sub-Director');
                 } else if (alt.includes('Obi') || alt.includes('Milaneso')) {
                     createPlaceholder(parent, 'canine', alt.split(' - ')[0], alt.split(' - ')[1]);
                 } else {
