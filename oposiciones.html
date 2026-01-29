@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Oposiciones SAMS | ST. Fiacre Hospital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convocatorias de oposiciones al Servicio de Atención Médica de San Andreas (SAMS). Únete a nuestro equipo médico.">
+
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variables CSS modernas */
+        :root {
+            --primary: #2D9CDB;    /* Azul amigable */
+            --secondary: #27AE60;  /* Verde médico */
+            --accent: #EB5757;     /* Rojo emergencia suave */
+            --gold: #FFD700;       /* Dorado para destacados */
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Reset suave */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+            animation: lineGrow 1s ease-out;
+        }
+
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 70px; }
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            flex: 1;
+        }
+
+        /* Header moderno CON ICONO DE HOSPITAL (igual que servicios.html) */
+        header {
+            background: 
+                linear-gradient(rgba(45, 156, 219, 0.85), rgba(39, 174, 96, 0.85)),
+                url('img/encabezado.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 120px 0 100px;
+            position: relative;
+            overflow: hidden;
+            animation: backgroundMove 40s infinite alternate ease-in-out;
+            text-align: center;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: center center; }
+            100% { background-position: center 30%; }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(45, 156, 219, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.3) 0%, transparent 50%);
+            z-index: 0;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hospital-icon {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        header h1 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mission {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            margin-top: 1.5rem;
+            padding: 0 20px;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        .pulse-btn {
+            animation: pulse 2s infinite;
+            margin-top: 30px;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* Navegación moderna */
+        nav {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.97);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2px;
+        }
+
+        .nav-links a {
+            padding: 10px 15px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(45, 156, 219, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Sección principal de Oposiciones */
+        .oppositions-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-header h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        /* Introducción destacada */
+        .highlight-intro {
+            background: linear-gradient(135deg, var(--light-blue), #E8F4FD);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+        }
+
+        .highlight-intro p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--dark);
+            margin-bottom: 0;
+        }
+
+        /* Grid de tarjetas */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 5px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i {
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+
+        .card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .card ul li i {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            min-width: 24px;
+        }
+
+        /* Información adicional */
+        .additional-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--accent);
+        }
+
+        .info-box h4 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box h4 i {
+            font-size: 1.6rem;
+        }
+
+        /* Botón principal */
+        .cta-button-container {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--light-green), #F1F8E9);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, var(--secondary), #2ECC71);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(39, 174, 96, 0.4);
+            background: linear-gradient(135deg, #2ECC71, var(--secondary));
+        }
+
+        .cta-button i {
+            font-size: 1.4rem;
+        }
+
+        /* Línea de tiempo del proceso */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+            position: relative;
+        }
+
+        .timeline-content h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .timeline-content p {
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border: 4px solid white;
+            border-radius: 50%;
+            top: 20px;
+            right: -52px;
+            z-index: 1;
+            box-shadow: 0 0 0 4px var(--light-blue);
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -52px;
+            right: auto;
+        }
+
+        /* Footer moderno */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: auto;
+        }
+
+        footer p {
+            color: #BDC3C7;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-note {
+            font-size: 0.9rem;
+            color: #95A5A6;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .nav-links a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 0;
+            }
+            
+            .nav-links a {
+                padding: 10px 12px;
+            }
+            
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 80px);
+                left: 80px !important;
+            }
+            
+            .timeline-item::before {
+                left: -52px !important;
+                right: auto !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .oppositions-section {
+                padding: 60px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                gap: 10px;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                border-radius: 10px;
+                justify-content: center;
+                font-size: 1rem;
+            }
+            
+            .cards, .additional-info {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .highlight-intro {
+                padding: 25px;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .cta-button {
+                padding: 16px 35px;
+                font-size: 1.1rem;
+            }
+            
+            header {
+                padding: 80px 0 60px;
+                background-attachment: scroll;
+                animation: none;
+            }
+            
+            .hospital-icon {
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            .cta-button {
+                padding: 14px 30px;
+                font-size: 1rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 60px);
+                left: 60px !important;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header moderno CON ICONO DE HOSPITAL (igual que servicios.html) -->
+    <header>
+        <div class="header-content container">
+            <div class="hospital-icon fade-in">
+                <i class="fas fa-file-contract"></i>
+            </div>
+            <h1 class="fade-in">ST. Fiacre Hospital</h1>
+            <p class="tagline fade-in delay-1">Oposiciones SAMS · San Andreas</p>
+            <p class="mission fade-in delay-2">Salvar vidas es nuestra misión</p>
+        </div>
+    </header>
+
+    <!-- Navegación -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heartbeat"></i> ST. Fiacre
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="servicios.html"><i class="fas fa-ambulance"></i> Servicios</a>
+                <a href="tratamientos.html"><i class="fas fa-stethoscope"></i> Tratamientos</a>
+                <a href="personalmedico.html"><i class="fas fa-user-md"></i> Personal Médico</a>
+                <a href="oposiciones.html" class="active"><i class="fas fa-file-contract"></i> Oposiciones</a>
+                <a href="contacto.html"><i class="fas fa-phone-alt"></i> Contacto</a>
+                <a href="comunicados.html"><i class="fas fa-bullhorn"></i> Comunicados</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Oposiciones -->
+    <section class="oppositions-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Oposiciones al SAMS</h2>
+                <p>Únete al equipo médico más prestigioso de San Andreas. Convocatorias abiertas para profesionales comprometidos.</p>
+            </div>
+            
+            <div class="highlight-intro fade-in delay-1">
+                <p>
+                    El <strong>Servicio de Atención Médica de San Andreas (SAMS)</strong> abre convocatorias periódicas para el acceso al cuerpo médico. 
+                    Estas oposiciones están diseñadas para garantizar un cuerpo de salud correspondiente, realista y profesional dentro de 
+                    <strong>La ciudad de San Andreas</strong>.
+                </p>
+            </div>
+            
+            <div class="cards fade-in">
+                <!-- Requisitos Generales -->
+                <div class="card">
+                    <h3><i class="fas fa-clipboard-check"></i> Requisitos Generales</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Mayoría de edad y carnet de conducir</li>
+                        <li><i class="fas fa-balance-scale"></i> Compromiso con las leyes de la ciudad</li>
+                        <li><i class="fas fa-clock"></i> Disponibilidad horaria mínima</li>
+                        <li><i class="fas fa-users"></i> Capacidad de trabajo en equipo</li>
+                        <li><i class="fas fa-graduation-cap"></i> Formación médica o paramédica</li>
+                        <li><i class="fas fa-comments"></i> Buenas habilidades comunicativas</li>
+                        <li><i class="fas fa-brain"></i> Resistencia al estrés</li>
+                        <li><i class="fas fa-handshake"></i> Actitud profesional y ética</li>
+                    </ul>
+                </div>
+                
+                <!-- Fases del Proceso -->
+                <div class="card fade-in delay-1">
+                    <h3><i class="fas fa-tasks"></i> Fases del Proceso</h3>
+                    <ul>
+                        <li><i class="fas fa-file-signature"></i> Inscripción mediante formulario oficial</li>
+                        <li><i class="fas fa-book"></i> Evaluación teórica de conocimientos</li>
+                        <li><i class="fas fa-ambulance"></i> Pruebas prácticas de emergencias</li>
+                        <li><i class="fas fa-user-check"></i> Entrevista personal con directivos</li>
+                        <li><i class="fas fa-stethoscope"></i> Evaluación psicológica</li>
+                        <li><i class="fas fa-chart-line"></i> Pruebas de aptitud y habilidades</li>
+                        <li><i class="fas fa-clipboard-list"></i> Revisión de documentación</li>
+                        <li><i class="fas fa-award"></i> Nombramiento y formación inicial</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Línea de tiempo -->
+            <div class="timeline fade-in delay-2">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-calendar-alt"></i> Inscripción</h4>
+                        <p>Completa el formulario oficial con tus datos personales, formación y experiencia. Período de inscripción abierto permanentemente.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-file-alt"></i> Evaluación Teórica</h4>
+                        <p>Prueba de conocimientos médicos básicos, protocolos de emergencia y normativa del SAMS. Duración aproximada: 60 minutos.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-ambulance"></i> Prácticas Simuladas</h4>
+                        <p>Simulacros de emergencias reales. Evaluación de habilidades prácticas, toma de decisiones y trabajo en equipo.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-comments"></i> Entrevista Final</h4>
+                        <p>Entrevista personal con el equipo directivo del SAMS. Evaluación de actitud, motivación y adecuación al perfil requerido.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Información adicional -->
+            <div class="additional-info fade-in delay-3">
+                <div class="info-box">
+                    <h4><i class="fas fa-info-circle"></i> Información Importante</h4>
+                    <p>• Las convocatorias se publican periódicamente según necesidades del servicio.</p>
+                    <p>• Todos los datos proporcionados son confidenciales y protegidos.</p>
+                    <p>• El proceso puede incluir pruebas adicionales según el perfil.</p>
+                    <p>• Los resultados se comunican por correo electrónico oficial.</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4><i class="fas fa-question-circle"></i> Preguntas Frecuentes</h4>
+                    <p>• ¿Necesito experiencia previa? Se valora pero no es excluyente.</p>
+                    <p>• ¿Hay formación inicial? Sí, todos los admitidos reciben formación.</p>
+                    <p>• ¿Es remunerado? Sí, según el nivel y responsabilidades.</p>
+                    <p>• ¿Puedo ascender? Hay planes de carrera definidos.</p>
+                </div>
+            </div>
+            
+            <!-- Botón de acción -->
+            <div class="cta-button-container fade-in delay-3">
+                <h3 style="color: var(--secondary); margin-bottom: 30px;">¡Únete a nuestro equipo médico!</h3>
+                <p style="max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem;">
+                    Los aspirantes deberán superar distintas fases de evaluación, tanto teóricas como prácticas, además de demostrar una actitud acorde a los valores del cuerpo médico.
+                </p>
+                <a href="https://forms.gle/rzJixZazFqxj88D36" target="_blank" class="cta-button">
+                    <i class="fas fa-file-signature"></i>
+                    <span>Acceder al formulario oficial de Oposiciones SAMS</span>
+                </a>
+                <p style="margin-top: 20px; color: var(--gray); font-size: 0.95rem;">
+                    <i class="fas fa-shield-alt"></i> Formulario seguro · Google Forms
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© ST. Fiacre Hospital | Next Stories RP</p>
+            <p class="footer-note">Para cualquier duda, abran ticket en el apartado de tickets</p>
+            <p>Servicio Médico de Emergencias - Comprometidos con San Andreas</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observar elementos con clases de animación
+        document.querySelectorAll('.fade-in, .delay-1, .delay-2, .delay-3').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Efecto hover para tarjetas
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Efecto para el botón principal
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+            ctaButton.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            ctaButton.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+            
+            // Efecto de pulso
+            setInterval(() => {
+                ctaButton.style.boxShadow = '0 8px 25px rgba(39, 174, 96, 0.4)';
+                setTimeout(() => {
+                    ctaButton.style.boxShadow = '0 6px 20px rgba(39, 174, 96, 0.3)';
+                }, 800);
+            }, 4000);
+        }
+        
+        // Contador animado para elementos de lista
+        const listItems = document.querySelectorAll('.card ul li');
+        listItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                item.style.transition = 'all 0.5s ease-out';
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 100 + (index * 100));
+        });
+        
+        // Animación para timeline items
+        const timelineItems = document.querySelectorAll('.timeline-content');
+        timelineItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                item.style.transition = 'all 0.6s ease-out';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 300 + (index * 200));
+        });
+        
+        // Efecto hover para info-box
+        const infoBoxes = document.querySelectorAll('.info-box');
+        infoBoxes.forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.15)';
+            });
+            
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'var(--shadow)';
+            });
+        });
+    </script>
+
+</body>
+</html>

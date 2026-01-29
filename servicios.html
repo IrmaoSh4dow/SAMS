@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Servicios | ST. Fiacre Hospital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Servicios médicos del ST. Fiacre Hospital. Atención de emergencias, soporte vital, unidad canina y más en San Andreas.">
+
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variables CSS modernas */
+        :root {
+            --primary: #2D9CDB;    /* Azul amigable */
+            --secondary: #27AE60;  /* Verde médico */
+            --accent: #EB5757;     /* Rojo emergencia suave */
+            --gold: #FFD700;       /* Dorado para destacados */
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Reset suave */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+            animation: lineGrow 1s ease-out;
+        }
+
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 70px; }
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            flex: 1;
+        }
+
+        /* Header moderno con icono (igual que index.html) */
+        header {
+            background: 
+                linear-gradient(rgba(45, 156, 219, 0.85), rgba(39, 174, 96, 0.85)),
+                url('img/encabezado.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 120px 0 100px;
+            position: relative;
+            overflow: hidden;
+            animation: backgroundMove 40s infinite alternate ease-in-out;
+            text-align: center;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: center center; }
+            100% { background-position: center 30%; }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(45, 156, 219, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.3) 0%, transparent 50%);
+            z-index: 0;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hospital-icon {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        header h1 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mission {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            margin-top: 1.5rem;
+            padding: 0 20px;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        .pulse-btn {
+            animation: pulse 2s infinite;
+            margin-top: 30px;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* Navegación moderna */
+        nav {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.97);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2px;
+        }
+
+        .nav-links a {
+            padding: 10px 15px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(45, 156, 219, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Sección de Servicios */
+        .services-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-header h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        /* Grid de servicios médicos */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--primary);
+            height: 100%;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            z-index: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 i {
+            color: var(--secondary);
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(39, 174, 96, 0.1);
+            border-radius: 50%;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .service-features {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .service-features ul {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+
+        .service-features li i {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Sección especial para unidad canina */
+        .canine-section {
+            background: linear-gradient(135deg, var(--light-green), #F1F8E9);
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .canine-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2327AE60' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .canine-section .section-header h2 {
+            color: var(--secondary);
+        }
+
+        .canine-section .section-header h2::after {
+            background: linear-gradient(to right, var(--secondary), #8BC34A);
+        }
+
+        .canine-section .service-card {
+            border-top: 5px solid var(--secondary);
+            background: white;
+        }
+
+        .canine-section .service-card h3 i {
+            color: var(--secondary);
+            background: rgba(39, 174, 96, 0.1);
+        }
+
+        /* Banner de emergencia */
+        .emergency-banner {
+            background: linear-gradient(135deg, var(--accent), #FF6B6B);
+            color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-top: 60px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emergency-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .emergency-banner h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .emergency-banner p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .emergency-number {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 40px;
+            background: white;
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .emergency-number:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer moderno */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: auto;
+        }
+
+        footer p {
+            color: #BDC3C7;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-note {
+            font-size: 0.9rem;
+            color: #95A5A6;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .nav-links a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 0;
+            }
+            
+            .nav-links a {
+                padding: 10px 12px;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .services-section {
+                padding: 60px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                gap: 10px;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                border-radius: 10px;
+                justify-content: center;
+                font-size: 1rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .service-card {
+                padding: 25px;
+            }
+            
+            .emergency-banner {
+                padding: 30px;
+            }
+            
+            .emergency-number {
+                padding: 15px 30px;
+                font-size: 1.5rem;
+            }
+            
+            header {
+                padding: 80px 0 60px;
+                background-attachment: scroll;
+                animation: none;
+            }
+            
+            .hospital-icon {
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .emergency-banner h3 {
+                font-size: 1.6rem;
+            }
+            
+            .emergency-number {
+                font-size: 1.3rem;
+                padding: 12px 25px;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header moderno CON ICONO DE HOSPITAL (igual que index.html) -->
+    <header>
+        <div class="header-content container">
+            <div class="hospital-icon fade-in">
+                <i class="fas fa-ambulance"></i>
+            </div>
+            <h1 class="fade-in">ST. Fiacre Hospital</h1>
+            <p class="tagline fade-in delay-1">Servicios Médicos · San Andreas</p>
+            <p class="mission fade-in delay-2">Salvar vidas es nuestra misión</p>
+        </div>
+    </header>
+
+    <!-- Navegación -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heartbeat"></i> ST. Fiacre
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="servicios.html" class="active"><i class="fas fa-ambulance"></i> Servicios</a>
+                <a href="tratamientos.html"><i class="fas fa-stethoscope"></i> Tratamientos</a>
+                <a href="personalmedico.html"><i class="fas fa-user-md"></i> Personal Médico</a>
+                <a href="oposiciones.html"><i class="fas fa-file-contract"></i> Oposiciones</a>
+                <a href="contacto.html"><i class="fas fa-phone-alt"></i> Contacto</a>
+                <a href="comunicados.html"><i class="fas fa-bullhorn"></i> Comunicados</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Servicios Médicos -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Servicios Médicos</h2>
+                <p>Ofrecemos una amplia gama de servicios médicos de emergencia y atención especializada para la comunidad de San Andreas.</p>
+            </div>
+            
+            <!-- Grid de servicios médicos -->
+            <div class="services-grid">
+                <!-- Atención de Emergencias -->
+                <div class="service-card fade-in">
+                    <h3><i class="fas fa-ambulance"></i> Atención de Emergencias</h3>
+                    <p>Respuesta inmediata a incidentes médicos críticos en todo San Andreas. Equipos especializados disponibles 24/7 para atender emergencias de cualquier tipo.</p>
+                    <div class="service-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Respuesta en menos de 10 minutos</li>
+                            <li><i class="fas fa-check"></i> Equipos médicos especializados</li>
+                            <li><i class="fas fa-check"></i> Atención 24 horas, 7 días a la semana</li>
+                            <li><i class="fas fa-check"></i> Cobertura en toda San Andreas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Soporte Vital Avanzado -->
+                <div class="service-card fade-in delay-1">
+                    <h3><i class="fas fa-heartbeat"></i> Soporte Vital Avanzado</h3>
+                    <p>Reanimación, estabilización y atención prehospitalaria especializada. Nuestros paramédicos están capacitados en las técnicas más avanzadas de soporte vital.</p>
+                    <div class="service-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> RCP avanzado y DEA</li>
+                            <li><i class="fas fa-check"></i> Manejo de vías aéreas</li>
+                            <li><i class="fas fa-check"></i> Administración de medicamentos</li>
+                            <li><i class="fas fa-check"></i> Monitoreo cardiaco continuo</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Traslado Hospitalario -->
+                <div class="service-card fade-in delay-2">
+                    <h3><i class="fas fa-hospital"></i> Traslado Hospitalario</h3>
+                    <p>Traslado seguro de pacientes desde el lugar del incidente al hospital. Ambulancias equipadas con tecnología médica de última generación.</p>
+                    <div class="service-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Ambulancias de terapia intensiva</li>
+                            <li><i class="fas fa-check"></i> Equipo de estabilización en ruta</li>
+                            <li><i class="fas fa-check"></i> Comunicación con hospital</li>
+                            <li><i class="fas fa-check"></i> Transporte neonatal y pediátrico</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Evaluaciones Médicas -->
+                <div class="service-card fade-in delay-3">
+                    <h3><i class="fas fa-stethoscope"></i> Evaluaciones Médicas</h3>
+                    <p>Chequeos médicos, certificados y evaluaciones clínicas. Realizamos evaluaciones completas para diagnóstico y seguimiento de pacientes.</p>
+                    <div class="service-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Exámenes físicos completos</li>
+                            <li><i class="fas fa-check"></i> Certificados médicos laborales</li>
+                            <li><i class="fas fa-check"></i> Evaluaciones preoperatorias</li>
+                            <li><i class="fas fa-check"></i> Seguimiento de enfermedades crónicas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Telemedicina -->
+                <div class="service-card fade-in">
+                    <h3><i class="fas fa-video"></i> Consulta Telemedicina</h3>
+                    <p>Atención médica virtual para consultas no urgentes. Conecta con nuestros especialistas desde la comodidad de tu hogar.</p>
+                    <div class="service-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Consultas virtuales 24/7</li>
+                            <li><i class="fas fa-check"></i> Prescripción digital</li>
+                            <li><i class="fas fa-check"></i> Seguimiento de tratamiento</li>
+                            <li><i class="fas fa-check"></i> Resultados en línea</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Unidad Móvil de Trauma -->
+                <div class="service-card fade-in delay-1">
+                    <h3><i class="fas fa-car-crash"></i> Unidad Móvil de Trauma</h3>
+                    <p>Equipo especializado en trauma severo y lesiones críticas. Intervención inmediata en accidentes de tráfico y situaciones de alto impacto.</p>
+                    <div class="service-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Especialistas en trauma</li>
+                            <li><i class="fas fa-check"></i> Equipamiento avanzado</li>
+                            <li><i class="fas fa-check"></i> Intervención quirúrgica básica</li>
+                            <li><i class="fas fa-check"></i> Transporte crítico</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección Unidad Canina -->
+            <div class="canine-section" id="servicio-canino">
+                <div class="container">
+                    <div class="section-header fade-in">
+                        <h2><i class="fas fa-paw"></i> Unidad Canina de Apoyo Emocional</h2>
+                        <p>Servicios especializados de apoyo emocional con perros de terapia para situaciones críticas y recuperación de pacientes.</p>
+                    </div>
+                    
+                    <div class="services-grid">
+                        <div class="service-card fade-in">
+                            <h3><i class="fas fa-heart"></i> Apoyo Emocional</h3>
+                            <p>Intervenciones con pacientes en estado de shock, ansiedad, estrés postraumático o situaciones de alto impacto emocional. Nuestros canes terapéuticos están especialmente entrenados para brindar confort.</p>
+                            <div class="service-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Reducción de ansiedad hospitalaria</li>
+                                    <li><i class="fas fa-check"></i> Apoyo en estrés postraumático</li>
+                                    <li><i class="fas fa-check"></i> Terapia asistida con animales</li>
+                                    <li><i class="fas fa-check"></i> Intervención en crisis emocionales</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card fade-in delay-1">
+                            <h3><i class="fas fa-ambulance"></i> Asistencia en Emergencias</h3>
+                            <p>Presencia canina en escenas críticas para estabilización emocional y apoyo psicológico inmediato. Nuestros perros están entrenados para trabajar en entornos de alta presión.</p>
+                            <div class="service-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Intervención en desastres</li>
+                                    <li><i class="fas fa-check"></i> Apoyo a víctimas y testigos</li>
+                                    <li><i class="fas fa-check"></i> Asistencia a equipos de rescate</li>
+                                    <li><i class="fas fa-check"></i> Entrenamiento especializado</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card fade-in delay-2">
+                            <h3><i class="fas fa-hand-holding-heart"></i> Acompañamiento Terapéutico</h3>
+                            <p>Apoyo en procesos de recuperación, hospitalización prolongada y atención a pacientes vulnerables. Programas personalizados según necesidades específicas.</p>
+                            <div class="service-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Visitas programadas a pacientes</li>
+                                    <li><i class="fas fa-check"></i> Apoyo en rehabilitación</li>
+                                    <li><i class="fas fa-check"></i> Terapia para niños hospitalizados</li>
+                                    <li><i class="fas fa-check"></i> Programas para adultos mayores</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="section-header fade-in" style="margin-top: 60px;">
+                        <h3>Nuestros Compañeros Caninos</h3>
+                        <p>Contamos con perros especialmente entrenados en terapia asistida, cada uno con habilidades específicas para diferentes situaciones médicas y emocionales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© ST. Fiacre Hospital | Next Stories RP</p>
+            <p class="footer-note">Para cualquier duda, abran ticket en el apartado de tickets</p>
+            <p>Servicio Médico de Emergencias - Comprometidos con San Andreas</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observar elementos con clases de animación
+        document.querySelectorAll('.fade-in, .delay-1, .delay-2, .delay-3').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Efecto hover para tarjetas de servicio
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+                this.style.boxShadow = 'var(--shadow-hover)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'var(--shadow)';
+            });
+        });
+        
+        // Efecto para el número de emergencia
+        const emergencyNumber = document.querySelector('.emergency-number');
+        if (emergencyNumber) {
+            // Efecto de pulso
+            setInterval(() => {
+                emergencyNumber.style.transform = 'scale(1.05)';
+                emergencyNumber.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+                setTimeout(() => {
+                    emergencyNumber.style.transform = 'scale(1)';
+                    emergencyNumber.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.2)';
+                }, 500);
+            }, 3000);
+        }
+        
+        // Animación de entrada para features
+        const serviceFeatures = document.querySelectorAll('.service-features li');
+        serviceFeatures.forEach((feature, index) => {
+            feature.style.opacity = '0';
+            feature.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                feature.style.transition = 'all 0.5s ease-out';
+                feature.style.opacity = '1';
+                feature.style.transform = 'translateX(0)';
+            }, 300 + (index * 100));
+        });
+        
+        // Navegación suave a la sección canina
+        const canineLink = document.querySelector('a[href="#servicio-canino"]');
+        if (canineLink) {
+            canineLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                const canineSection = document.getElementById('servicio-canino');
+                if (canineSection) {
+                    window.scrollTo({
+                        top: canineSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

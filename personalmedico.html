@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Médico | ST. Fiacre Hospital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conoce al equipo médico del ST. Fiacre Hospital. Directores, personal destacado y nuestra Unidad Canina de Apoyo.">
+
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variables CSS modernas */
+        :root {
+            --primary: #2D9CDB;    /* Azul amigable */
+            --secondary: #27AE60;  /* Verde médico */
+            --accent: #EB5757;     /* Rojo emergencia suave */
+            --gold: #FFD700;       /* Dorado para destacados */
+            --surgeon: #9B59B6;    /* Púrpura para cirujanos */
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --light-purple: #F3E5F5;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Reset suave */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+            animation: lineGrow 1s ease-out;
+        }
+
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 70px; }
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            flex: 1;
+        }
+
+        /* Header moderno CON ICONO DE HOSPITAL (igual que servicios.html) */
+        header {
+            background: 
+                linear-gradient(rgba(45, 156, 219, 0.85), rgba(39, 174, 96, 0.85)),
+                url('img/encabezado.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 120px 0 100px;
+            position: relative;
+            overflow: hidden;
+            animation: backgroundMove 40s infinite alternate ease-in-out;
+            text-align: center;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: center center; }
+            100% { background-position: center 30%; }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(45, 156, 219, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.3) 0%, transparent 50%);
+            z-index: 0;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hospital-icon {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        header h1 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mission {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            margin-top: 1.5rem;
+            padding: 0 20px;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        .pulse-btn {
+            animation: pulse 2s infinite;
+            margin-top: 30px;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* Navegación moderna */
+        nav {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.97);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2px;
+        }
+
+        .nav-links a {
+            padding: 10px 15px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(45, 156, 219, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Sección de Personal Médico */
+        .staff-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-header h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        /* Grid de tarjetas de personal */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .staff-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .staff-card.featured {
+            border: 3px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        /* BADGE EMPLEADO DEL MES - CORREGIDO COMPLETAMENTE */
+        .staff-card.featured::before {
+            content: 'EMPLEADO DEL MES';
+            position: absolute;
+            top: 55px;
+            right: -81px;
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            color: white;
+            padding: 8px 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            width: 200px;
+            line-height: 1.2;
+        }
+
+        .staff-card.director {
+            border-top: 5px solid var(--primary);
+        }
+
+        .staff-card.director .director-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 6px 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        /* Badge para auxiliar */
+        .staff-card.auxiliar {
+            border-top: 5px solid var(--secondary);
+        }
+
+        .staff-card.auxiliar .auxiliar-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 6px 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        /* Badge para cirujano */
+        .staff-card.surgeon {
+            border-top: 5px solid var(--surgeon);
+        }
+
+        .staff-card.surgeon .surgeon-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--surgeon);
+            color: white;
+            padding: 6px 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        /* IMAGENES CORREGIDAS - Se adaptan al contenedor */
+        .staff-image {
+            height: 250px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .staff-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+
+        /* IMAGENES QUE SE ADAPTAN COMPLETAMENTE */
+        .staff-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center center;
+            transition: var(--transition);
+            background: #f5f5f5;
+        }
+
+        .staff-card:hover .staff-image img {
+            transform: scale(1.05);
+        }
+
+        /* Placeholder mejorado */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .image-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .image-placeholder span {
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .staff-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .staff-name {
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .staff-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .surgeon-title {
+            color: var(--surgeon);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        /* Sección de Unidad Canina */
+        .canine-section {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canine-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%232d9cdb' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .canine-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .canine-header h2 {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--secondary);
+        }
+
+        .canine-header h2::after {
+            background: linear-gradient(to right, var(--secondary), #8BC34A);
+        }
+
+        .canine-description {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            background: rgba(232, 245, 233, 0.5);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            position: relative;
+            z-index: 1;
+            box-shadow: var(--shadow);
+        }
+
+        .canine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .canine-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 5px solid #8BC34A;
+        }
+
+        .canine-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* IMAGENES DE PERROS CORREGIDAS - Se adaptan completamente */
+        .canine-image {
+            height: 250px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #f8f9fa;
+        }
+
+        .canine-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(139, 195, 74, 0.7), transparent);
+        }
+
+        /* IMAGENES DE PERROS QUE SE VEN COMPLETAS */
+        .canine-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center center;
+            transition: var(--transition);
+        }
+
+        .canine-card:hover .canine-image img {
+            transform: scale(1.1);
+        }
+
+        .canine-info {
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .canine-name {
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .canine-breed {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .canine-role {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            background: rgba(139, 195, 74, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        /* Footer moderno */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: auto;
+        }
+
+        footer p {
+            color: #BDC3C7;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-note {
+            font-size: 0.9rem;
+            color: #95A5A6;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+        .delay-4 { animation-delay: 0.8s; opacity: 0; }
+
+        /* Badges para especialidades */
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--light-blue);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 5px 3px;
+        }
+
+        .badge.canine {
+            background: rgba(139, 195, 74, 0.2);
+            color: var(--secondary);
+        }
+
+        .badge.aux {
+            background: rgba(39, 174, 96, 0.2);
+            color: var(--secondary);
+        }
+
+        .badge.surgeon {
+            background: rgba(155, 89, 182, 0.2);
+            color: var(--surgeon);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .nav-links a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 0;
+            }
+            
+            .nav-links a {
+                padding: 10px 12px;
+            }
+            
+            .staff-grid, .canine-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            /* Badge ajustado para tablet */
+            .staff-card.featured::before {
+                top: 22px;
+                right: -45px;
+                padding: 7px 45px;
+                font-size: 0.8rem;
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .staff-section, .canine-section {
+                padding: 60px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                gap: 10px;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                border-radius: 10px;
+                justify-content: center;
+                font-size: 1rem;
+            }
+            
+            .staff-grid, .canine-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            /* Badge ajustado para móvil */
+            .staff-card.featured::before {
+                top: 20px;
+                right: -50px;
+                padding: 6px 40px;
+                font-size: 0.75rem;
+                width: 170px;
+            }
+            
+            header {
+                padding: 80px 0 60px;
+                background-attachment: scroll;
+                animation: none;
+            }
+            
+            .hospital-icon {
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            .staff-card, .canine-card {
+                margin-bottom: 20px;
+            }
+            
+            .staff-image, .canine-image {
+                height: 220px;
+            }
+            
+            .staff-info, .canine-info {
+                padding: 20px;
+            }
+            
+            /* Badge ajustado para móvil pequeño */
+            .staff-card.featured::before {
+                top: 45px;
+                right: -61px;
+                padding: 5px 35px;
+                font-size: 0.7rem;
+                width: 160px;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header moderno CON ICONO DE HOSPITAL (igual que servicios.html) -->
+    <header>
+        <div class="header-content container">
+            <div class="hospital-icon fade-in">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h1 class="fade-in">ST. Fiacre Hospital</h1>
+            <p class="tagline fade-in delay-1">Personal Médico · San Andreas</p>
+            <p class="mission fade-in delay-2">Salvar vidas es nuestra misión</p>
+        </div>
+    </header>
+
+    <!-- Navegación -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heartbeat"></i> ST. Fiacre
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="servicios.html"><i class="fas fa-ambulance"></i> Servicios</a>
+                <a href="tratamientos.html"><i class="fas fa-stethoscope"></i> Tratamientos</a>
+                <a href="personalmedico.html" class="active"><i class="fas fa-user-md"></i> Personal Médico</a>
+                <a href="oposiciones.html"><i class="fas fa-file-contract"></i> Oposiciones</a>
+                <a href="contacto.html"><i class="fas fa-phone-alt"></i> Contacto</a>
+                <a href="comunicados.html"><i class="fas fa-bullhorn"></i> Comunicados</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Personal Médico -->
+    <section class="staff-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Dirección del Hospital</h2>
+                <p>Conoce a nuestro equipo directivo y al personal destacado que lidera el Servicio Médico de San Andreas</p>
+            </div>
+            
+            <div class="staff-grid">
+                <!-- Directora EMS -->
+                <div class="staff-card director fade-in">
+                    <div class="director-badge">DIRECCIÓN</div>
+                    <div class="staff-image">
+                        <img src="img/lia.jpg" alt="Lia Smith - Directora EMS" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';">
+                    </div>
+                    <div class="staff-info">
+                        <h3>Directora de EMS</h3>
+                        <div class="staff-name">Lia Smith</div>
+                        <p class="staff-title">Directora Ejecutiva</p>
+                        <p>Lidera el equipo médico con más de 10 años de experiencia en gestión hospitalaria y emergencias.</p>
+                        <div class="badge">Gestión</div>
+                        <div class="badge">Emergencias</div>
+                        <div class="badge">Administración</div>
+                    </div>
+                </div>
+                
+                <!-- Director EMS -->
+                <div class="staff-card director fade-in delay-1">
+                    <div class="director-badge">DIRECCIÓN</div>
+                    <div class="staff-image">
+                        <img src="img/nikolai.jpg" alt="Nikolai Belgrano - Director EMS"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';">
+                    </div>
+                    <div class="staff-info">
+                        <h3>Director de EMS</h3>
+                        <div class="staff-name">Nikolai Belgrano</div>
+                        <p class="staff-title">Director Operativo</p>
+                        <p>Especialista en operaciones de emergencia y coordinación de equipos de respuesta rápida.</p>
+                        <div class="badge">Operaciones</div>
+                        <div class="badge">Coordinación</div>
+                        <div class="badge">Logística</div>
+                    </div>
+                </div>
+                
+                <!-- Empleado del Mes - BADGE CORREGIDO USANDO ::before -->
+                <div class="staff-card featured fade-in delay-2">
+                    <div class="staff-image">
+                        <img src="img/samuel.jpg" alt="Samuel - Empleado del Mes"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1167&q=80';">
+                    </div>
+                    <div class="staff-info">
+                        <h3>Empleado del Mes</h3>
+                        <div class="staff-name">Samuel</div>
+                        <p class="staff-title">Paramedico Destacado</p>
+                        <p>Reconocido por su excelencia en atención prehospitalaria y dedicación excepcional a los pacientes.</p>
+                        <div class="badge">Emergencias</div>
+                        <div class="badge">Atención</div>
+                        <div class="badge">Dedicación</div>
+                    </div>
+                </div>
+                
+                <!-- Thomas Graves - Auxiliar -->
+                <div class="staff-card auxiliar fade-in delay-3">
+                    <div class="auxiliar-badge">AUXILIAR</div>
+                    <div class="staff-image">
+                        <img src="img/thomas.jpg" alt="Thomas Graves - Auxiliar"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1167&q=80';">
+                    </div>
+                    <div class="staff-info">
+                        <h3>Auxiliar Médico</h3>
+                        <div class="staff-name">Thomas Graves</div>
+                        <p class="staff-title">Auxiliar de EMS</p>
+                        <p>Especialista en apoyo en emergencias y asistencia prehospitalaria. Comprometido con la atención al paciente.</p>
+                        <div class="badge aux">Emergencias</div>
+                        <div class="badge aux">Asistencia</div>
+                        <div class="badge aux">Apoyo</div>
+                    </div>
+                </div>
+
+                <!-- Evaristo García - Médico Cirujano -->
+                <div class="staff-card surgeon fade-in delay-4">
+                    <div class="surgeon-badge">CIRUJANO</div>
+                    <div class="staff-image">
+                        <!-- Usando una imagen temporal de cirujano de Unsplash -->
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                             alt="Evaristo García - Médico Cirujano">
+                    </div>
+                    <div class="staff-info">
+                        <h3>Médico Cirujano</h3>
+                        <div class="staff-name">Evaristo García</div>
+                        <p class="surgeon-title">Cirujano General</p>
+                        <p>Especialista en cirugía general y de emergencia con más de 15 años de experiencia en intervenciones quirúrgicas complejas.</p>
+                        <div class="badge surgeon">Cirugía</div>
+                        <div class="badge surgeon">Traumatología</div>
+                        <div class="badge surgeon">Emergencias</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Unidad Canina -->
+    <section class="canine-section">
+        <div class="container">
+            <div class="canine-header fade-in">
+                <h2><i class="fas fa-paw"></i> Unidad Canina de Apoyo</h2>
+            </div>
+            
+            <div class="canine-description fade-in delay-1">
+                <p>Unidad especializada en apoyo emocional a pacientes, búsqueda y rescate en situaciones de emergencia, así como apoyo operativo en intervenciones críticas del Servicio Médico de San Andreas (SAMS).</p>
+                <p>Estos valientes compañeros forman parte esencial de nuestro equipo de respuesta.</p>
+            </div>
+            
+            <div class="canine-grid">
+                <!-- Perro 1: Obi -->
+                <div class="canine-card fade-in">
+                    <div class="canine-image">
+                        <img src="img/obi.jpg" alt="Obi - Pastor Australiano"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80';">
+                    </div>
+                    <div class="canine-info">
+                        <div class="canine-name">Obi</div>
+                        <div class="canine-breed">Pastor Australiano</div>
+                        <p>Especialista en búsqueda y rescate. Entrenado para localizar personas en situaciones de emergencia.</p>
+                        <div class="canine-role">
+                            <i class="fas fa-search"></i> Búsqueda y Rescate
+                        </div>
+                        <div class="badge canine">Rescate</div>
+                        <div class="badge canine">Apoyo</div>
+                    </div>
+                </div>
+                
+                <!-- Perro 2: Milaneso -->
+                <div class="canine-card fade-in delay-1">
+                    <div class="canine-image">
+                        <img src="img/milaneso.jpg" alt="Milaneso - Husky Siberiano"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1601979031925-424e53b6caaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80';">
+                    </div>
+                    <div class="canine-info">
+                        <div class="canine-name">Milaneso</div>
+                        <div class="canine-breed">Husky Siberiano</div>
+                        <p>Especialista en apoyo emocional. Entrenado para brindar confort a pacientes en situaciones críticas.</p>
+                        <div class="canine-role">
+                            <i class="fas fa-heart"></i> Apoyo Emocional
+                        </div>
+                        <div class="badge canine">Terapia</div>
+                        <div class="badge canine">Apoyo</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-header fade-in delay-2" style="margin-top: 60px;">
+                <h3>Nuestro Compromiso</h3>
+                <p>Contamos con los mejores profesionales y equipos especializados para garantizar la mejor atención médica en San Andreas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© ST. Fiacre Hospital | Next Stories RP</p>
+            <p class="footer-note">Para cualquier duda, abran ticket en el apartado de tickets</p>
+            <p>Servicio Médico de Emergencias - Comprometidos con San Andreas</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observar elementos con clases de animación
+        document.querySelectorAll('.fade-in, .delay-1, .delay-2, .delay-3, .delay-4').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Efecto de brillo para el empleado del mes
+        const featuredCard = document.querySelector('.staff-card.featured');
+        if (featuredCard) {
+            setInterval(() => {
+                featuredCard.style.boxShadow = '0 10px 30px rgba(255, 215, 0, 0.3)';
+                featuredCard.style.borderColor = '#FFED4E';
+                setTimeout(() => {
+                    featuredCard.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.12)';
+                    featuredCard.style.borderColor = 'var(--gold)';
+                }, 1000);
+            }, 2000);
+        }
+        
+        // Efecto especial para la tarjeta de cirujano
+        const surgeonCard = document.querySelector('.staff-card.surgeon');
+        if (surgeonCard) {
+            setInterval(() => {
+                surgeonCard.style.boxShadow = '0 10px 30px rgba(155, 89, 182, 0.3)';
+                surgeonCard.style.borderColor = '#AF7AC5';
+                setTimeout(() => {
+                    surgeonCard.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.12)';
+                    surgeonCard.style.borderColor = 'var(--surgeon)';
+                }, 1500);
+            }, 3000);
+        }
+        
+        // Efecto de movimiento para tarjetas caninas
+        const canineCards = document.querySelectorAll('.canine-card');
+        canineCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) rotate(1deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotate(0)';
+            });
+        });
+        
+        // Manejo de imágenes faltantes
+        const images = document.querySelectorAll('img');
+        
+        // Función para crear placeholder elegante
+        function createPlaceholder(parent, type, name, title = '') {
+            let icon = '';
+            let bgColor = '';
+            let textColor = '';
+            
+            switch(type) {
+                case 'director':
+                    icon = '<i class="fas fa-user-md"></i>';
+                    bgColor = 'linear-gradient(135deg, #E3F2FD, #BBDEFB)';
+                    textColor = '#1565C0';
+                    break;
+                case 'featured':
+                    icon = '<i class="fas fa-trophy"></i>';
+                    bgColor = 'linear-gradient(135deg, #FFF8E1, #FFECB3)';
+                    textColor = '#FF8F00';
+                    break;
+                case 'auxiliar':
+                    icon = '<i class="fas fa-hands-helping"></i>';
+                    bgColor = 'linear-gradient(135deg, #E8F5E9, #C8E6C9)';
+                    textColor = '#2E7D32';
+                    break;
+                case 'surgeon':
+                    icon = '<i class="fas fa-syringe"></i>';
+                    bgColor = 'linear-gradient(135deg, #F3E5F5, #E1BEE7)';
+                    textColor = '#7B1FA2';
+                    break;
+                case 'canine':
+                    icon = '<i class="fas fa-dog"></i>';
+                    bgColor = 'linear-gradient(135deg, #E8F5E9, #C8E6C9)';
+                    textColor = '#2E7D32';
+                    break;
+                default:
+                    icon = '<i class="fas fa-user"></i>';
+                    bgColor = 'linear-gradient(135deg, #F5F5F5, #EEEEEE)';
+                    textColor = '#616161';
+            }
+            
+            const placeholder = document.createElement('div');
+            placeholder.className = 'image-placeholder';
+            placeholder.style.background = bgColor;
+            placeholder.innerHTML = `
+                ${icon}
+                <span style="color: ${textColor}; font-weight: 600;">${name}</span>
+                ${title ? `<span style="font-size: 0.9rem; margin-top: 5px;">${title}</span>` : ''}
+            `;
+            
+            parent.innerHTML = '';
+            parent.appendChild(placeholder);
+        }
+        
+        // Verificar imágenes después de cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                images.forEach(img => {
+                    // Verificar si la imagen falló
+                    if (img.complete && img.naturalHeight === 0) {
+                        const parent = img.parentElement;
+                        const alt = img.alt;
+                        
+                        // Determinar tipo de placeholder según la imagen
+                        if (alt.includes('Lia') || alt.includes('Nikolai')) {
+                            createPlaceholder(parent, 'director', alt.split(' - ')[0], 'Director EMS');
+                        } else if (alt.includes('Samuel')) {
+                            createPlaceholder(parent, 'featured', 'Samuel', 'Empleado del Mes');
+                        } else if (alt.includes('Thomas')) {
+                            createPlaceholder(parent, 'auxiliar', 'Thomas Graves', 'Auxiliar');
+                        } else if (alt.includes('Evaristo')) {
+                            createPlaceholder(parent, 'surgeon', 'Evaristo García', 'Médico Cirujano');
+                        } else if (alt.includes('Obi') || alt.includes('Milaneso')) {
+                            createPlaceholder(parent, 'canine', alt.split(' - ')[0], alt.split(' - ')[1]);
+                        } else {
+                            createPlaceholder(parent, 'default', 'Personal Médico');
+                        }
+                    }
+                });
+            }, 1000);
+        });
+        
+        // También manejar errores en tiempo real
+        images.forEach(img => {
+            img.addEventListener('error', function() {
+                const parent = this.parentElement;
+                const alt = this.alt;
+                
+                // Determinar tipo de placeholder según la imagen
+                if (alt.includes('Lia') || alt.includes('Nikolai')) {
+                    createPlaceholder(parent, 'director', alt.split(' - ')[0], 'Director EMS');
+                } else if (alt.includes('Samuel')) {
+                    createPlaceholder(parent, 'featured', 'Samuel', 'Empleado del Mes');
+                } else if (alt.includes('Thomas')) {
+                    createPlaceholder(parent, 'auxiliar', 'Thomas Graves', 'Auxiliar');
+                } else if (alt.includes('Evaristo')) {
+                    createPlaceholder(parent, 'surgeon', 'Evaristo García', 'Médico Cirujano');
+                } else if (alt.includes('Obi') || alt.includes('Milaneso')) {
+                    createPlaceholder(parent, 'canine', alt.split(' - ')[0], alt.split(' - ')[1]);
+                } else {
+                    createPlaceholder(parent, 'default', 'Personal Médico');
+                }
+            });
+        });
+        
+        // Efecto hover para tarjetas de personal
+        const staffCards = document.querySelectorAll('.staff-card');
+        staffCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+                this.style.boxShadow = 'var(--shadow-hover)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'var(--shadow)';
+            });
+        });
+        
+        // Animación de entrada para badges
+        const badges = document.querySelectorAll('.badge');
+        badges.forEach((badge, index) => {
+            badge.style.opacity = '0';
+            badge.style.transform = 'scale(0.8)';
+            
+            setTimeout(() => {
+                badge.style.transition = 'all 0.3s ease-out';
+                badge.style.opacity = '1';
+                badge.style.transform = 'scale(1)';
+            }, 500 + (index * 100));
+        });
+    </script>
+
+</body>
+</html>

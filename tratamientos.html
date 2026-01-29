@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tratamientos | ST. Fiacre Hospital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lista de precios y tratamientos médicos del ST. Fiacre Hospital. Consulta nuestros servicios y tarifas con y sin seguro.">
+
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variables CSS modernas */
+        :root {
+            --primary: #2D9CDB;    /* Azul amigable */
+            --secondary: #27AE60;  /* Verde médico */
+            --accent: #EB5757;     /* Rojo emergencia suave */
+            --gold: #FFD700;       /* Dorado para destacados */
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Reset suave */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+            animation: lineGrow 1s ease-out;
+        }
+
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 70px; }
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            flex: 1;
+        }
+
+        /* Header moderno con icono (igual que index.html y servicios.html) */
+        header {
+            background: 
+                linear-gradient(rgba(45, 156, 219, 0.85), rgba(39, 174, 96, 0.85)),
+                url('img/encabezado.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 120px 0 100px;
+            position: relative;
+            overflow: hidden;
+            animation: backgroundMove 40s infinite alternate ease-in-out;
+            text-align: center;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: center center; }
+            100% { background-position: center 30%; }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(45, 156, 219, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.3) 0%, transparent 50%);
+            z-index: 0;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hospital-icon {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        header h1 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mission {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            margin-top: 1.5rem;
+            padding: 0 20px;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        .pulse-btn {
+            animation: pulse 2s infinite;
+            margin-top: 30px;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* Navegación moderna */
+        nav {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.97);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2px;
+        }
+
+        .nav-links a {
+            padding: 10px 15px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(45, 156, 219, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Sección de Tratamientos */
+        .treatments-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-header h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        /* Grid de tarjetas de tratamientos */
+        .treatments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .treatment-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--primary);
+        }
+
+        .treatment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            z-index: 1;
+        }
+
+        .treatment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .treatment-card h3 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .treatment-card h3 i {
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+
+        /* Lista de precios - SIMPLIFICADA */
+        .price-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        .price-item .service-name {
+            font-weight: 500;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .price-item .service-name i {
+            color: var(--primary);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .price-item .price-tag {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            background: rgba(39, 174, 96, 0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        /* Sección de información del seguro */
+        .insurance-info {
+            background: linear-gradient(135deg, var(--light-green), #F1F8E9);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--secondary);
+        }
+
+        .insurance-info h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .insurance-info h3 i {
+            font-size: 1.8rem;
+        }
+
+        .insurance-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+        }
+
+        .benefit-item i {
+            color: var(--secondary);
+            font-size: 1.4rem;
+        }
+
+        /* Comparativa de precios - TABLA ORIGINAL */
+        .price-comparison {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--light-blue);
+        }
+
+        .price-comparison h3 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .comparison-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--light-blue);
+            color: var(--primary);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        tr:hover {
+            background: var(--light);
+        }
+
+        .discount-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        /* Footer moderno */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: auto;
+        }
+
+        footer p {
+            color: #BDC3C7;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-note {
+            font-size: 0.9rem;
+            color: #95A5A6;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .nav-links a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 0;
+            }
+            
+            .nav-links a {
+                padding: 10px 12px;
+            }
+            
+            .treatments-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .insurance-benefits {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .treatments-section {
+                padding: 60px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                gap: 10px;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                border-radius: 10px;
+                justify-content: center;
+                font-size: 1rem;
+            }
+            
+            .treatments-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .treatment-card {
+                padding: 25px;
+            }
+            
+            .insurance-info,
+            .price-comparison {
+                padding: 25px;
+            }
+            
+            header {
+                padding: 80px 0 60px;
+                background-attachment: scroll;
+                animation: none;
+            }
+            
+            .hospital-icon {
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+                font-size: 3.5rem;
+            }
+            
+            .price-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 15px 0;
+            }
+            
+            .price-item .price-tag {
+                align-self: flex-start;
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            .treatment-card {
+                padding: 20px;
+            }
+            
+            .price-item .service-name {
+                font-size: 0.95rem;
+            }
+            
+            .price-item .price-tag {
+                font-size: 1.1rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header moderno CON ICONO DE HOSPITAL (igual que index.html y servicios.html) -->
+    <header>
+        <div class="header-content container">
+            <div class="hospital-icon fade-in">
+                <i class="fas fa-stethoscope"></i>
+            </div>
+            <h1 class="fade-in">ST. Fiacre Hospital</h1>
+            <p class="tagline fade-in delay-1">Tratamientos y Precios · San Andreas</p>
+            <p class="mission fade-in delay-2">Atención médica accesible para todos</p>
+        </div>
+    </header>
+
+    <!-- Navegación -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heartbeat"></i> ST. Fiacre
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="servicios.html"><i class="fas fa-ambulance"></i> Servicios</a>
+                <a href="tratamientos.html" class="active"><i class="fas fa-stethoscope"></i> Tratamientos</a>
+                <a href="personalmedico.html"><i class="fas fa-user-md"></i> Personal Médico</a>
+                <a href="oposiciones.html"><i class="fas fa-file-contract"></i> Oposiciones</a>
+                <a href="contacto.html"><i class="fas fa-phone-alt"></i> Contacto</a>
+                <a href="comunicados.html"><i class="fas fa-bullhorn"></i> Comunicados</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Tratamientos -->
+    <section class="treatments-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Precios y Tratamientos</h2>
+                <p>Conoce nuestras tarifas y servicios médicos. Ofrecemos descuentos especiales para pacientes con seguro médico.</p>
+            </div>
+            
+            <!-- Grid de tratamientos -->
+            <div class="treatments-grid">
+                <!-- Tratamientos Extra -->
+                <div class="treatment-card fade-in">
+                    <h3><i class="fas fa-ambulance"></i> Tratamientos Extra</h3>
+                    <div class="price-list">
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-city"></i>
+                                <span>Asistencias en ciudad SIN seguro</span>
+                            </div>
+                            <div class="price-tag">100$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <span>Asistencias fuera de la ciudad</span>
+                            </div>
+                            <div class="price-tag">300$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-clock"></i>
+                                <span>Asistencia prioritaria 24/7</span>
+                            </div>
+                            <div class="price-tag">150$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-user-injured"></i>
+                                <span>Rescate en zonas de difícil acceso</span>
+                            </div>
+                            <div class="price-tag">500$</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Estudios Clínicos -->
+                <div class="treatment-card fade-in delay-1">
+                    <h3><i class="fas fa-clipboard-list"></i> Estudios Clínicos</h3>
+                    <div class="price-list">
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-vial"></i>
+                                <span>Básicos SIN seguro</span>
+                            </div>
+                            <div class="price-tag">70$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-vial"></i>
+                                <span>Básicos CON seguro</span>
+                            </div>
+                            <div class="price-tag">20$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-microscope"></i>
+                                <span>Avanzados SIN seguro</span>
+                            </div>
+                            <div class="price-tag">200$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-microscope"></i>
+                                <span>Avanzados CON seguro</span>
+                            </div>
+                            <div class="price-tag">100$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-dna"></i>
+                                <span>Análisis especializados</span>
+                            </div>
+                            <div class="price-tag">350$</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Psicología -->
+                <div class="treatment-card fade-in delay-2">
+                    <h3><i class="fas fa-brain"></i> Psicología</h3>
+                    <div class="price-list">
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-comments"></i>
+                                <span>Consulta SIN seguro</span>
+                            </div>
+                            <div class="price-tag">200$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-comments"></i>
+                                <span>Consulta CON seguro</span>
+                            </div>
+                            <div class="price-tag">100$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-clipboard-check"></i>
+                                <span>Psicotécnico SIN seguro</span>
+                            </div>
+                            <div class="price-tag">250$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-clipboard-check"></i>
+                                <span>Psicotécnico CON seguro</span>
+                            </div>
+                            <div class="price-tag">120$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-hand-holding-heart"></i>
+                                <span>Terapia de grupo</span>
+                            </div>
+                            <div class="price-tag">150$</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Servicios Forenses -->
+                <div class="treatment-card fade-in delay-3">
+                    <h3><i class="fas fa-skull-crossbones"></i> Servicios Forenses</h3>
+                    <div class="price-list">
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-procedures"></i>
+                                <span>Servicio Pre y Postmortem</span>
+                            </div>
+                            <div class="price-tag">1000$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-file-medical"></i>
+                                <span>Autopsia forense</span>
+                            </div>
+                            <div class="price-tag">1500$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-dna"></i>
+                                <span>Análisis forense</span>
+                            </div>
+                            <div class="price-tag">1200$</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="service-name">
+                                <i class="fas fa-archive"></i>
+                                <span>Almacenamiento temporal</span>
+                            </div>
+                            <div class="price-tag">500$/día</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Información sobre seguros -->
+            <div class="insurance-info fade-in delay-1">
+                <h3><i class="fas fa-shield-alt"></i> Beneficios con Seguro Médico</h3>
+                <p>Contar con seguro médico te permite acceder a descuentos significativos en todos nuestros tratamientos y servicios. El seguro cubre entre el 50% y el 71% del costo total dependiendo del servicio.</p>
+                
+                <div class="insurance-benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-percentage"></i>
+                        <div>
+                            <strong>Descuentos de 50-71%</strong>
+                            <p>En todos los tratamientos</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-ambulance"></i>
+                        <div>
+                            <strong>Asistencia prioritaria</strong>
+                            <p>Atención inmediata 24/7</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <div>
+                            <strong>Cobertura amplia</strong>
+                            <p>Incluye emergencias y consultas</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-user-md"></i>
+                        <div>
+                            <strong>Especialistas incluidos</strong>
+                            <p>Acceso a todos nuestros médicos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comparativa de precios - TABLA ORIGINAL -->
+            <div class="price-comparison fade-in delay-2">
+                <h3><i class="fas fa-balance-scale"></i> Comparativa de Precios</h3>
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Servicio</th>
+                                <th>Sin Seguro</th>
+                                <th>Con Seguro</th>
+                                <th>Ahorro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Asistencias en ciudad</td>
+                                <td>100$</td>
+                                <td>20$</td>
+                                <td><span class="discount-badge">80%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Estudios básicos</td>
+                                <td>70$</td>
+                                <td>20$</td>
+                                <td><span class="discount-badge">71%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Estudios avanzados</td>
+                                <td>200$</td>
+                                <td>100$</td>
+                                <td><span class="discount-badge">50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Consulta psicológica</td>
+                                <td>200$</td>
+                                <td>100$</td>
+                                <td><span class="discount-badge">50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Psicotécnico</td>
+                                <td>250$</td>
+                                <td>120$</td>
+                                <td><span class="discount-badge">52%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© ST. Fiacre Hospital | Next Stories RP</p>
+            <p class="footer-note">Para cualquier duda, abran ticket en el apartado de tickets</p>
+            <p>Servicio Médico de Emergencias - Comprometidos con San Andreas</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observar elementos con clases de animación
+        document.querySelectorAll('.fade-in, .delay-1, .delay-2, .delay-3').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Efecto hover para tarjetas de tratamiento
+        const treatmentCards = document.querySelectorAll('.treatment-card');
+        treatmentCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Efecto para items de precio
+        const priceItems = document.querySelectorAll('.price-item');
+        priceItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'var(--light-blue)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = 'transparent';
+            });
+        });
+        
+        // Resaltar descuentos en la tabla
+        const discountBadges = document.querySelectorAll('.discount-badge');
+        discountBadges.forEach(badge => {
+            // Efecto de pulso para los badges de descuento
+            setInterval(() => {
+                badge.style.transform = 'scale(1.1)';
+                badge.style.boxShadow = '0 0 15px rgba(235, 87, 87, 0.5)';
+                setTimeout(() => {
+                    badge.style.transform = 'scale(1)';
+                    badge.style.boxShadow = 'none';
+                }, 500);
+            }, 3000);
+        });
+        
+        // Animación de entrada para items de precio
+        priceItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                item.style.transition = 'all 0.5s ease-out';
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 200 + (index * 100));
+        });
+    </script>
+
+</body>
+</html>

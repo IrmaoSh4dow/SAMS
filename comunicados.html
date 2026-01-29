@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Comunicados Oficiales | ST. Fiacre Hospital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comunicados oficiales del ST. Fiacre Hospital. Noticias, protocolos y avisos importantes del Servicio Médico de Emergencias.">
+
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variables CSS modernas */
+        :root {
+            --primary: #2D9CDB;    /* Azul amigable */
+            --secondary: #27AE60;  /* Verde médico */
+            --accent: #EB5757;     /* Rojo emergencia suave */
+            --gold: #FFD700;       /* Dorado para destacados */
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Reset suave */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+            animation: lineGrow 1s ease-out;
+        }
+
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 70px; }
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            flex: 1;
+        }
+
+        /* Logo fijo */
+        .logo-fija {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            z-index: 999;
+            background: white;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-fija:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Header moderno CON ICONO DE HOSPITAL (igual que servicios.html) */
+        header {
+            background: 
+                linear-gradient(rgba(45, 156, 219, 0.85), rgba(39, 174, 96, 0.85)),
+                url('img/encabezado.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 120px 0 100px;
+            position: relative;
+            overflow: hidden;
+            animation: backgroundMove 40s infinite alternate ease-in-out;
+            text-align: center;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: center center; }
+            100% { background-position: center 30%; }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(45, 156, 219, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.3) 0%, transparent 50%);
+            z-index: 0;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hospital-icon {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: floatIcon 6s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        header h1 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mission {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            margin-top: 1.5rem;
+            padding: 0 20px;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        /* Navegación moderna */
+        nav {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.97);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2px;
+        }
+
+        .nav-links a {
+            padding: 10px 15px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(45, 156, 219, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Sección de Comunicados */
+        .announcements-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-header h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        /* Grid de comunicados */
+        .announcements-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Artículo de comunicado */
+        .announcement-item {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid var(--primary);
+        }
+
+        .announcement-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            z-index: 1;
+        }
+
+        .announcement-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .announcement-item.important {
+            border-left: 5px solid var(--accent);
+            background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+        }
+
+        .announcement-item.important::before {
+            background: linear-gradient(to right, var(--accent), #FF6B6B);
+        }
+
+        .announcement-item.urgent {
+            border-left: 5px solid #FF9800;
+            background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+            animation: pulseUrgent 2s infinite;
+        }
+
+        .announcement-item.urgent::before {
+            background: linear-gradient(to right, #FF9800, #FFB74D);
+        }
+
+        @keyframes pulseUrgent {
+            0%, 100% { box-shadow: 0 8px 30px rgba(255, 152, 0, 0.2); }
+            50% { box-shadow: 0 8px 30px rgba(255, 152, 0, 0.4); }
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .announcement-date {
+            background: var(--light-blue);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .announcement-category {
+            background: var(--light-green);
+            color: var(--secondary);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .announcement-item h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .announcement-item h3 i {
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .announcement-content {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        .announcement-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .tag {
+            background: var(--light);
+            color: var(--dark);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        /* Banner de filtros */
+        .filters-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            background: var(--light);
+            color: var(--dark);
+            border-radius: 25px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Banner de RSS/Notificaciones */
+        .subscription-banner {
+            background: linear-gradient(135deg, var(--light-blue), #E3F2FD);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .subscription-banner h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .subscription-form {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .subscription-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid var(--light-blue);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .subscription-input:focus {
+            border-color: var(--primary);
+        }
+
+        .subscription-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--primary), #1E88E5);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subscription-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(45, 156, 219, 0.3);
+        }
+
+        /* Footer moderno */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: auto;
+        }
+
+        footer p {
+            color: #BDC3C7;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-note {
+            font-size: 0.9rem;
+            color: #95A5A6;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .nav-links a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 0;
+            }
+            
+            .nav-links a {
+                padding: 10px 12px;
+            }
+            
+            .subscription-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .announcements-section {
+                padding: 60px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                gap: 10px;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                border-radius: 10px;
+                justify-content: center;
+                font-size: 1rem;
+            }
+            
+            .announcement-item {
+                padding: 25px;
+            }
+            
+            .announcement-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .logo-fija {
+                width: 60px;
+                height: 60px;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            header {
+                padding: 80px 0 60px;
+                background-attachment: scroll;
+                animation: none;
+            }
+            
+            .hospital-icon {
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            .announcement-item h3 {
+                font-size: 1.3rem;
+            }
+            
+            .subscription-banner {
+                padding: 25px;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo fijo -->
+    <img src="img/logo.png" alt="Logo ST. Fiacre Hospital" class="logo-fija" onerror="this.style.display='none'">
+
+    <!-- Header moderno CON ICONO DE HOSPITAL (igual que servicios.html) -->
+    <header>
+        <div class="header-content container">
+            <div class="hospital-icon fade-in">
+                <i class="fas fa-bullhorn"></i>
+            </div>
+            <h1 class="fade-in">ST. Fiacre Hospital</h1>
+            <p class="tagline fade-in delay-1">Comunicados Oficiales · San Andreas</p>
+            <p class="mission fade-in delay-2">Salvar vidas es nuestra misión</p>
+        </div>
+    </header>
+
+    <!-- Navegación -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heartbeat"></i> ST. Fiacre
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="servicios.html"><i class="fas fa-ambulance"></i> Servicios</a>
+                <a href="tratamientos.html"><i class="fas fa-stethoscope"></i> Tratamientos</a>
+                <a href="personalmedico.html"><i class="fas fa-user-md"></i> Personal Médico</a>
+                <a href="oposiciones.html"><i class="fas fa-file-contract"></i> Oposiciones</a>
+                <a href="contacto.html"><i class="fas fa-phone-alt"></i> Contacto</a>
+                <a href="comunicados.html" class="active"><i class="fas fa-bullhorn"></i> Comunicados</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Comunicados -->
+    <section class="announcements-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2><i class="fas fa-bullhorn"></i> Comunicados Oficiales</h2>
+                <p>Mantente informado sobre los últimos protocolos, avisos importantes y noticias del Servicio Médico de Emergencias de San Andreas.</p>
+            </div>
+            
+            <!-- Filtros -->
+            <div class="filters-container fade-in">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> Todos
+                </button>
+                <button class="filter-btn" data-filter="protocolo">
+                    <i class="fas fa-clipboard-list"></i> Protocolos
+                </button>
+                <button class="filter-btn" data-filter="seguridad">
+                    <i class="fas fa-shield-alt"></i> Seguridad
+                </button>
+                <button class="filter-btn" data-filter="emergencia">
+                    <i class="fas fa-exclamation-triangle"></i> Emergencias
+                </button>
+                <button class="filter-btn" data-filter="formacion">
+                    <i class="fas fa-graduation-cap"></i> Formación
+                </button>
+            </div>
+            
+            <!-- Grid de comunicados -->
+            <div class="announcements-grid">
+                <!-- Comunicado 1 - Importante -->
+                <article class="announcement-item important fade-in" data-category="protocolo emergencia">
+                    <div class="announcement-header">
+                        <span class="announcement-date">
+                            <i class="far fa-calendar"></i> 14/12/2025
+                        </span>
+                        <span class="announcement-category">
+                            <i class="fas fa-exclamation-circle"></i> Protocolo de Emergencia
+                        </span>
+                    </div>
+                    
+                    <h3><i class="fas fa-heartbeat"></i> ¿Cómo realizar una RCP correctamente?</h3>
+                    
+                    <div class="announcement-content">
+                        <p>Ante una parada cardiorrespiratoria, es crucial actuar con rapidez y precisión:</p>
+                        <ul style="padding-left: 20px; margin: 15px 0;">
+                            <li>Verificar la consciencia y respiración del paciente</li>
+                            <li>Llamar inmediatamente al 911 o activar el sistema de emergencias</li>
+                            <li>Iniciar compresiones torácicas firmes y continuas</li>
+                            <li>Realizar compresiones a un ritmo de 100–120 por minuto</li>
+                            <li>Permitir la completa reexpansión del tórax entre compresiones</li>
+                            <li>Continuar hasta la llegada de los servicios de emergencia</li>
+                        </ul>
+                        <p>Recuerda: La RCP temprana puede duplicar o triplicar las posibilidades de supervivencia.</p>
+                    </div>
+                    
+                    <div class="announcement-tags">
+                        <span class="tag">RCP</span>
+                        <span class="tag">Primeros Auxilios</span>
+                        <span class="tag">Emergencia</span>
+                        <span class="tag">Salvamento</span>
+                    </div>
+                </article>
+                
+                <!-- Comunicado 2 -->
+                <article class="announcement-item fade-in delay-1" data-category="protocolo seguridad">
+                    <div class="announcement-header">
+                        <span class="announcement-date">
+                            <i class="far fa-calendar"></i> 10/12/2025
+                        </span>
+                        <span class="announcement-category">
+                            <i class="fas fa-car"></i> Seguridad Vial
+                        </span>
+                    </div>
+                    
+                    <h3><i class="fas fa-car-crash"></i> Protocolo frente a accidente de tráfico</h3>
+                    
+                    <div class="announcement-content">
+                        <p>En caso de presenciar o estar involucrado en un accidente de tráfico:</p>
+                        <ol style="padding-left: 20px; margin: 15px 0;">
+                            <li><strong>Mantenga la calma</strong> y evalúe la situación rápidamente</li>
+                            <li><strong>Señalice la zona</strong> del accidente con triángulos de emergencia</li>
+                            <li><strong>Evite mover a los heridos</strong> salvo riesgo vital inminente</li>
+                            <li><strong>Contacte inmediatamente</strong> con los servicios de emergencia</li>
+                            <li><strong>Proporcione información precisa</strong> sobre ubicación y situación</li>
+                            <li><strong>Permanezca en el lugar</strong> hasta la llegada de los equipos médicos</li>
+                        </ol>
+                        <p>Recuerda: La manipulación incorrecta de heridos puede agravar las lesiones.</p>
+                    </div>
+                    
+                    <div class="announcement-tags">
+                        <span class="tag">Accidente</span>
+                        <span class="tag">Tráfico</span>
+                        <span class="tag">Seguridad</span>
+                        <span class="tag">Procedimiento</span>
+                    </div>
+                </article>
+                              
+                <!-- Comunicado 4 -->
+                <article class="announcement-item fade-in delay-3" data-category="formacion">
+                    <div class="announcement-header">
+                        <span class="announcement-date">
+                            <i class="far fa-calendar"></i> 05/12/2025
+                        </span>
+                        <span class="announcement-category">
+                            <i class="fas fa-graduation-cap"></i> Formación
+                        </span>
+                    </div>
+                    
+                    <h3><i class="fas fa-book-medical"></i> Nuevos cursos de primeros auxilios para la comunidad</h3>
+                    
+                    <div class="announcement-content">
+                        <p>El ST. Fiacre Hospital anuncia la apertura de inscripciones para los cursos gratuitos de primeros auxilios dirigidos a la comunidad:</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                            <div style="background: var(--light-blue); padding: 15px; border-radius: 10px;">
+                                <strong>Curso Básico</strong>
+                                <p>Duración: 4 horas<br>Contenido: RCP, atragantamiento, heridas</p>
+                            </div>
+                            <div style="background: var(--light-green); padding: 15px; border-radius: 10px;">
+                                <strong>Curso Avanzado</strong>
+                                <p>Duración: 8 horas<br>Contenido: Trauma, inmovilización, emergencias</p>
+                            </div>
+                        </div>
+                        
+                        <p><strong>Inscripciones:</strong> A través de nuestro portal web o en recepción del hospital.</p>
+                        <p><strong>Próxima fecha:</strong> 15 de diciembre, 10:00 AM en el auditorio del hospital.</p>
+                    </div>
+                    
+                    <div class="announcement-tags">
+                        <span class="tag">Formación</span>
+                        <span class="tag">Cursos</span>
+                        <span class="tag">Comunidad</span>
+                        <span class="tag">Educación</span>
+                    </div>
+                </article>
+                
+                <!-- Comunicado 5 -->
+                <article class="announcement-item fade-in" data-category="protocolo">
+                    <div class="announcement-header">
+                        <span class="announcement-date">
+                            <i class="far fa-calendar"></i> 01/12/2025
+                        </span>
+                        <span class="announcement-category">
+                            <i class="fas fa-user-md"></i> Protocolo Médico
+                        </span>
+                    </div>
+                    
+                    <h3><i class="fas fa-virus"></i> Actualización de protocolos para enfermedades infecciosas</h3>
+                    
+                    <div class="announcement-content">
+                        <p>Se han actualizado los protocolos de manejo y prevención de enfermedades infecciosas en el hospital:</p>
+                        
+                        <ul style="padding-left: 20px; margin: 15px 0;">
+                            <li>Nuevos procedimientos de aislamiento para casos sospechosos</li>
+                            <li>Actualización en el uso de EPIs (Equipos de Protección Individual)</li>
+                            <li>Protocolos de desinfección mejorados para áreas comunes</li>
+                            <li>Nuevas guías para el manejo de residuos biológicos</li>
+                            <li>Capacitación obligatoria para todo el personal médico</li>
+                        </ul>
+                        
+                        <p>Estas actualizaciones están diseñadas para maximizar la seguridad de pacientes y personal, siguiendo las recomendaciones más recientes de las autoridades sanitarias.</p>
+                    </div>
+                    
+                    <div class="announcement-tags">
+                        <span class="tag">Infecciones</span>
+                        <span class="tag">Protocolo</span>
+                        <span class="tag">Seguridad</span>
+                        <span class="tag">Actualización</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© ST. Fiacre Hospital | Next Stories RP</p>
+            <p class="footer-note">Comunicados oficiales del Servicio Médico de Emergencias</p>
+            <p>Para cualquier duda, abran ticket en el apartado de tickets</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observar elementos con clases de animación
+        document.querySelectorAll('.fade-in, .delay-1, .delay-2, .delay-3').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Filtrado de comunicados
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const announcementItems = document.querySelectorAll('.announcement-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remover clase active de todos los botones
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Agregar clase active al botón clickeado
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                announcementItems.forEach(item => {
+                    if (filterValue === 'all') {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        const categories = item.getAttribute('data-category');
+                        if (categories.includes(filterValue)) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Efecto hover para artículos
+        announcementItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = 'var(--shadow-hover)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                if (this.classList.contains('urgent')) {
+                    this.style.transform = 'translateY(0)';
+                } else {
+                    this.style.transform = 'translateY(0)';
+                }
+                this.style.boxShadow = 'var(--shadow)';
+            });
+        });
+        
+        // Suscripción por correo
+        const subscriptionBtn = document.querySelector('.subscription-btn');
+        const subscriptionInput = document.querySelector('.subscription-input');
+        
+        subscriptionBtn.addEventListener('click', () => {
+            const email = subscriptionInput.value.trim();
+            
+            if (!email) {
+                subscriptionInput.style.borderColor = 'var(--accent)';
+                subscriptionInput.placeholder = 'Por favor, ingresa un correo válido';
+                setTimeout(() => {
+                    subscriptionInput.style.borderColor = '';
+                    subscriptionInput.placeholder = 'Tu correo electrónico';
+                }, 2000);
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                subscriptionInput.style.borderColor = 'var(--accent)';
+                subscriptionInput.value = '';
+                subscriptionInput.placeholder = 'Correo electrónico inválido';
+                setTimeout(() => {
+                    subscriptionInput.style.borderColor = '';
+                    subscriptionInput.placeholder = 'Tu correo electrónico';
+                }, 2000);
+                return;
+            }
+            
+            // Simular éxito de suscripción
+            subscriptionBtn.innerHTML = '<i class="fas fa-check"></i> Suscrito';
+            subscriptionBtn.style.background = 'linear-gradient(135deg, var(--secondary), #2ECC71)';
+            subscriptionInput.value = '';
+            subscriptionInput.placeholder = '¡Gracias por suscribirte!';
+            subscriptionInput.disabled = true;
+            subscriptionBtn.disabled = true;
+            
+            // Restaurar después de 3 segundos
+            setTimeout(() => {
+                subscriptionBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Suscribirse';
+                subscriptionBtn.style.background = 'linear-gradient(135deg, var(--primary), #1E88E5)';
+                subscriptionInput.placeholder = 'Tu correo electrónico';
+                subscriptionInput.disabled = false;
+                subscriptionBtn.disabled = false;
+            }, 3000);
+        });
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Efecto para tags
+        const tags = document.querySelectorAll('.tag');
+        tags.forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
+        // Manejo de imagen de logo
+        const logo = document.querySelector('.logo-fija');
+        if (logo) {
+            logo.addEventListener('error', function() {
+                // Crear logo alternativo si falla la imagen
+                this.style.display = 'none';
+                const altLogo = document.createElement('div');
+                altLogo.innerHTML = '<i class="fas fa-heartbeat"></i>';
+                altLogo.style.position = 'fixed';
+                altLogo.style.bottom = '20px';
+                altLogo.style.right = '20px';
+                altLogo.style.width = '80px';
+                altLogo.style.height = '80px';
+                altLogo.style.background = 'white';
+                altLogo.style.borderRadius = '50%';
+                altLogo.style.display = 'flex';
+                altLogo.style.alignItems = 'center';
+                altLogo.style.justifyContent = 'center';
+                altLogo.style.fontSize = '2rem';
+                altLogo.style.color = 'var(--primary)';
+                altLogo.style.boxShadow = 'var(--shadow)';
+                altLogo.style.zIndex = '999';
+                altLogo.style.cursor = 'pointer';
+                altLogo.style.transition = 'var(--transition)';
+                altLogo.className = 'logo-fija';
+                
+                altLogo.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                
+                document.body.appendChild(altLogo);
+            });
+            
+            // Hacer que el logo lleve al inicio
+            logo.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+        
+        // Animación de entrada para artículos
+        announcementItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                item.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 300 + (index * 200));
+        });
+        
+        // Efecto para filtros
+        filterButtons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'scale(1.05)';
+                }
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
