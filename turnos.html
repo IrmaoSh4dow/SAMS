@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ST. Fiacre Hospital | Gestión de Turnos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de fichaje de servicio del ST. Fiacre Hospital">
+
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variables CSS - Misma paleta que el index */
+        :root {
+            --primary: #2D9CDB;
+            --secondary: #27AE60;
+            --accent: #EB5757;
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --border-radius-sm: 12px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* ==================== NAVBAR MODERNA ==================== */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            padding: 10px 18px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a i {
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: inherit;
+        }
+
+        .user-btn:hover {
+            background: var(--light-blue);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .user-role {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: white;
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--shadow-hover);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .user-menu.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .dropdown-menu a i {
+            width: 20px;
+            color: var(--primary);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #eee;
+            margin: 5px 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* ==================== CONTENIDO PRINCIPAL ==================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .page-header h1 i {
+            color: var(--primary);
+        }
+
+        .page-header p {
+            color: var(--gray);
+        }
+
+        /* Tarjeta de fichaje */
+        .clock-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .clock-time {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dark);
+            font-family: 'Poppins', monospace;
+            margin-bottom: 10px;
+        }
+
+        .clock-date {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .shift-status {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .status-off {
+            background: rgba(235, 87, 87, 0.1);
+            color: var(--accent);
+        }
+
+        .status-on {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--secondary);
+        }
+
+        .clock-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-clock {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: inherit;
+        }
+
+        .btn-clock-in {
+            background: linear-gradient(135deg, var(--secondary), #1e8e4a);
+            color: white;
+        }
+
+        .btn-clock-in:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-clock-out {
+            background: linear-gradient(135deg, var(--accent), #c0392b);
+            color: white;
+        }
+
+        .btn-clock-out:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(235, 87, 87, 0.4);
+        }
+
+        .btn-clock:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Resumen del turno actual */
+        .current-shift-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        .current-shift-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .shift-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .shift-info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: var(--light);
+            border-radius: var(--border-radius-sm);
+        }
+
+        .shift-info-item i {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .shift-info-item .label {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .shift-info-item .value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Historial de turnos */
+        .history-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .history-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .history-table th {
+            background: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .history-table tr:hover {
+            background: var(--light-blue);
+        }
+
+        .shift-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .badge-in {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--secondary);
+        }
+
+        .badge-out {
+            background: rgba(235, 87, 87, 0.1);
+            color: var(--accent);
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+        }
+
+        .empty-history i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .footer {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .clock-time { font-size: 2rem; }
+            .clock-buttons { flex-direction: column; }
+            .btn-clock { width: 100%; justify-content: center; }
+            .history-table { display: block; overflow-x: auto; }
+            .shift-info { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="logo"><i class="fas fa-heartbeat"></i> ST. Fiacre</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="pacientes.html"><i class="fas fa-users"></i> Pacientes</a>
+                <a href="turnos.html" class="active"><i class="fas fa-calendar-alt"></i> Turnos</a>
+                <a href="personal.html"><i class="fas fa-user-md"></i> Personal</a>
+                <a href="comunicados.html"><i class="fas fa-bullhorn"></i> Comunicados</a>
+                <a href="reportes.html"><i class="fas fa-chart-line"></i> Reportes</a>
+            </div>
+            <div class="user-menu" id="userMenu">
+                <button class="user-btn" id="userBtn">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user-md"></i></div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Dr. Martínez</div>
+                        <div class="user-role" id="userRole">Médico de Emergencias</div>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a>
+                    <a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="login.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-clock"></i> Gestión de Turnos</h1>
+            <p>Fichaje de entrada y salida de servicio</p>
+        </div>
+
+        <!-- Tarjeta de fichaje -->
+        <div class="clock-card">
+            <div class="clock-time" id="clockTime">--:--:--</div>
+            <div class="clock-date" id="clockDate">--/--/----</div>
+            <div class="shift-status" id="shiftStatus">
+                <i class="fas fa-circle"></i> Fuera de servicio
+            </div>
+            <div class="clock-buttons">
+                <button class="btn-clock btn-clock-in" id="btnClockIn" onclick="ficharEntrada()">
+                    <i class="fas fa-sign-in-alt"></i> Fichar Entrada
+                </button>
+                <button class="btn-clock btn-clock-out" id="btnClockOut" onclick="ficharSalida()" disabled>
+                    <i class="fas fa-sign-out-alt"></i> Salir de Servicio
+                </button>
+            </div>
+        </div>
+
+        <!-- Resumen del turno actual -->
+        <div class="current-shift-card" id="currentShiftCard" style="display: none;">
+            <h3><i class="fas fa-chart-line"></i> Turno Actual</h3>
+            <div class="shift-info">
+                <div class="shift-info-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <div>
+                        <div class="label">Fecha de inicio</div>
+                        <div class="value" id="shiftStartDate">--/--/----</div>
+                    </div>
+                </div>
+                <div class="shift-info-item">
+                    <i class="fas fa-hourglass-half"></i>
+                    <div>
+                        <div class="label">Hora de inicio</div>
+                        <div class="value" id="shiftStartTime">--:--:--</div>
+                    </div>
+                </div>
+                <div class="shift-info-item">
+                    <i class="fas fa-stopwatch"></i>
+                    <div>
+                        <div class="label">Duración</div>
+                        <div class="value" id="shiftDuration">-- h -- m</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historial de turnos -->
+        <div class="history-card">
+            <h3><i class="fas fa-history"></i> Historial de Turnos</h3>
+            <div id="historyContainer"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p><i class="fas fa-heartbeat" style="color: var(--primary);"></i> ST. Fiacre Hospital - Sistema de Gestión Médica v2.0</p>
+    </footer>
+
+    <script>
+        // Datos del usuario actual
+        let currentUser = {
+            name: '',
+            role: '',
+            isOnDuty: false,
+            currentShift: null
+        };
+
+        // Historial de turnos (se guarda en localStorage)
+        let shiftHistory = [];
+
+        // Timer para actualizar reloj
+        let clockInterval;
+        let durationInterval;
+
+        function getUserData() {
+            const savedUser = localStorage.getItem('sams_user') || sessionStorage.getItem('sams_user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    currentUser.name = user.name;
+                    currentUser.role = user.role;
+                    document.getElementById('userName').textContent = user.name;
+                    document.getElementById('userRole').textContent = user.role;
+                    const avatar = document.getElementById('userAvatar');
+                    avatar.innerHTML = user.name.charAt(0) + (user.name.charAt(user.name.indexOf(' ') + 1) || '');
+                } catch(e) {}
+            }
+        }
+
+        // Cargar historial desde localStorage
+        function loadShiftHistory() {
+            const saved = localStorage.getItem('sams_shift_history');
+            if (saved) {
+                try {
+                    shiftHistory = JSON.parse(saved);
+                } catch(e) {
+                    shiftHistory = [];
+                }
+            }
+            
+            // Verificar si hay un turno activo
+            const activeShift = localStorage.getItem('sams_active_shift');
+            if (activeShift) {
+                try {
+                    currentUser.currentShift = JSON.parse(activeShift);
+                    currentUser.isOnDuty = true;
+                    updateUIForActiveShift();
+                } catch(e) {}
+            }
+        }
+
+        // Guardar historial en localStorage
+        function saveShiftHistory() {
+            localStorage.setItem('sams_shift_history', JSON.stringify(shiftHistory));
+        }
+
+        // Guardar turno activo
+        function saveActiveShift() {
+            if (currentUser.currentShift) {
+                localStorage.setItem('sams_active_shift', JSON.stringify(currentUser.currentShift));
+            } else {
+                localStorage.removeItem('sams_active_shift');
+            }
+        }
+
+        // Actualizar reloj
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('es-ES');
+            const dateString = now.toLocaleDateString('es-ES', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            document.getElementById('clockTime').textContent = timeString;
+            document.getElementById('clockDate').textContent = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+        }
+
+        // Actualizar duración del turno
+        function updateDuration() {
+            if (currentUser.isOnDuty && currentUser.currentShift) {
+                const start = new Date(currentUser.currentShift.start);
+                const now = new Date();
+                const diffMs = now - start;
+                const diffHrs = Math.floor(diffMs / 3600000);
+                const diffMins = Math.floor((diffMs % 3600000) / 60000);
+                document.getElementById('shiftDuration').textContent = `${diffHrs} h ${diffMins} m`;
+            }
+        }
+
+        // Actualizar UI para turno activo
+        function updateUIForActiveShift() {
+            const statusDiv = document.getElementById('shiftStatus');
+            const btnIn = document.getElementById('btnClockIn');
+            const btnOut = document.getElementById('btnClockOut');
+            const currentShiftCard = document.getElementById('currentShiftCard');
+
+            if (currentUser.isOnDuty && currentUser.currentShift) {
+                statusDiv.innerHTML = '<i class="fas fa-circle"></i> En servicio';
+                statusDiv.className = 'shift-status status-on';
+                btnIn.disabled = true;
+                btnOut.disabled = false;
+                currentShiftCard.style.display = 'block';
+                
+                const startDate = new Date(currentUser.currentShift.start);
+                document.getElementById('shiftStartDate').textContent = startDate.toLocaleDateString('es-ES');
+                document.getElementById('shiftStartTime').textContent = startDate.toLocaleTimeString('es-ES');
+                updateDuration();
+                
+                if (durationInterval) clearInterval(durationInterval);
+                durationInterval = setInterval(updateDuration, 60000);
+            } else {
+                statusDiv.innerHTML = '<i class="fas fa-circle"></i> Fuera de servicio';
+                statusDiv.className = 'shift-status status-off';
+                btnIn.disabled = false;
+                btnOut.disabled = true;
+                currentShiftCard.style.display = 'none';
+                if (durationInterval) clearInterval(durationInterval);
+            }
+        }
+
+        // Renderizar historial
+        function renderHistory() {
+            const container = document.getElementById('historyContainer');
+            
+            if (shiftHistory.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p>No hay registros de turnos anteriores</p>
+                        <p style="font-size: 0.8rem;">Ficha tu primer servicio para comenzar</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Ordenar por fecha descendente
+            const sorted = [...shiftHistory].sort((a, b) => new Date(b.start) - new Date(a.start));
+            
+            container.innerHTML = `
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Entrada</th>
+                            <th>Salida</th>
+                            <th>Duración</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${sorted.map(shift => `
+                            <tr>
+                                <td>${shift.date}</td>
+                                <td>${shift.startTime}</td>
+                                <td>${shift.endTime || 'En curso'}</td>
+                                <td>${shift.duration || '--'}</td>
+                                <td>
+                                    <span class="shift-badge ${shift.endTime ? 'badge-out' : 'badge-in'}">
+                                        ${shift.endTime ? 'Finalizado' : 'Activo'}
+                                    </span>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Función para fichar entrada
+        function ficharEntrada() {
+            if (currentUser.isOnDuty) {
+                alert('Ya estás en servicio. Debes finalizar tu turno actual antes de fichar nuevamente.');
+                return;
+            }
+
+            const now = new Date();
+            const shiftData = {
+                id: Date.now(),
+                start: now.toISOString(),
+                startTime: now.toLocaleTimeString('es-ES'),
+                date: now.toLocaleDateString('es-ES'),
+                end: null,
+                endTime: null,
+                duration: null,
+                user: currentUser.name
+            };
+
+            currentUser.currentShift = shiftData;
+            currentUser.isOnDuty = true;
+            saveActiveShift();
+            
+            // Añadir al historial (como turno en curso)
+            shiftHistory.unshift(shiftData);
+            saveShiftHistory();
+            
+            updateUIForActiveShift();
+            renderHistory();
+            
+            // Mostrar notificación
+            showNotification('✅ Has fichado entrada', 'success');
+        }
+
+        // Función para fichar salida
+        function ficharSalida() {
+            if (!currentUser.isOnDuty || !currentUser.currentShift) {
+                alert('No hay un turno activo para finalizar.');
+                return;
+            }
+
+            const now = new Date();
+            const start = new Date(currentUser.currentShift.start);
+            const diffMs = now - start;
+            const diffHrs = Math.floor(diffMs / 3600000);
+            const diffMins = Math.floor((diffMs % 3600000) / 60000);
+            const duration = `${diffHrs}h ${diffMins}m`;
+            
+            // Actualizar el turno actual
+            currentUser.currentShift.end = now.toISOString();
+            currentUser.currentShift.endTime = now.toLocaleTimeString('es-ES');
+            currentUser.currentShift.duration = duration;
+            
+            // Actualizar en el historial
+            const index = shiftHistory.findIndex(s => s.id === currentUser.currentShift.id);
+            if (index !== -1) {
+                shiftHistory[index] = { ...currentUser.currentShift };
+            }
+            
+            saveShiftHistory();
+            
+            // Limpiar turno activo
+            currentUser.currentShift = null;
+            currentUser.isOnDuty = false;
+            saveActiveShift();
+            
+            updateUIForActiveShift();
+            renderHistory();
+            
+            // Mostrar notificación
+            showNotification(`✅ Has finalizado tu servicio. Duración: ${duration}`, 'success');
+        }
+
+        // Mostrar notificación temporal
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--secondary)' : 'var(--primary)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                z-index: 9999;
+                animation: slideInRight 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            `;
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Estilos para notificaciones
+        const notificationStyle = document.createElement('style');
+        notificationStyle.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(notificationStyle);
+
+        // Eventos y menús
+        const userMenu = document.getElementById('userMenu');
+        document.getElementById('userBtn').addEventListener('click', (e) => { e.stopPropagation(); userMenu.classList.toggle('active'); });
+        document.addEventListener('click', () => userMenu.classList.remove('active'));
+        
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('sams_user');
+            sessionStorage.removeItem('sams_user');
+            window.location.href = 'login.html';
+        });
+
+        // Inicializar
+        function init() {
+            getUserData();
+            loadShiftHistory();
+            updateClock();
+            clockInterval = setInterval(updateClock, 1000);
+            renderHistory();
+            updateUIForActiveShift();
+        }
+
+        init();
+    </script>
+</body>
+</html>
