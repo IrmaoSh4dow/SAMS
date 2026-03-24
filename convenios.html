@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ST. Fiacre Hospital | Convenios Médicos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gestión de convenios y descuentos del ST. Fiacre Hospital">
+
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variables CSS */
+        :root {
+            --primary: #2D9CDB;
+            --secondary: #27AE60;
+            --accent: #EB5757;
+            --warning: #F39C12;
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --border-radius-sm: 12px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR MODERNA */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            padding: 10px 18px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a i {
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: inherit;
+        }
+
+        .user-btn:hover {
+            background: var(--light-blue);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .user-role {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: white;
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--shadow-hover);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .user-menu.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .dropdown-menu a i {
+            width: 20px;
+            color: var(--primary);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #eee;
+            margin: 5px 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-header h1 i {
+            color: var(--primary);
+        }
+
+        .page-header p {
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(45, 156, 219, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.8rem;
+        }
+
+        .btn-danger:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Filtros */
+        .filters-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-select {
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Grid de convenios */
+        .convenios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .convenio-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .convenio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px;
+            color: white;
+            position: relative;
+        }
+
+        .card-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 8px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-label {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .benefits-list {
+            margin-top: 15px;
+            padding-top: 10px;
+        }
+
+        .benefits-list h4 {
+            font-size: 0.85rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .benefits-list ul {
+            list-style: none;
+            padding-left: 5px;
+        }
+
+        .benefits-list li {
+            font-size: 0.8rem;
+            color: var(--gray);
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .benefits-list li i {
+            color: var(--secondary);
+            font-size: 0.7rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .card-actions button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-edit {
+            background: #f0f0f0;
+            color: var(--gray);
+        }
+
+        .btn-edit:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f0f0f0;
+            color: var(--accent);
+        }
+
+        .btn-delete:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Paginación */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .page-btn:hover {
+            background: var(--light-blue);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            max-width: 550px;
+            width: 90%;
+            padding: 30px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark);
+        }
+
+        .modal-content input,
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius-sm);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .modal-content input:focus,
+        .modal-content select:focus,
+        .modal-content textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .footer {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .filters-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-group {
+                justify-content: space-between;
+            }
+            .convenios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="logo"><i class="fas fa-heartbeat"></i> ST. Fiacre</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="pacientes.html"><i class="fas fa-users"></i> Pacientes</a>
+                <a href="turnos.html"><i class="fas fa-calendar-alt"></i> Turnos</a>
+                <a href="personal.html"><i class="fas fa-user-md"></i> Personal</a>
+                <a href="convenios.html" class="active"><i class="fas fa-handshake"></i> Convenios</a>
+                <a href="reportes.html"><i class="fas fa-chart-line"></i> Reportes</a>
+            </div>
+            <div class="user-menu" id="userMenu">
+                <button class="user-btn" id="userBtn">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user-md"></i></div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Dr. Martínez</div>
+                        <div class="user-role" id="userRole">Médico de Emergencias</div>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a>
+                    <a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="login.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <div>
+                <h1><i class="fas fa-handshake"></i> Convenios Médicos</h1>
+                <p>Empresas e instituciones con descuentos especiales para nuestros pacientes</p>
+            </div>
+            <button class="btn-primary" id="newConvenioBtn">
+                <i class="fas fa-plus-circle"></i> Nuevo Convenio
+            </button>
+        </div>
+
+        <div class="filters-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Buscar por empresa, sector o descuento...">
+            </div>
+            <div class="filter-group">
+                <select class="filter-select" id="sectorFilter">
+                    <option value="all">Todos los sectores</option>
+                    <option value="Seguros">Seguros</option>
+                    <option value="Corporativo">Corporativo</option>
+                    <option value="Gobierno">Gobierno</option>
+                    <option value="Educación">Educación</option>
+                    <option value="Comercio">Comercio</option>
+                </select>
+                <select class="filter-select" id="discountFilter">
+                    <option value="all">Todos los descuentos</option>
+                    <option value="10">10% o más</option>
+                    <option value="20">20% o más</option>
+                    <option value="30">30% o más</option>
+                    <option value="40">40% o más</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="convenios-grid" id="conveniosGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </main>
+
+    <footer class="footer">
+        <p><i class="fas fa-heartbeat" style="color: var(--primary);"></i> ST. Fiacre Hospital - Sistema de Gestión Médica v2.0</p>
+    </footer>
+
+    <!-- Modal para nuevo/editar convenio -->
+    <div class="modal" id="convenioModal">
+        <div class="modal-content">
+            <h3 id="modalTitle"><i class="fas fa-handshake"></i> Nuevo Convenio</h3>
+            <input type="text" id="modalEmpresa" placeholder="Nombre de la empresa / institución" required>
+            <input type="text" id="modalSector" placeholder="Sector (Ej: Seguros, Corporativo, Gobierno)" required>
+            <input type="number" id="modalDescuento" placeholder="Porcentaje de descuento (%)" min="0" max="100" step="1" required>
+            <input type="text" id="modalContacto" placeholder="Persona de contacto">
+            <input type="tel" id="modalTelefono" placeholder="Teléfono de contacto">
+            <input type="email" id="modalEmail" placeholder="Email de contacto">
+            <textarea id="modalBeneficios" rows="3" placeholder="Beneficios adicionales (separados por coma)"></textarea>
+            <div class="modal-buttons">
+                <button class="btn-outline" id="closeModalBtn">Cancelar</button>
+                <button class="btn-primary" id="saveConvenioBtn">Guardar Convenio</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de convenios
+        let convenios = [
+            { 
+                id: 1, 
+                empresa: 'Grupo Los Santos', 
+                sector: 'Corporativo', 
+                descuento: 15, 
+                contacto: 'Carlos Méndez',
+                telefono: '555-1001',
+                email: 'c.mendez@grupols.com',
+                beneficios: ['Atención preferencial', 'Chequeos anuales gratuitos', 'Descuento en farmacia']
+            },
+            { 
+                id: 2, 
+                empresa: 'Seguros VIDA', 
+                sector: 'Seguros', 
+                descuento: 20, 
+                contacto: 'Laura Fernández',
+                telefono: '555-1002',
+                email: 'laura@segurosVida.com',
+                beneficios: ['Cobertura de emergencias', 'Sin copago', 'Atención 24/7']
+            },
+            { 
+                id: 3, 
+                empresa: 'Municipalidad de Los Santos', 
+                sector: 'Gobierno', 
+                descuento: 25, 
+                contacto: 'Roberto Sánchez',
+                telefono: '555-1003',
+                email: 'rsanchez@municipalidad.ls',
+                beneficios: ['Atención a funcionarios', 'Programas de prevención', 'Descuento en medicamentos']
+            },
+            { 
+                id: 4, 
+                empresa: 'Universidad de San Andreas', 
+                sector: 'Educación', 
+                descuento: 30, 
+                contacto: 'Dra. Patricia Ríos',
+                telefono: '555-1004',
+                email: 'prios@usa.edu',
+                beneficios: ['Atención a estudiantes', 'Prácticas profesionales', 'Investigación conjunta']
+            },
+            { 
+                id: 5, 
+                empresa: 'Cámara de Comercio LS', 
+                sector: 'Comercio', 
+                descuento: 10, 
+                contacto: 'Jorge Ramírez',
+                telefono: '555-1005',
+                email: 'jramirez@camarals.com',
+                beneficios: ['Descuentos para afiliados', 'Charlas empresariales', 'Ferias de salud']
+            },
+            { 
+                id: 6, 
+                empresa: 'Policía de Los Santos', 
+                sector: 'Gobierno', 
+                descuento: 35, 
+                contacto: 'Comandante Davis',
+                telefono: '555-1006',
+                email: 'davis@lspd.gov.ls',
+                beneficios: ['Atención prioritaria', 'Protocolos especiales', 'Capacitación en emergencias']
+            },
+            { 
+                id: 7, 
+                empresa: 'Bomberos Los Santos', 
+                sector: 'Gobierno', 
+                descuento: 35, 
+                contacto: 'Jefe Wallace',
+                telefono: '555-1007',
+                email: 'wallace@bomberos.ls',
+                beneficios: ['Atención especializada', 'Rehabilitación física', 'Psicología especializada']
+            },
+            { 
+                id: 8, 
+                empresa: 'Banco Central de San Andreas', 
+                sector: 'Corporativo', 
+                descuento: 12, 
+                contacto: 'Elena Torres',
+                telefono: '555-1008',
+                email: 'etorres@bancocentral.ls',
+                beneficios: ['Checkeo ejecutivo', 'Plan de bienestar', 'Descuentos corporativos']
+            },
+            { 
+                id: 9, 
+                empresa: 'Aseguradora El Sol', 
+                sector: 'Seguros', 
+                descuento: 18, 
+                contacto: 'Martín Silva',
+                telefono: '555-1009',
+                email: 'msilva@aseguradoraelsol.com',
+                beneficios: ['Reembolsos ágiles', 'Red amplia de especialistas', 'Atención personalizada']
+            }
+        ];
+
+        let currentPage = 1;
+        let editingConvenioId = null;
+        const itemsPerPage = 6;
+
+        function getUserData() {
+            const savedUser = localStorage.getItem('sams_user') || sessionStorage.getItem('sams_user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    document.getElementById('userName').textContent = user.name;
+                    document.getElementById('userRole').textContent = user.role;
+                    const avatar = document.getElementById('userAvatar');
+                    avatar.innerHTML = user.name.charAt(0) + (user.name.charAt(user.name.indexOf(' ') + 1) || '');
+                } catch(e) {}
+            }
+        }
+
+        function getSectorIcon(sector) {
+            const icons = {
+                'Seguros': 'fas fa-shield-alt',
+                'Corporativo': 'fas fa-building',
+                'Gobierno': 'fas fa-landmark',
+                'Educación': 'fas fa-graduation-cap',
+                'Comercio': 'fas fa-store'
+            };
+            return icons[sector] || 'fas fa-handshake';
+        }
+
+        function getSectorColor(sector) {
+            const colors = {
+                'Seguros': '#2D9CDB',
+                'Corporativo': '#27AE60',
+                'Gobierno': '#F39C12',
+                'Educación': '#9B59B6',
+                'Comercio': '#E67E22'
+            };
+            return colors[sector] || '#2D9CDB';
+        }
+
+        function renderConvenios() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const sectorFilter = document.getElementById('sectorFilter').value;
+            const discountFilter = document.getElementById('discountFilter').value;
+
+            let filtered = convenios.filter(c => {
+                const matchSearch = c.empresa.toLowerCase().includes(searchTerm) || 
+                                   c.sector.toLowerCase().includes(searchTerm) ||
+                                   c.descuento.toString().includes(searchTerm);
+                const matchSector = sectorFilter === 'all' || c.sector === sectorFilter;
+                const matchDiscount = discountFilter === 'all' || c.descuento >= parseInt(discountFilter);
+                return matchSearch && matchSector && matchDiscount;
+            });
+
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            const start = (currentPage - 1) * itemsPerPage;
+            const paginated = filtered.slice(start, start + itemsPerPage);
+
+            const grid = document.getElementById('conveniosGrid');
+            if (paginated.length === 0) {
+                grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;"><i class="fas fa-handshake" style="font-size:4rem;color:var(--gray);"></i><p>No se encontraron convenios registrados</p></div>`;
+            } else {
+                grid.innerHTML = paginated.map(c => `
+                    <div class="convenio-card">
+                        <div class="card-header" style="background: linear-gradient(135deg, ${getSectorColor(c.sector)}, ${getSectorColor(c.sector)}dd);">
+                            <h3>
+                                <i class="${getSectorIcon(c.sector)}"></i>
+                                ${c.empresa}
+                            </h3>
+                            <p>${c.sector}</p>
+                            <div class="discount-badge">
+                                ${c.descuento}% OFF
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-row">
+                                <span class="info-label"><i class="fas fa-user"></i> Contacto</span>
+                                <span class="info-value">${c.contacto}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label"><i class="fas fa-phone"></i> Teléfono</span>
+                                <span class="info-value">${c.telefono}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label"><i class="fas fa-envelope"></i> Email</span>
+                                <span class="info-value">${c.email}</span>
+                            </div>
+                            ${c.beneficios && c.beneficios.length > 0 ? `
+                                <div class="benefits-list">
+                                    <h4><i class="fas fa-gift"></i> Beneficios</h4>
+                                    <ul>
+                                        ${c.beneficios.map(b => `<li><i class="fas fa-check-circle"></i> ${b}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            ` : ''}
+                            <div class="card-actions">
+                                <button class="btn-edit" onclick="editarConvenio(${c.id})">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <button class="btn-delete" onclick="eliminarConvenio(${c.id})">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            let buttons = '';
+            for (let i = 1; i <= totalPages; i++) {
+                buttons += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            document.getElementById('pagination').innerHTML = buttons;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderConvenios();
+        }
+
+        function editarConvenio(id) {
+            const convenio = convenios.find(c => c.id === id);
+            if (convenio) {
+                editingConvenioId = id;
+                document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Editar Convenio';
+                document.getElementById('modalEmpresa').value = convenio.empresa;
+                document.getElementById('modalSector').value = convenio.sector;
+                document.getElementById('modalDescuento').value = convenio.descuento;
+                document.getElementById('modalContacto').value = convenio.contacto || '';
+                document.getElementById('modalTelefono').value = convenio.telefono || '';
+                document.getElementById('modalEmail').value = convenio.email || '';
+                document.getElementById('modalBeneficios').value = convenio.beneficios ? convenio.beneficios.join(', ') : '';
+                document.getElementById('convenioModal').classList.add('active');
+            }
+        }
+
+        function eliminarConvenio(id) {
+            if (confirm('¿Está seguro de eliminar este convenio? Esta acción no se puede deshacer.')) {
+                convenios = convenios.filter(c => c.id !== id);
+                renderConvenios();
+                showNotification('Convenio eliminado correctamente', 'success');
+            }
+        }
+
+        function guardarConvenio() {
+            const empresa = document.getElementById('modalEmpresa').value.trim();
+            const sector = document.getElementById('modalSector').value.trim();
+            const descuento = parseInt(document.getElementById('modalDescuento').value);
+            const contacto = document.getElementById('modalContacto').value.trim();
+            const telefono = document.getElementById('modalTelefono').value.trim();
+            const email = document.getElementById('modalEmail').value.trim();
+            const beneficiosText = document.getElementById('modalBeneficios').value.trim();
+            const beneficios = beneficiosText ? beneficiosText.split(',').map(b => b.trim()) : [];
+
+            if (!empresa || !sector || !descuento) {
+                alert('Por favor complete los campos obligatorios: Empresa, Sector y Descuento');
+                return;
+            }
+
+            if (descuento < 0 || descuento > 100) {
+                alert('El descuento debe estar entre 0% y 100%');
+                return;
+            }
+
+            if (editingConvenioId) {
+                // Editar convenio existente
+                const index = convenios.findIndex(c => c.id === editingConvenioId);
+                if (index !== -1) {
+                    convenios[index] = {
+                        ...convenios[index],
+                        empresa,
+                        sector,
+                        descuento,
+                        contacto,
+                        telefono,
+                        email,
+                        beneficios: beneficios.filter(b => b)
+                    };
+                }
+                showNotification('Convenio actualizado correctamente', 'success');
+                editingConvenioId = null;
+            } else {
+                // Crear nuevo convenio
+                const newId = Math.max(...convenios.map(c => c.id), 0) + 1;
+                convenios.push({
+                    id: newId,
+                    empresa,
+                    sector,
+                    descuento,
+                    contacto,
+                    telefono,
+                    email,
+                    beneficios: beneficios.filter(b => b)
+                });
+                showNotification('Convenio agregado correctamente', 'success');
+            }
+
+            // Reset modal
+            document.getElementById('convenioModal').classList.remove('active');
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-handshake"></i> Nuevo Convenio';
+            document.getElementById('modalEmpresa').value = '';
+            document.getElementById('modalSector').value = '';
+            document.getElementById('modalDescuento').value = '';
+            document.getElementById('modalContacto').value = '';
+            document.getElementById('modalTelefono').value = '';
+            document.getElementById('modalEmail').value = '';
+            document.getElementById('modalBeneficios').value = '';
+            
+            renderConvenios();
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--secondary)' : 'var(--primary)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                z-index: 9999;
+                animation: slideInRight 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            `;
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        const notificationStyle = document.createElement('style');
+        notificationStyle.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(notificationStyle);
+
+        // Eventos y menús
+        const userMenu = document.getElementById('userMenu');
+        document.getElementById('userBtn').addEventListener('click', (e) => { e.stopPropagation(); userMenu.classList.toggle('active'); });
+        document.addEventListener('click', () => userMenu.classList.remove('active'));
+        
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('sams_user');
+            sessionStorage.removeItem('sams_user');
+            window.location.href = 'login.html';
+        });
+
+        // Filtros
+        document.getElementById('searchInput').addEventListener('input', () => { currentPage = 1; renderConvenios(); });
+        document.getElementById('sectorFilter').addEventListener('change', () => { currentPage = 1; renderConvenios(); });
+        document.getElementById('discountFilter').addEventListener('change', () => { currentPage = 1; renderConvenios(); });
+
+        // Modal events
+        const modal = document.getElementById('convenioModal');
+        const newConvenioBtn = document.getElementById('newConvenioBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const saveConvenioBtn = document.getElementById('saveConvenioBtn');
+
+        newConvenioBtn.addEventListener('click', () => {
+            editingConvenioId = null;
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-handshake"></i> Nuevo Convenio';
+            document.getElementById('modalEmpresa').value = '';
+            document.getElementById('modalSector').value = '';
+            document.getElementById('modalDescuento').value = '';
+            document.getElementById('modalContacto').value = '';
+            document.getElementById('modalTelefono').value = '';
+            document.getElementById('modalEmail').value = '';
+            document.getElementById('modalBeneficios').value = '';
+            modal.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            editingConvenioId = null;
+        });
+
+        saveConvenioBtn.addEventListener('click', guardarConvenio);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                editingConvenioId = null;
+            }
+        });
+
+        window.editarConvenio = editarConvenio;
+        window.eliminarConvenio = eliminarConvenio;
+        window.goToPage = goToPage;
+
+        getUserData();
+        renderConvenios();
+    </script>
+</body>
+</html>
