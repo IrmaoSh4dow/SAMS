@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ST. Fiacre Hospital | Historia Clínica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2D9CDB;
+            --secondary: #27AE60;
+            --accent: #EB5757;
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --border-radius-sm: 12px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR (idéntico al de pacientes) */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo:hover { transform: scale(1.05); }
+        .logo i { font-size: 1.8rem; }
+        .nav-links { display: flex; gap: 5px; }
+        .nav-links a {
+            padding: 10px 18px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover, .nav-links a.active { background: var(--light-blue); color: var(--primary); }
+        .user-menu { position: relative; }
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            border: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .user-info { text-align: right; }
+        .user-name { font-weight: 600; font-size: 0.9rem; }
+        .user-role { font-size: 0.7rem; color: var(--gray); }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: white;
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--shadow-hover);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+        }
+        .user-menu.active .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .dropdown-menu a:hover { background: var(--light-blue); color: var(--primary); }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary); cursor: pointer; }
+
+        /* CONTENIDO PRINCIPAL */
+        .main-content { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+        
+        /* Header del paciente */
+        .patient-header {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .patient-avatar-large {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .patient-avatar-large i { font-size: 4rem; color: white; }
+        .patient-basic-info { flex: 1; }
+        .patient-basic-info h1 { font-size: 1.8rem; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .patient-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .detail-item { display: flex; align-items: center; gap: 10px; color: var(--gray); font-size: 0.9rem; }
+        .detail-item i { color: var(--primary); width: 20px; }
+        
+        /* Sección de tratamientos */
+        .section-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+        .section-header h2 { font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
+        .section-header h2 i { color: var(--primary); }
+        
+        /* Tabla de tratamientos */
+        .treatments-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .treatments-table th,
+        .treatments-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .treatments-table th {
+            background: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .treatments-table tr:hover { background: var(--light-blue); }
+        .treatment-price {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        .treatment-price::before { content: '$'; }
+        
+        .total-container {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--light);
+            text-align: right;
+        }
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        .total-amount::before { content: '$'; }
+        
+        .btn-add {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+        .btn-back {
+            background: var(--light);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-back:hover { background: var(--gray); color: white; }
+        
+        /* Modal para agregar tratamiento */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            width: 90%;
+            padding: 30px;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-content input,
+        .modal-content textarea,
+        .modal-content select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius-sm);
+            font-family: inherit;
+        }
+        .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; }
+        
+        .footer {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; }
+            .treatments-table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="logo"><i class="fas fa-heartbeat"></i> ST. Fiacre</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="pacientes.html" class="active"><i class="fas fa-users"></i> Pacientes</a>
+                <a href="turnos.html"><i class="fas fa-calendar-alt"></i> Turnos</a>
+                <a href="personal.html"><i class="fas fa-user-md"></i> Personal</a>
+                <a href="comunicados.html"><i class="fas fa-bullhorn"></i> Comunicados</a>
+                <a href="reportes.html"><i class="fas fa-chart-line"></i> Reportes</a>
+            </div>
+            <div class="user-menu" id="userMenu">
+                <button class="user-btn" id="userBtn">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user-md"></i></div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Dr. Martínez</div>
+                        <div class="user-role" id="userRole">Médico de Emergencias</div>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a>
+                    <a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="login.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Información del paciente (se carga dinámicamente) -->
+        <div class="patient-header" id="patientHeader">
+            <div class="patient-avatar-large" id="patientAvatar"><i class="fas fa-user"></i></div>
+            <div class="patient-basic-info">
+                <h1><span id="patientName">Cargando...</span> <span class="status-badge" id="patientStatus"></span></h1>
+                <div class="patient-details-grid" id="patientDetails"></div>
+            </div>
+        </div>
+
+        <!-- Sección de tratamientos -->
+        <div class="section-card">
+            <div class="section-header">
+                <h2><i class="fas fa-notes-medical"></i> Historial de Tratamientos</h2>
+                <button class="btn-add" id="addTreatmentBtn"><i class="fas fa-plus"></i> Agregar Tratamiento</button>
+            </div>
+            
+            <table class="treatments-table" id="treatmentsTable">
+                <thead>
+                    <tr><th>Fecha</th><th>Tratamiento</th><th>Descripción</th><th>Médico</th><th>Precio</th><th></th></tr>
+                </thead>
+                <tbody id="treatmentsBody">
+                    <tr><td colspan="6" style="text-align:center;">Cargando tratamientos...</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="total-container">
+                <strong>Total tratamientos:</strong> <span id="totalAmount" class="total-amount">0</span>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <a href="pacientes.html" class="btn-back"><i class="fas fa-arrow-left"></i> Volver a Pacientes</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p><i class="fas fa-heartbeat" style="color: var(--primary);"></i> ST. Fiacre Hospital - Sistema de Gestión Médica v2.0</p>
+    </footer>
+
+    <!-- Modal para agregar tratamiento -->
+    <div class="modal" id="treatmentModal">
+        <div class="modal-content">
+            <h3><i class="fas fa-plus-circle"></i> Nuevo Tratamiento</h3>
+            <input type="date" id="treatmentDate" value="<?php echo date('Y-m-d'); ?>">
+            <input type="text" id="treatmentName" placeholder="Nombre del tratamiento" required>
+            <textarea id="treatmentDesc" rows="3" placeholder="Descripción detallada del tratamiento..."></textarea>
+            <input type="text" id="treatmentDoctor" placeholder="Médico a cargo">
+            <input type="number" id="treatmentPrice" placeholder="Precio del tratamiento" step="0.01">
+            <div class="modal-buttons">
+                <button class="btn-back" id="closeModalBtn">Cancelar</button>
+                <button class="btn-add" id="saveTreatmentBtn">Guardar Tratamiento</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base de datos de pacientes
+        const pacientesDB = {
+            1: { id: 1, name: 'Michael De Santa', age: 45, gender: 'male', status: 'stable', diagnosis: 'Hipertensión controlada', admissionDate: '2024-03-15', room: '302' },
+            2: { id: 2, name: 'Franklin Clinton', age: 28, gender: 'male', status: 'observation', diagnosis: 'Fractura de tobillo', admissionDate: '2024-03-18', room: '204' },
+            3: { id: 3, name: 'Trevor Philips', age: 49, gender: 'male', status: 'critical', diagnosis: 'Trauma múltiple', admissionDate: '2024-03-20', room: 'ICU-2' },
+            4: { id: 4, name: 'Amanda De Santa', age: 42, gender: 'female', status: 'stable', diagnosis: 'Estrés postraumático', admissionDate: '2024-03-14', room: '105' },
+            5: { id: 5, name: 'Sofia Martinez', age: 7, gender: 'child', status: 'observation', diagnosis: 'Infección respiratoria', admissionDate: '2024-03-19', room: 'Ped-3' }
+        };
+
+        // Base de datos de tratamientos por paciente
+        let tratamientosDB = {
+            1: [
+                { id: 1, date: '2024-03-15', name: 'Consulta inicial', description: 'Evaluación completa, toma de presión arterial, análisis de sangre', doctor: 'Dr. Martínez', price: 150.00 },
+                { id: 2, date: '2024-03-18', name: 'Medicación', description: 'Prescripción de Enalapril 10mg, control de presión', doctor: 'Dr. Martínez', price: 45.50 }
+            ],
+            2: [
+                { id: 1, date: '2024-03-18', name: 'Radiografía', description: 'Radiografía de tobillo izquierdo, confirmación de fractura leve', doctor: 'Dra. López', price: 120.00 },
+                { id: 2, date: '2024-03-19', name: 'Inmovilización', description: 'Colocación de yeso y reposo indicado por 3 semanas', doctor: 'Dra. López', price: 85.00 }
+            ],
+            3: [
+                { id: 1, date: '2024-03-20', name: 'Emergencia', description: 'Atención de urgencia por trauma múltiple, estabilización', doctor: 'Dr. Martínez', price: 500.00 },
+                { id: 2, date: '2024-03-21', name: 'Cirugía', description: 'Cirugía de emergencia para reparación de fracturas', doctor: 'Dr. Rodríguez', price: 2500.00 },
+                { id: 3, date: '2024-03-22', name: 'UCI', description: 'Cuidados intensivos, monitoreo constante', doctor: 'Dr. Martínez', price: 800.00 }
+            ],
+            4: [
+                { id: 1, date: '2024-03-14', name: 'Consulta psicológica', description: 'Evaluación inicial, terapia de contención', doctor: 'Dra. García', price: 120.00 }
+            ],
+            5: [
+                { id: 1, date: '2024-03-19', name: 'Consulta pediátrica', description: 'Evaluación de síntomas respiratorios, auscultación', doctor: 'Dra. López', price: 100.00 },
+                { id: 2, date: '2024-03-20', name: 'Nebulizaciones', description: 'Tratamiento con nebulizaciones cada 6 horas', doctor: 'Dra. López', price: 60.00 }
+            ]
+        };
+
+        let currentPatientId = null;
+        let nextTreatmentId = {};
+
+        function initNextIds() {
+            for (let pid in tratamientosDB) {
+                const maxId = Math.max(...tratamientosDB[pid].map(t => t.id), 0);
+                nextTreatmentId[pid] = maxId + 1;
+            }
+        }
+
+        function getUserData() {
+            const savedUser = localStorage.getItem('sams_user') || sessionStorage.getItem('sams_user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    document.getElementById('userName').textContent = user.name;
+                    document.getElementById('userRole').textContent = user.role;
+                } catch(e) {}
+            }
+        }
+
+        function getStatusClass(status) {
+            if (status === 'critical') return 'status-critical';
+            if (status === 'stable') return 'status-stable';
+            if (status === 'observation') return 'status-observation';
+            return 'status-stable';
+        }
+
+        function getStatusText(status) {
+            if (status === 'critical') return 'Crítico';
+            if (status === 'stable') return 'Estable';
+            if (status === 'observation') return 'Observación';
+            return 'Estable';
+        }
+
+        function getGenderIcon(gender) {
+            if (gender === 'male') return 'fas fa-user';
+            if (gender === 'female') return 'fas fa-user-circle';
+            return 'fas fa-baby';
+        }
+
+        function loadPatientInfo() {
+            const patient = pacientesDB[currentPatientId];
+            if (!patient) return;
+
+            document.getElementById('patientName').textContent = patient.name;
+            const statusSpan = document.getElementById('patientStatus');
+            statusSpan.textContent = getStatusText(patient.status);
+            statusSpan.className = `status-badge ${getStatusClass(patient.status)}`;
+            statusSpan.style.position = 'relative';
+            statusSpan.style.top = '0';
+            statusSpan.style.right = '0';
+            
+            const avatar = document.getElementById('patientAvatar');
+            avatar.innerHTML = `<i class="${getGenderIcon(patient.gender)}"></i>`;
+            
+            document.getElementById('patientDetails').innerHTML = `
+                <div class="detail-item"><i class="fas fa-calendar-alt"></i> ${patient.age} años</div>
+                <div class="detail-item"><i class="fas fa-bed"></i> Habitación ${patient.room}</div>
+                <div class="detail-item"><i class="fas fa-calendar-plus"></i> Ingreso: ${patient.admissionDate}</div>
+                <div class="detail-item"><i class="fas fa-stethoscope"></i> Diagnóstico: ${patient.diagnosis}</div>
+            `;
+        }
+
+        function loadTreatments() {
+            const treatments = tratamientosDB[currentPatientId] || [];
+            const tbody = document.getElementById('treatmentsBody');
+            
+            if (treatments.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No hay tratamientos registrados</td></tr>';
+                document.getElementById('totalAmount').textContent = '0';
+                return;
+            }
+            
+            let total = 0;
+            tbody.innerHTML = treatments.map(t => {
+                total += t.price;
+                return `
+                    <tr>
+                        <td>${t.date}</td>
+                        <td><strong>${t.name}</strong></td>
+                        <td>${t.description}</td>
+                        <td>${t.doctor}</td>
+                        <td class="treatment-price">${t.price.toFixed(2)}</td>
+                        <td><button onclick="deleteTreatment(${t.id})" style="background:none;border:none;color:var(--accent);cursor:pointer;"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                `;
+            }).join('');
+            
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+        }
+
+        function addTreatment(treatment) {
+            if (!tratamientosDB[currentPatientId]) {
+                tratamientosDB[currentPatientId] = [];
+            }
+            const newId = nextTreatmentId[currentPatientId] || (tratamientosDB[currentPatientId].length + 1);
+            treatment.id = newId;
+            tratamientosDB[currentPatientId].push(treatment);
+            nextTreatmentId[currentPatientId] = newId + 1;
+            loadTreatments();
+        }
+
+        function deleteTreatment(id) {
+            if (confirm('¿Eliminar este tratamiento del historial?')) {
+                tratamientosDB[currentPatientId] = tratamientosDB[currentPatientId].filter(t => t.id !== id);
+                loadTreatments();
+            }
+        }
+
+        // Modal functions
+        const modal = document.getElementById('treatmentModal');
+        const addBtn = document.getElementById('addTreatmentBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const saveBtn = document.getElementById('saveTreatmentBtn');
+
+        addBtn.addEventListener('click', () => {
+            document.getElementById('treatmentName').value = '';
+            document.getElementById('treatmentDesc').value = '';
+            document.getElementById('treatmentDoctor').value = '';
+            document.getElementById('treatmentPrice').value = '';
+            document.getElementById('treatmentDate').value = new Date().toISOString().slice(0,10);
+            modal.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+        saveBtn.addEventListener('click', () => {
+            const name = document.getElementById('treatmentName').value.trim();
+            const description = document.getElementById('treatmentDesc').value.trim();
+            const doctor = document.getElementById('treatmentDoctor').value.trim() || 'Dr. Martínez';
+            const price = parseFloat(document.getElementById('treatmentPrice').value);
+            const date = document.getElementById('treatmentDate').value;
+            
+            if (!name) {
+                alert('Por favor ingrese el nombre del tratamiento');
+                return;
+            }
+            if (isNaN(price) || price <= 0) {
+                alert('Por favor ingrese un precio válido');
+                return;
+            }
+            
+            addTreatment({
+                date: date,
+                name: name,
+                description: description || 'Sin descripción adicional',
+                doctor: doctor,
+                price: price
+            });
+            
+            modal.classList.remove('active');
+        });
+
+        // Obtener ID de la URL
+        function getPatientIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('id'));
+        }
+
+        // Menús y eventos
+        const userMenu = document.getElementById('userMenu');
+        document.getElementById('userBtn').addEventListener('click', (e) => { e.stopPropagation(); userMenu.classList.toggle('active'); });
+        document.addEventListener('click', () => userMenu.classList.remove('active'));
+        
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('sams_user');
+            sessionStorage.removeItem('sams_user');
+            window.location.href = 'login.html';
+        });
+
+        // Inicializar
+        window.deleteTreatment = deleteTreatment;
+        initNextIds();
+        getUserData();
+        
+        currentPatientId = getPatientIdFromUrl();
+        if (!currentPatientId || !pacientesDB[currentPatientId]) {
+            window.location.href = 'pacientes.html';
+            return;
+        }
+        
+        loadPatientInfo();
+        loadTreatments();
+    </script>
+</body>
+</html>
