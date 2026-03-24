@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ST. Fiacre Hospital | Reportes y Estadísticas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de reportes y estadísticas del ST. Fiacre Hospital">
+
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <style>
+        /* Variables CSS - Misma paleta que el index */
+        :root {
+            --primary: #2D9CDB;
+            --secondary: #27AE60;
+            --accent: #EB5757;
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --border-radius-sm: 12px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* ==================== NAVBAR MODERNA ==================== */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            padding: 10px 18px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a i {
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: inherit;
+        }
+
+        .user-btn:hover {
+            background: var(--light-blue);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .user-role {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: white;
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--shadow-hover);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .user-menu.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .dropdown-menu a i {
+            width: 20px;
+            color: var(--primary);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #eee;
+            margin: 5px 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* ==================== CONTENIDO PRINCIPAL ==================== */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .page-header h1 i {
+            color: var(--primary);
+        }
+
+        .page-header p {
+            color: var(--gray);
+        }
+
+        /* Selector de período */
+        .period-selector {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .period-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .period-btn {
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+        .period-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .period-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            color: white;
+        }
+
+        .export-btn {
+            background: var(--light);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+        .export-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Grid de tarjetas de resumen */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .summary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .summary-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light-blue);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .summary-icon i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .summary-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .summary-label {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .summary-trend {
+            margin-top: 10px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .trend-up {
+            color: var(--secondary);
+        }
+
+        .trend-down {
+            color: var(--accent);
+        }
+
+        /* Grid de dos columnas para gráficos */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .chart-card h3 i {
+            color: var(--primary);
+        }
+
+        .chart-container {
+            height: 280px;
+            position: relative;
+        }
+
+        canvas {
+            max-height: 100%;
+            width: 100%;
+        }
+
+        /* Tabla de datos detallados */
+        .data-table-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .data-table-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .data-table th {
+            background: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .data-table tr:hover {
+            background: var(--light-blue);
+        }
+
+        /* Top médicos */
+        .top-doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .doctor-rank-card {
+            background: var(--light);
+            border-radius: var(--border-radius-sm);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .doctor-rank-card:hover {
+            background: var(--light-blue);
+            transform: translateX(5px);
+        }
+
+        .rank-number {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .doctor-info {
+            flex: 1;
+        }
+
+        .doctor-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .doctor-stats {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .doctor-count {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .footer {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        @media (max-width: 1024px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .period-selector {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .period-buttons {
+                justify-content: center;
+            }
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            .data-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="logo"><i class="fas fa-heartbeat"></i> ST. Fiacre</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="pacientes.html"><i class="fas fa-users"></i> Pacientes</a>
+                <a href="turnos.html"><i class="fas fa-calendar-alt"></i> Turnos</a>
+                <a href="personal.html"><i class="fas fa-user-md"></i> Personal</a>
+                <a href="comunicados.html"><i class="fas fa-bullhorn"></i> Comunicados</a>
+                <a href="reportes.html" class="active"><i class="fas fa-chart-line"></i> Reportes</a>
+            </div>
+            <div class="user-menu" id="userMenu">
+                <button class="user-btn" id="userBtn">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user-md"></i></div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Dr. Martínez</div>
+                        <div class="user-role" id="userRole">Médico de Emergencias</div>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a>
+                    <a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="login.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-chart-line"></i> Reportes y Estadísticas</h1>
+            <p>Análisis de datos del hospital - Indicadores clave de gestión</p>
+        </div>
+
+        <!-- Selector de período -->
+        <div class="period-selector">
+            <div class="period-buttons">
+                <button class="period-btn active" data-period="week">Esta semana</button>
+                <button class="period-btn" data-period="month">Este mes</button>
+                <button class="period-btn" data-period="quarter">Este trimestre</button>
+                <button class="period-btn" data-period="year">Este año</button>
+            </div>
+            <button class="export-btn" id="exportBtn">
+                <i class="fas fa-download"></i> Exportar Reporte (PDF)
+            </button>
+        </div>
+
+        <!-- Tarjetas de resumen -->
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="summary-icon"><i class="fas fa-hospital-user"></i></div>
+                <div class="summary-value" id="totalPacientes">0</div>
+                <div class="summary-label">Total Pacientes Atendidos</div>
+                <div class="summary-trend trend-up"><i class="fas fa-arrow-up"></i> +12% vs período anterior</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon"><i class="fas fa-clock"></i></div>
+                <div class="summary-value" id="totalHoras">0</div>
+                <div class="summary-label">Horas de Servicio</div>
+                <div class="summary-trend trend-up"><i class="fas fa-arrow-up"></i> +5% vs período anterior</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon"><i class="fas fa-user-md"></i></div>
+                <div class="summary-value" id="personalActivo">0</div>
+                <div class="summary-label">Personal Activo</div>
+                <div class="summary-trend"><i class="fas fa-chart-line"></i> +3 nuevos este mes</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon"><i class="fas fa-dollar-sign"></i></div>
+                <div class="summary-value" id="totalFacturado">$0</div>
+                <div class="summary-label">Facturación Total</div>
+                <div class="summary-trend trend-up"><i class="fas fa-arrow-up"></i> +8% vs período anterior</div>
+            </div>
+        </div>
+
+        <!-- Gráficos principales -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3><i class="fas fa-chart-bar"></i> Atenciones por Especialidad</h3>
+                <div class="chart-container">
+                    <canvas id="specialtyChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3><i class="fas fa-chart-line"></i> Evolución de Atenciones</h3>
+                <div class="chart-container">
+                    <canvas id="evolutionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de datos detallados -->
+        <div class="data-table-card">
+            <h3><i class="fas fa-table-list"></i> Detalle de Atenciones por Especialidad</h3>
+            <table class="data-table" id="detailsTable">
+                <thead>
+                    <tr>
+                        <th>Especialidad</th>
+                        <th>Atenciones</th>
+                        <th>Facturación</th>
+                        <th>% del total</th>
+                    </tr>
+                </thead>
+                <tbody id="detailsTableBody">
+                    <!-- Datos cargados dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Top médicos -->
+        <div class="data-table-card">
+            <h3><i class="fas fa-trophy"></i> Top Médicos con Más Atenciones</h3>
+            <div class="top-doctors-grid" id="topDoctorsGrid">
+                <!-- Top médicos cargados dinámicamente -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p><i class="fas fa-heartbeat" style="color: var(--primary);"></i> ST. Fiacre Hospital - Sistema de Gestión Médica v2.0</p>
+    </footer>
+
+    <script>
+        // Datos de ejemplo para reportes
+        let reportData = {
+            week: {
+                pacientes: 156,
+                horas: 1248,
+                personal: 42,
+                facturacion: 45680,
+                especialidades: [
+                    { name: 'Emergencias', count: 58, amount: 17400 },
+                    { name: 'Traumatología', count: 32, amount: 9600 },
+                    { name: 'Cardiología', count: 24, amount: 7200 },
+                    { name: 'Pediatría', count: 28, amount: 8400 },
+                    { name: 'Psicología', count: 14, amount: 3080 }
+                ],
+                evolucion: [42, 38, 45, 52, 48, 56, 47],
+                doctores: [
+                    { name: 'Dr. Martínez', specialty: 'Emergencias', count: 45 },
+                    { name: 'Dra. López', specialty: 'Traumatología', count: 38 },
+                    { name: 'Dr. Rodríguez', specialty: 'Cirugía', count: 32 },
+                    { name: 'Dra. García', specialty: 'Psicología', count: 28 },
+                    { name: 'Dr. Fernández', specialty: 'Cardiología', count: 25 }
+                ]
+            },
+            month: {
+                pacientes: 624,
+                horas: 4992,
+                personal: 44,
+                facturacion: 182720,
+                especialidades: [
+                    { name: 'Emergencias', count: 232, amount: 69600 },
+                    { name: 'Traumatología', count: 128, amount: 38400 },
+                    { name: 'Cardiología', count: 96, amount: 28800 },
+                    { name: 'Pediatría', count: 112, amount: 33600 },
+                    { name: 'Psicología', count: 56, amount: 12320 }
+                ],
+                evolucion: [145, 152, 148, 162, 158, 170, 165, 172, 168, 180, 175, 185, 178, 190],
+                doctores: [
+                    { name: 'Dr. Martínez', specialty: 'Emergencias', count: 180 },
+                    { name: 'Dra. López', specialty: 'Traumatología', count: 152 },
+                    { name: 'Dr. Rodríguez', specialty: 'Cirugía', count: 128 },
+                    { name: 'Dra. García', specialty: 'Psicología', count: 112 },
+                    { name: 'Dr. Fernández', specialty: 'Cardiología', count: 100 }
+                ]
+            },
+            quarter: {
+                pacientes: 1872,
+                horas: 14976,
+                personal: 46,
+                facturacion: 548160,
+                especialidades: [
+                    { name: 'Emergencias', count: 696, amount: 208800 },
+                    { name: 'Traumatología', count: 384, amount: 115200 },
+                    { name: 'Cardiología', count: 288, amount: 86400 },
+                    { name: 'Pediatría', count: 336, amount: 100800 },
+                    { name: 'Psicología', count: 168, amount: 36960 }
+                ],
+                evolucion: [580, 620, 590, 610, 640, 620, 650, 680, 660, 690, 710, 700, 720, 740],
+                doctores: [
+                    { name: 'Dr. Martínez', specialty: 'Emergencias', count: 540 },
+                    { name: 'Dra. López', specialty: 'Traumatología', count: 456 },
+                    { name: 'Dr. Rodríguez', specialty: 'Cirugía', count: 384 },
+                    { name: 'Dra. García', specialty: 'Psicología', count: 336 },
+                    { name: 'Dr. Fernández', specialty: 'Cardiología', count: 300 }
+                ]
+            },
+            year: {
+                pacientes: 7488,
+                horas: 59904,
+                personal: 48,
+                facturacion: 2192640,
+                especialidades: [
+                    { name: 'Emergencias', count: 2784, amount: 835200 },
+                    { name: 'Traumatología', count: 1536, amount: 460800 },
+                    { name: 'Cardiología', count: 1152, amount: 345600 },
+                    { name: 'Pediatría', count: 1344, amount: 403200 },
+                    { name: 'Psicología', count: 672, amount: 147840 }
+                ],
+                evolucion: [580, 620, 590, 610, 640, 620, 650, 680, 660, 690, 710, 700],
+                doctores: [
+                    { name: 'Dr. Martínez', specialty: 'Emergencias', count: 2160 },
+                    { name: 'Dra. López', specialty: 'Traumatología', count: 1824 },
+                    { name: 'Dr. Rodríguez', specialty: 'Cirugía', count: 1536 },
+                    { name: 'Dra. García', specialty: 'Psicología', count: 1344 },
+                    { name: 'Dr. Fernández', specialty: 'Cardiología', count: 1200 }
+                ]
+            }
+        };
+
+        let currentPeriod = 'week';
+        let specialtyChart, evolutionChart;
+
+        function getUserData() {
+            const savedUser = localStorage.getItem('sams_user') || sessionStorage.getItem('sams_user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    document.getElementById('userName').textContent = user.name;
+                    document.getElementById('userRole').textContent = user.role;
+                    const avatar = document.getElementById('userAvatar');
+                    avatar.innerHTML = user.name.charAt(0) + (user.name.charAt(user.name.indexOf(' ') + 1) || '');
+                } catch(e) {}
+            }
+        }
+
+        function formatCurrency(amount) {
+            return '$' + amount.toLocaleString('es-ES');
+        }
+
+        function updateSummary(data) {
+            document.getElementById('totalPacientes').textContent = data.pacientes.toLocaleString();
+            document.getElementById('totalHoras').textContent = data.horas.toLocaleString();
+            document.getElementById('personalActivo').textContent = data.personal;
+            document.getElementById('totalFacturado').textContent = formatCurrency(data.facturacion);
+        }
+
+        function updateSpecialtyChart(data) {
+            const ctx = document.getElementById('specialtyChart').getContext('2d');
+            const specialties = data.especialidades.map(e => e.name);
+            const counts = data.especialidades.map(e => e.count);
+            
+            if (specialtyChart) {
+                specialtyChart.destroy();
+            }
+            
+            specialtyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: specialties,
+                    datasets: [{
+                        label: 'Número de atenciones',
+                        data: counts,
+                        backgroundColor: 'rgba(45, 156, 219, 0.7)',
+                        borderColor: '#2D9CDB',
+                        borderWidth: 1,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#e0e0e0'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateEvolutionChart(data) {
+            const ctx = document.getElementById('evolutionChart').getContext('2d');
+            const labels = data.evolucion.map((_, i) => {
+                if (currentPeriod === 'week') return ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'][i];
+                if (currentPeriod === 'month') return `Sem ${i+1}`;
+                if (currentPeriod === 'quarter') return `Sem ${i+1}`;
+                return `Mes ${i+1}`;
+            });
+            
+            if (evolutionChart) {
+                evolutionChart.destroy();
+            }
+            
+            evolutionChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Atenciones',
+                        data: data.evolucion,
+                        borderColor: '#27AE60',
+                        backgroundColor: 'rgba(39, 174, 96, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#27AE60',
+                        pointBorderColor: 'white',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#e0e0e0'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateDetailsTable(data) {
+            const tbody = document.getElementById('detailsTableBody');
+            const total = data.especialidades.reduce((sum, e) => sum + e.count, 0);
+            
+            tbody.innerHTML = data.especialidades.map(e => `
+                <tr>
+                    <td><strong>${e.name}</strong></td>
+                    <td>${e.count}</td>
+                    <td>${formatCurrency(e.amount)}</td>
+                    <td>${Math.round((e.count / total) * 100)}%</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateTopDoctors(data) {
+            const container = document.getElementById('topDoctorsGrid');
+            container.innerHTML = data.doctores.map((doctor, index) => `
+                <div class="doctor-rank-card">
+                    <div class="rank-number">${index + 1}</div>
+                    <div class="doctor-info">
+                        <div class="doctor-name">${doctor.name}</div>
+                        <div class="doctor-stats">${doctor.specialty}</div>
+                    </div>
+                    <div class="doctor-count">${doctor.count} atenciones</div>
+                </div>
+            `).join('');
+        }
+
+        function updateAllReports(period) {
+            const data = reportData[period];
+            if (!data) return;
+            
+            updateSummary(data);
+            updateSpecialtyChart(data);
+            updateEvolutionChart(data);
+            updateDetailsTable(data);
+            updateTopDoctors(data);
+        }
+
+        function exportReport() {
+            const data = reportData[currentPeriod];
+            const periodNames = {
+                week: 'semanal',
+                month: 'mensual',
+                quarter: 'trimestral',
+                year: 'anual'
+            };
+            
+            const reportContent = `
+                =========================================
+                ST. FIACRE HOSPITAL - REPORTE ${periodNames[currentPeriod].toUpperCase()}
+                =========================================
+                Fecha: ${new Date().toLocaleDateString('es-ES')}
+                Período: ${periodNames[currentPeriod]}
+                
+                RESUMEN GENERAL
+                -----------------------------------------
+                Total Pacientes Atendidos: ${data.pacientes}
+                Horas de Servicio: ${data.horas}
+                Personal Activo: ${data.personal}
+                Facturación Total: ${formatCurrency(data.facturacion)}
+                
+                ATENCIONES POR ESPECIALIDAD
+                -----------------------------------------
+                ${data.especialidades.map(e => `${e.name}: ${e.count} atenciones - ${formatCurrency(e.amount)}`).join('\n')}
+                
+                TOP MÉDICOS CON MÁS ATENCIONES
+                -----------------------------------------
+                ${data.doctores.map((d, i) => `${i+1}. ${d.name} (${d.specialty}): ${d.count} atenciones`).join('\n')}
+                
+                =========================================
+                Reporte generado por ST. Fiacre Hospital
+                Sistema de Gestión Médica v2.0
+            `;
+            
+            // Crear y descargar archivo
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reporte_${periodNames[currentPeriod]}_${new Date().toISOString().slice(0, 10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Reporte exportado correctamente', 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--secondary)' : 'var(--primary)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                z-index: 9999;
+                animation: slideInRight 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            `;
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        const notificationStyle = document.createElement('style');
+        notificationStyle.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(notificationStyle);
+
+        // Eventos
+        const userMenu = document.getElementById('userMenu');
+        document.getElementById('userBtn').addEventListener('click', (e) => { e.stopPropagation(); userMenu.classList.toggle('active'); });
+        document.addEventListener('click', () => userMenu.classList.remove('active'));
+        
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('sams_user');
+            sessionStorage.removeItem('sams_user');
+            window.location.href = 'login.html';
+        });
+
+        // Selector de período
+        document.querySelectorAll('.period-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentPeriod = btn.dataset.period;
+                updateAllReports(currentPeriod);
+            });
+        });
+
+        document.getElementById('exportBtn').addEventListener('click', exportReport);
+
+        getUserData();
+        updateAllReports('week');
+    </script>
+</body>
+</html>
