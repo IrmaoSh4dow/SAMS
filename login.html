@@ -1,67 +1,3 @@
-<?php
-// login.php - Sistema de autenticación para ST. Fiacre Hospital
-session_start();
-
-// Configuración de credenciales (en producción esto iría en base de datos)
-$valid_credentials = [
-    'dr.martinez' => ['password' => 'medico2024', 'name' => 'Dr. Martínez', 'role' => 'Médico de Emergencias', 'badge' => 'SAMS-001'],
-    'dra.lopez' => ['password' => 'lopez2024', 'name' => 'Dra. López', 'role' => 'Jefa de Traumatología', 'badge' => 'SAMS-002'],
-    'enfermera.garcia' => ['password' => 'garcia2024', 'name' => 'Enf. García', 'role' => 'Enfermera Jefe', 'badge' => 'SAMS-003'],
-    'paramedico.rodriguez' => ['password' => 'rodriguez2024', 'name' => 'Paramédico Rodríguez', 'role' => 'Paramédico Senior', 'badge' => 'SAMS-004'],
-    'admin.sams' => ['password' => 'admin2024', 'name' => 'Administrador', 'role' => 'Administrador del Sistema', 'badge' => 'SAMS-ADMIN']
-];
-
-$error = '';
-$success = '';
-
-// Procesar login
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-    $remember = isset($_POST['remember']);
-    
-    if (empty($username) || empty($password)) {
-        $error = 'Por favor, complete todos los campos.';
-    } elseif (isset($valid_credentials[$username]) && $valid_credentials[$username]['password'] === $password) {
-        // Login exitoso
-        $_SESSION['sams_user'] = [
-            'username' => $username,
-            'name' => $valid_credentials[$username]['name'],
-            'role' => $valid_credentials[$username]['role'],
-            'badge' => $valid_credentials[$username]['badge'],
-            'login_time' => time()
-        ];
-        
-        // Guardar cookie si "recordar" está activado
-        if ($remember) {
-            setcookie('sams_remember', $username, time() + (86400 * 7), '/'); // 7 días
-        }
-        
-        $success = 'Acceso autorizado. Redirigiendo al sistema...';
-        header('refresh:2;url=dashboard.php');
-    } else {
-        $error = 'Credenciales incorrectas. Por favor, verifique sus datos.';
-        // Registrar intento fallido (log)
-        error_log("Intento de acceso fallido para usuario: $username - " . date('Y-m-d H:i:s'));
-    }
-}
-
-// Verificar si hay cookie de recordar
-if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
-    $remembered_user = $_COOKIE['sams_remember'];
-    if (isset($valid_credentials[$remembered_user])) {
-        $_SESSION['sams_user'] = [
-            'username' => $remembered_user,
-            'name' => $valid_credentials[$remembered_user]['name'],
-            'role' => $valid_credentials[$remembered_user]['role'],
-            'badge' => $valid_credentials[$remembered_user]['badge'],
-            'login_time' => time()
-        ];
-        header('Location: dashboard.php');
-        exit;
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -638,21 +574,9 @@ if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
                     <p>Ingrese sus credenciales médicas para acceder al sistema interno</p>
                 </div>
 
-                <?php if ($error): ?>
-                <div class="alert-message alert-error">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <span><?php echo htmlspecialchars($error); ?></span>
-                </div>
-                <?php endif; ?>
+                <div id="alertContainer"></div>
 
-                <?php if ($success): ?>
-                <div class="alert-message alert-success">
-                    <i class="fas fa-check-circle"></i>
-                    <span><?php echo htmlspecialchars($success); ?></span>
-                </div>
-                <?php endif; ?>
-
-                <form id="loginForm" method="POST" action="">
+                <form id="loginForm" onsubmit="return false;">
                     <div class="input-group">
                         <label for="username">
                             <i class="fas fa-id-card"></i> Credencial / ID Médico
@@ -661,8 +585,7 @@ if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
                             <i class="fas fa-user-md input-icon"></i>
                             <input type="text" id="username" name="username" 
                                    placeholder="Ej: dr.martinez | enfermera.garcia" 
-                                   required autocomplete="username"
-                                   value="<?php echo isset($_COOKIE['sams_remember']) ? htmlspecialchars($_COOKIE['sams_remember']) : ''; ?>">
+                                   required autocomplete="username">
                         </div>
                     </div>
 
@@ -682,8 +605,7 @@ if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
 
                     <div class="form-options">
                         <label class="remember-me">
-                            <input type="checkbox" name="remember" id="remember" 
-                                   <?php echo isset($_COOKIE['sams_remember']) ? 'checked' : ''; ?>>
+                            <input type="checkbox" name="remember" id="remember">
                             <span>Mantener sesión activa</span>
                         </label>
                         <a href="#" class="forgot-link" id="forgotPasswordLink">
@@ -714,12 +636,46 @@ if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
     </div>
 
     <script>
+        // Credenciales válidas del SAMS
+        const validCredentials = {
+            'dr.martinez': { password: 'medico2024', name: 'Dr. Martínez', role: 'Médico de Emergencias', badge: 'SAMS-001' },
+            'dra.lopez': { password: 'lopez2024', name: 'Dra. López', role: 'Jefa de Traumatología', badge: 'SAMS-002' },
+            'enfermera.garcia': { password: 'garcia2024', name: 'Enf. García', role: 'Enfermera Jefe', badge: 'SAMS-003' },
+            'paramedico.rodriguez': { password: 'rodriguez2024', name: 'Paramédico Rodríguez', role: 'Paramédico Senior', badge: 'SAMS-004' },
+            'admin.sams': { password: 'admin2024', name: 'Administrador', role: 'Administrador del Sistema', badge: 'SAMS-ADMIN' }
+        };
+
         // Elementos del DOM
         const togglePassword = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('password');
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
         const forgotLink = document.getElementById('forgotPasswordLink');
+        const usernameInput = document.getElementById('username');
+        const alertContainer = document.getElementById('alertContainer');
+
+        // Función para mostrar alertas
+        function showAlert(message, type = 'error') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert-message alert-${type}`;
+            alertDiv.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alertDiv);
+            
+            // Auto-ocultar después de 4 segundos
+            setTimeout(() => {
+                if (alertDiv) {
+                    alertDiv.style.opacity = '0';
+                    setTimeout(() => {
+                        if (alertDiv.parentNode) alertDiv.remove();
+                    }, 300);
+                }
+            }, 4000);
+        }
 
         // Toggle para mostrar/ocultar contraseña
         togglePassword.addEventListener('click', function() {
@@ -728,21 +684,24 @@ if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
             this.querySelector('i').classList.toggle('fa-eye');
             this.querySelector('i').classList.toggle('fa-eye-slash');
             
-            // Efecto visual
             this.style.transform = 'scale(1.1)';
             setTimeout(() => {
                 this.style.transform = 'scale(1)';
             }, 200);
         });
 
-        // Validación y envío del formulario con efecto de carga
+        // Procesar login
         loginForm.addEventListener('submit', function(e) {
-            const username = document.getElementById('username').value.trim();
+            e.preventDefault();
+            
+            const username = usernameInput.value.trim().toLowerCase();
             const password = passwordInput.value.trim();
+            const remember = document.getElementById('remember').checked;
             
             if (!username || !password) {
-                e.preventDefault();
-                showTemporaryError('Por favor, complete todos los campos');
+                showAlert('Por favor, complete todos los campos.', 'error');
+                document.querySelector('.login-form-container').classList.add('error-shake');
+                setTimeout(() => document.querySelector('.login-form-container').classList.remove('error-shake'), 500);
                 return;
             }
             
@@ -751,55 +710,65 @@ if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
             const originalText = loginBtn.innerHTML;
             loginBtn.innerHTML = '<span class="loading-spinner"></span><span>VERIFICANDO CREDENCIALES...</span>';
             
-            // El formulario se enviará normalmente, pero mostramos el efecto de carga
+            // Simular verificación
             setTimeout(() => {
-                // Si después de 5 segundos no se redirige, restaurar botón
-                // (esto es solo por si hay problemas de red)
-                if (loginBtn.disabled) {
+                if (validCredentials[username] && validCredentials[username].password === password) {
+                    // Login exitoso
+                    const userData = validCredentials[username];
+                    
+                    // Guardar en localStorage si "recordar" está activado
+                    if (remember) {
+                        localStorage.setItem('sams_user', JSON.stringify({
+                            username: username,
+                            name: userData.name,
+                            role: userData.role,
+                            badge: userData.badge,
+                            login_time: new Date().getTime()
+                        }));
+                    } else {
+                        sessionStorage.setItem('sams_user', JSON.stringify({
+                            username: username,
+                            name: userData.name,
+                            role: userData.role,
+                            badge: userData.badge,
+                            login_time: new Date().getTime()
+                        }));
+                    }
+                    
+                    showAlert(`✅ Acceso autorizado. Bienvenido, ${userData.name} (${userData.role}). Redirigiendo al sistema...`, 'success');
+                    
+                    // Cambiar estilo del botón
+                    loginBtn.style.background = 'linear-gradient(135deg, #27AE60, #219653)';
+                    
+                    // Redirigir al dashboard
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
+                } else {
+                    // Login fallido
+                    showAlert('❌ Credenciales incorrectas. Por favor, verifique sus datos.', 'error');
                     loginBtn.disabled = false;
                     loginBtn.innerHTML = originalText;
+                    loginBtn.style.background = '';
+                    
+                    // Efecto de error
+                    document.querySelector('.login-form-container').classList.add('error-shake');
+                    setTimeout(() => document.querySelector('.login-form-container').classList.remove('error-shake'), 500);
+                    
+                    // Limpiar contraseña
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    
+                    // Registrar intento fallido en consola
+                    console.warn(`[SAMS SECURITY] Intento de acceso fallido - Usuario: ${username} - ${new Date().toLocaleString()}`);
                 }
-            }, 5000);
+            }, 1500);
         });
-
-        // Función para mostrar error temporal sin recargar
-        function showTemporaryError(message) {
-            // Buscar si ya hay un contenedor de alerta
-            let alertContainer = document.querySelector('.alert-message');
-            if (alertContainer) {
-                alertContainer.remove();
-            }
-            
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'alert-message alert-error';
-            errorDiv.innerHTML = `
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>${message}</span>
-            `;
-            
-            const formHeader = document.querySelector('.form-header');
-            formHeader.insertAdjacentElement('afterend', errorDiv);
-            
-            // Animación de shake
-            document.querySelector('.login-form-container').classList.add('error-shake');
-            setTimeout(() => {
-                document.querySelector('.login-form-container').classList.remove('error-shake');
-            }, 500);
-            
-            // Auto-ocultar después de 4 segundos
-            setTimeout(() => {
-                if (errorDiv) {
-                    errorDiv.style.opacity = '0';
-                    setTimeout(() => errorDiv.remove(), 300);
-                }
-            }, 4000);
-        }
 
         // Enlace de recuperación de credenciales
         forgotLink.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Modal de contacto con el departamento médico
             const modal = document.createElement('div');
             modal.style.cssText = `
                 position: fixed;
@@ -863,7 +832,36 @@ if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
             modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
         });
 
-        // Efectos de entrada para inputs
+        // Cargar sesión guardada
+        function loadSavedSession() {
+            const savedSession = localStorage.getItem('sams_user');
+            const savedSessionTemp = sessionStorage.getItem('sams_user');
+            
+            if (savedSession) {
+                try {
+                    const session = JSON.parse(savedSession);
+                    const now = new Date().getTime();
+                    // Si la sesión tiene menos de 24 horas, sugerir continuar
+                    if (now - session.login_time < 86400000) {
+                        usernameInput.value = session.username;
+                        document.getElementById('remember').checked = true;
+                        showAlert(`🔄 Sesión guardada encontrada para ${session.name}. Ingrese su contraseña para continuar.`, 'success');
+                        passwordInput.focus();
+                    } else {
+                        localStorage.removeItem('sams_user');
+                    }
+                } catch(e) {}
+            } else if (savedSessionTemp) {
+                try {
+                    const session = JSON.parse(savedSessionTemp);
+                    usernameInput.value = session.username;
+                    showAlert(`🔄 Bienvenido de vuelta, ${session.name}. Ingrese su contraseña.`, 'success');
+                    passwordInput.focus();
+                } catch(e) {}
+            }
+        }
+        
+        // Efectos de entrada
         const inputs = document.querySelectorAll('.input-wrapper input');
         inputs.forEach(input => {
             input.addEventListener('focus', function() {
@@ -873,8 +871,11 @@ if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
                 this.parentElement.style.transform = 'scale(1)';
             });
         });
-
-        // Agregar estilo para animación fadeIn
+        
+        // Inicializar
+        loadSavedSession();
+        
+        // Estilo para animación fadeIn
         const style = document.createElement('style');
         style.textContent = `
             @keyframes fadeIn {
@@ -887,19 +888,7 @@ if (isset($_COOKIE['sams_remember']) && !isset($_SESSION['sams_user'])) {
         // Mensaje de consola para seguridad
         console.log('%c⚠️ ST. FIACRE HOSPITAL - SISTEMA DE GESTIÓN MÉDICA ⚠️', 'color: #2D9CDB; font-size: 14px; font-weight: bold;');
         console.log('%cAcceso restringido a personal autorizado. Todos los accesos son registrados.', 'color: #27AE60; font-size: 12px;');
-        
-        // Contador de intentos de login fallidos (simulado)
-        let failedAttempts = 0;
-        const usernameInput = document.getElementById('username');
-        usernameInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const password = passwordInput.value;
-                if (!password) {
-                    e.preventDefault();
-                    showTemporaryError('Por favor, ingrese su contraseña');
-                }
-            }
-        });
+        console.log('%cCredenciales de prueba: dr.martinez / medico2024', 'color: #95A5A6; font-size: 11px;');
     </script>
 </body>
 </html>
