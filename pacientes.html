@@ -389,6 +389,7 @@
             justify-content: center;
         }
 
+        /* Silueta única para todos los pacientes */
         .patient-silhouette {
             width: 100px;
             height: 100px;
@@ -402,14 +403,8 @@
         }
 
         .patient-silhouette i {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             color: white;
-        }
-
-        .patient-silhouette.male i,
-        .patient-silhouette.female i,
-        .patient-silhouette.child i {
-            font-size: 3rem;
         }
 
         .card-content {
@@ -705,11 +700,6 @@
             <h3 id="modalTitle"><i class="fas fa-user-plus"></i> Nuevo Paciente</h3>
             <input type="text" id="modalName" placeholder="Nombre completo" required>
             <input type="number" id="modalAge" placeholder="Edad" required>
-            <select id="modalGender">
-                <option value="male">Masculino</option>
-                <option value="female">Femenino</option>
-                <option value="child">Infantil</option>
-            </select>
             <select id="modalDoctor">
                 <option value="Dr. Martínez">Dr. Martínez</option>
                 <option value="Dra. López">Dra. López</option>
@@ -726,14 +716,14 @@
     <script>
         // Datos de pacientes
         let patients = [
-            { id: 1, name: 'Michael De Santa', age: 45, gender: 'male', admissionDate: '2024-03-15', doctor: 'Dr. Martínez' },
-            { id: 2, name: 'Franklin Clinton', age: 28, gender: 'male', admissionDate: '2024-03-18', doctor: 'Dra. López' },
-            { id: 3, name: 'Trevor Philips', age: 49, gender: 'male', admissionDate: '2024-03-20', doctor: 'Dr. Rodríguez' },
-            { id: 4, name: 'Amanda De Santa', age: 42, gender: 'female', admissionDate: '2024-03-14', doctor: 'Dra. García' },
-            { id: 5, name: 'Sofia Martinez', age: 7, gender: 'child', admissionDate: '2024-03-19', doctor: 'Dr. Martínez' },
-            { id: 6, name: 'Lester Crest', age: 55, gender: 'male', admissionDate: '2024-03-10', doctor: 'Dr. Martínez' },
-            { id: 7, name: 'Tracey De Santa', age: 21, gender: 'female', admissionDate: '2024-03-16', doctor: 'Dra. López' },
-            { id: 8, name: 'Jimmy De Santa', age: 18, gender: 'male', admissionDate: '2024-03-17', doctor: 'Dr. Martínez' }
+            { id: 1, name: 'Michael De Santa', age: 45, admissionDate: '2024-03-15', doctor: 'Dr. Martínez' },
+            { id: 2, name: 'Franklin Clinton', age: 28, admissionDate: '2024-03-18', doctor: 'Dra. López' },
+            { id: 3, name: 'Trevor Philips', age: 49, admissionDate: '2024-03-20', doctor: 'Dr. Rodríguez' },
+            { id: 4, name: 'Amanda De Santa', age: 42, admissionDate: '2024-03-14', doctor: 'Dra. García' },
+            { id: 5, name: 'Sofia Martinez', age: 7, admissionDate: '2024-03-19', doctor: 'Dr. Martínez' },
+            { id: 6, name: 'Lester Crest', age: 55, admissionDate: '2024-03-10', doctor: 'Dr. Martínez' },
+            { id: 7, name: 'Tracey De Santa', age: 21, admissionDate: '2024-03-16', doctor: 'Dra. López' },
+            { id: 8, name: 'Jimmy De Santa', age: 18, admissionDate: '2024-03-17', doctor: 'Dr. Martínez' }
         ];
 
         let currentPage = 1;
@@ -749,12 +739,6 @@
                     document.getElementById('userRole').textContent = user.role;
                 } catch(e) {}
             }
-        }
-
-        function getGenderIcon(gender) {
-            if (gender === 'male') return 'fas fa-user';
-            if (gender === 'female') return 'fas fa-user-circle';
-            return 'fas fa-baby';
         }
 
         function renderPatients() {
@@ -779,7 +763,9 @@
                 grid.innerHTML = paginated.map(p => `
                     <div class="patient-card">
                         <div class="card-header-image">
-                            <div class="patient-silhouette ${p.gender}"><i class="${getGenderIcon(p.gender)}"></i></div>
+                            <div class="patient-silhouette">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
                         </div>
                         <div class="card-content">
                             <h3 class="patient-name">${p.name}</h3>
@@ -823,7 +809,6 @@
                 document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-edit"></i> Editar Paciente';
                 document.getElementById('modalName').value = patient.name;
                 document.getElementById('modalAge').value = patient.age;
-                document.getElementById('modalGender').value = patient.gender;
                 document.getElementById('modalDoctor').value = patient.doctor;
                 document.getElementById('patientModal').classList.add('active');
             }
@@ -832,7 +817,6 @@
         function guardarPaciente() {
             const name = document.getElementById('modalName').value.trim();
             const age = parseInt(document.getElementById('modalAge').value);
-            const gender = document.getElementById('modalGender').value;
             const doctor = document.getElementById('modalDoctor').value;
 
             if (!name || !age) {
@@ -848,7 +832,6 @@
                         ...patients[index],
                         name,
                         age,
-                        gender,
                         doctor
                     };
                 }
@@ -861,7 +844,6 @@
                     id: newId,
                     name,
                     age,
-                    gender,
                     admissionDate: today,
                     doctor
                 });
@@ -872,7 +854,6 @@
             document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-plus"></i> Nuevo Paciente';
             document.getElementById('modalName').value = '';
             document.getElementById('modalAge').value = '';
-            document.getElementById('modalGender').value = 'male';
             document.getElementById('modalDoctor').value = 'Dr. Martínez';
             
             renderPatients();
@@ -912,7 +893,6 @@
             document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-plus"></i> Nuevo Paciente';
             document.getElementById('modalName').value = '';
             document.getElementById('modalAge').value = '';
-            document.getElementById('modalGender').value = 'male';
             document.getElementById('modalDoctor').value = 'Dr. Martínez';
             modal.classList.add('active');
         });
