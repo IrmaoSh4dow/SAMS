@@ -395,6 +395,36 @@
             color: var(--dark);
         }
 
+        /* Tarjeta de total laborado */
+        .total-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 40px;
+            color: white;
+            text-align: center;
+        }
+
+        .total-card h3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .total-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .total-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
         /* Historial de turnos */
         .history-card {
             background: white;
@@ -502,6 +532,7 @@
             .btn-clock { width: 100%; justify-content: center; }
             .history-table { display: block; overflow-x: auto; }
             .shift-info { grid-template-columns: 1fr; }
+            .total-amount { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -582,10 +613,17 @@
                     <i class="fas fa-stopwatch"></i>
                     <div>
                         <div class="label">Duración</div>
-                        <div class="value" id="shiftDuration">-- h -- m</div>
+                        <div class="value" id="shiftDuration">0 h 0 m</div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Tarjeta de total laborado -->
+        <div class="total-card">
+            <h3><i class="fas fa-chart-simple"></i> Total de tiempo laborado</h3>
+            <div class="total-amount" id="totalTime">0 h 0 m</div>
+            <div class="total-label">Tiempo acumulado en todos los turnos finalizados</div>
         </div>
 
         <!-- Historial de turnos -->
@@ -630,6 +668,36 @@
             }
         }
 
+        // Función para calcular duración en horas y minutos
+        function calcularDuracion(startDate, endDate) {
+            const diffMs = endDate - startDate;
+            const diffHrs = Math.floor(diffMs / 3600000);
+            const diffMins = Math.floor((diffMs % 3600000) / 60000);
+            return { hours: diffHrs, minutes: diffMins, totalHours: diffMs / 3600000 };
+        }
+
+        // Función para formatear duración
+        function formatDuration(hours, minutes) {
+            return `${hours} h ${minutes} m`;
+        }
+
+        // Calcular total de tiempo laborado
+        function calcularTotalLaborado() {
+            let totalHoras = 0;
+            
+            shiftHistory.forEach(shift => {
+                if (shift.endTime && shift.durationHours) {
+                    totalHoras += shift.durationHours;
+                }
+            });
+            
+            const totalHorasEnteras = Math.floor(totalHoras);
+            const totalMinutos = Math.floor((totalHoras - totalHorasEnteras) * 60);
+            
+            document.getElementById('totalTime').textContent = formatDuration(totalHorasEnteras, totalMinutos);
+            return { hours: totalHorasEnteras, minutes: totalMinutos };
+        }
+
         // Cargar historial desde localStorage
         function loadShiftHistory() {
             const saved = localStorage.getItem('sams_shift_history');
@@ -650,11 +718,15 @@
                     updateUIForActiveShift();
                 } catch(e) {}
             }
+            
+            renderHistory();
+            calcularTotalLaborado();
         }
 
         // Guardar historial en localStorage
         function saveShiftHistory() {
             localStorage.setItem('sams_shift_history', JSON.stringify(shiftHistory));
+            calcularTotalLaborado();
         }
 
         // Guardar turno activo
@@ -680,15 +752,13 @@
             document.getElementById('clockDate').textContent = dateString.charAt(0).toUpperCase() + dateString.slice(1);
         }
 
-        // Actualizar duración del turno
+        // Actualizar duración del turno actual
         function updateDuration() {
             if (currentUser.isOnDuty && currentUser.currentShift) {
                 const start = new Date(currentUser.currentShift.start);
                 const now = new Date();
-                const diffMs = now - start;
-                const diffHrs = Math.floor(diffMs / 3600000);
-                const diffMins = Math.floor((diffMs % 3600000) / 60000);
-                document.getElementById('shiftDuration').textContent = `${diffHrs} h ${diffMins} m`;
+                const duracion = calcularDuracion(start, now);
+                document.getElementById('shiftDuration').textContent = formatDuration(duracion.hours, duracion.minutes);
             }
         }
 
@@ -712,7 +782,7 @@
                 updateDuration();
                 
                 if (durationInterval) clearInterval(durationInterval);
-                durationInterval = setInterval(updateDuration, 60000);
+                durationInterval = setInterval(updateDuration, 1000);
             } else {
                 statusDiv.innerHTML = '<i class="fas fa-circle"></i> Fuera de servicio';
                 statusDiv.className = 'shift-status status-off';
@@ -787,6 +857,7 @@
                 end: null,
                 endTime: null,
                 duration: null,
+                durationHours: null,
                 user: currentUser.name
             };
 
@@ -801,8 +872,7 @@
             updateUIForActiveShift();
             renderHistory();
             
-            // Mostrar notificación
-            showNotification('✅ Has fichado entrada', 'success');
+            showNotification('✅ Has fichado entrada. ¡Buen servicio!', 'success');
         }
 
         // Función para fichar salida
@@ -814,15 +884,14 @@
 
             const now = new Date();
             const start = new Date(currentUser.currentShift.start);
-            const diffMs = now - start;
-            const diffHrs = Math.floor(diffMs / 3600000);
-            const diffMins = Math.floor((diffMs % 3600000) / 60000);
-            const duration = `${diffHrs}h ${diffMins}m`;
+            const duracion = calcularDuracion(start, now);
+            const durationString = formatDuration(duracion.hours, duracion.minutes);
             
             // Actualizar el turno actual
             currentUser.currentShift.end = now.toISOString();
             currentUser.currentShift.endTime = now.toLocaleTimeString('es-ES');
-            currentUser.currentShift.duration = duration;
+            currentUser.currentShift.duration = durationString;
+            currentUser.currentShift.durationHours = duracion.totalHours;
             
             // Actualizar en el historial
             const index = shiftHistory.findIndex(s => s.id === currentUser.currentShift.id);
@@ -839,9 +908,9 @@
             
             updateUIForActiveShift();
             renderHistory();
+            calcularTotalLaborado();
             
-            // Mostrar notificación
-            showNotification(`✅ Has finalizado tu servicio. Duración: ${duration}`, 'success');
+            showNotification(`✅ Has finalizado tu servicio. Duración: ${durationString}`, 'success');
         }
 
         // Mostrar notificación temporal
@@ -903,6 +972,10 @@
             window.location.href = 'login.html';
         });
 
+        // Exponer funciones globalmente
+        window.ficharEntrada = ficharEntrada;
+        window.ficharSalida = ficharSalida;
+
         // Inicializar
         function init() {
             getUserData();
@@ -911,6 +984,7 @@
             clockInterval = setInterval(updateClock, 1000);
             renderHistory();
             updateUIForActiveShift();
+            calcularTotalLaborado();
         }
 
         init();
