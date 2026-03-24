@@ -3,35 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAMS - San Andreas Medical Services | Acceso al Sistema</title>
+    <title>LSPD - Acceso al Sistema Interno | Los Santos Police Department</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --sams-red: #8B0000;
-            --sams-red-dark: #5a0000;
-            --sams-red-light: #b31b1b;
-            --sams-white: #FFFFFF;
-            --sams-silver: #E0E0E0;
-            --sams-gray: #2C2C2C;
-            --sams-dark: #1A1A1A;
-            --sams-blue: #003366;
-            --sams-blue-light: #1e4a76;
-            --border-radius: 8px;
-            --border-radius-lg: 16px;
-            --transition-fast: 0.2s ease;
-            --transition-normal: 0.3s ease;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --lspd-blue-dark: #0a1a2f;
+            --lspd-blue: #0f2b3f;
+            --lspd-blue-light: #1e3a5f;
+            --lspd-gold: #d4af37;
+            --lspd-gold-dark: #b8960c;
+            --lspd-silver: #c0c0c0;
+            --lspd-red: #8b0000;
+            --lspd-white: #ffffff;
+            --lspd-gray: #2c3e4e;
+            --lspd-black: #0a0a0a;
+            --border-radius: 8px;
+            --border-radius-lg: 16px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --shadow-glow: 0 0 20px rgba(212, 175, 55, 0.3);
+            --shadow-gold: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            background: linear-gradient(135deg, #0a1a2f 0%, #0a0f1a 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -40,52 +43,79 @@
             overflow-x: hidden;
         }
 
-        /* Luces de ambulancia modernas */
-        .ambulance-lights-modern {
+        /* Luces policiales mejoradas */
+        .police-lights {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 4px;
             z-index: 1000;
+            display: flex;
             overflow: hidden;
         }
 
-        .light-bar {
-            width: 100%;
+        .light-red {
+            flex: 1;
             height: 100%;
-            background: linear-gradient(90deg, 
-                var(--sams-red) 0%, 
-                #ff4d4d 20%, 
-                var(--sams-red) 40%,
-                #ff4d4d 60%,
-                var(--sams-red) 80%,
-                #ff4d4d 100%);
-            background-size: 200% 100%;
-            animation: ambulanceLight 2s linear infinite;
+            background: linear-gradient(90deg, #ff0000, #ff4d4d, #ff0000);
+            animation: policeFlash 0.5s linear infinite;
         }
 
-        @keyframes ambulanceLight {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 200% 0%; }
+        .light-blue {
+            flex: 1;
+            height: 100%;
+            background: linear-gradient(90deg, #0066ff, #3399ff, #0066ff);
+            animation: policeFlash 0.5s linear infinite reverse;
         }
 
-        /* Contenedor principal del login */
-        .login-container {
+        @keyframes policeFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Contenedor principal */
+        .login-wrapper {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Scanner de seguridad */
+        .security-scanner {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--lspd-gold), transparent);
+            animation: scanner 3s linear infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes scanner {
+            0% { top: -50px; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Contenedor del login */
+        .login-container {
             display: flex;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 26, 47, 0.85);
+            backdrop-filter: blur(15px);
             border-radius: var(--border-radius-lg);
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(139, 0, 0, 0.3);
-            animation: slideUp 0.6s ease-out;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        @keyframes slideUp {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -96,12 +126,11 @@
             }
         }
 
-        /* Lado izquierdo - Información SAMS */
+        /* Lado izquierdo - Información LSPD */
         .login-info {
-            flex: 1;
+            flex: 1.2;
             padding: 50px 40px;
-            background: linear-gradient(135deg, var(--sams-red-dark), var(--sams-red));
-            color: white;
+            background: linear-gradient(135deg, rgba(10, 26, 47, 0.95), rgba(15, 43, 63, 0.95));
             position: relative;
             overflow: hidden;
         }
@@ -109,167 +138,222 @@
         .login-info::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: moveGrid 20s linear infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path fill="%23d4af37" d="M50,10 L61.8,35.4 L90,38.5 L69.5,55.9 L76.4,83 L50,68.8 L23.6,83 L30.5,55.9 L10,38.5 L38.2,35.4 L50,10Z"/></svg>');
+            background-size: 60px;
             pointer-events: none;
         }
 
-        @keyframes moveGrid {
-            from { transform: translate(0, 0); }
-            to { transform: translate(50px, 50px); }
-        }
-
-        .sams-logo {
+        .lspd-badge {
             position: relative;
             z-index: 1;
+            text-align: center;
             margin-bottom: 40px;
         }
 
-        .logo-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(255,255,255,0.2);
+        .badge-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--lspd-gold), var(--lspd-gold-dark));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
+            margin: 0 auto 20px;
+            box-shadow: var(--shadow-glow);
+            animation: pulseGlow 2s infinite;
         }
 
-        .logo-icon i {
-            font-size: 40px;
-            color: white;
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
         }
 
-        .sams-logo h1 {
-            font-size: 2rem;
+        .badge-icon i {
+            font-size: 50px;
+            color: var(--lspd-blue-dark);
+        }
+
+        .lspd-badge h1 {
+            font-size: 2.2rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 10px;
+            color: var(--lspd-gold);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
         }
 
-        .sams-logo p {
-            font-size: 0.9rem;
-            opacity: 0.9;
+        .lspd-badge p {
+            color: var(--lspd-silver);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
 
-        .info-content {
+        .system-stats {
             position: relative;
             z-index: 1;
-            margin-top: 60px;
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
 
-        .info-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            border-left: 3px solid white;
-            padding-left: 15px;
-        }
-
-        .info-features {
-            list-style: none;
-            margin-top: 30px;
-        }
-
-        .info-features li {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .info-features li i {
-            width: 30px;
-            font-size: 1.2rem;
-        }
-
-        .info-features li span {
-            font-size: 0.95rem;
-            opacity: 0.95;
-        }
-
-        .emergency-number {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.2);
+        .stat-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: var(--border-radius);
+            padding: 15px;
             text-align: center;
+            transition: var(--transition-normal);
         }
 
-        .emergency-number .number {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: 2px;
+        .stat-item:hover {
+            border-color: var(--lspd-gold);
+            transform: translateY(-2px);
         }
 
-        .emergency-number .label {
-            font-size: 0.8rem;
-            opacity: 0.8;
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--lspd-gold);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--lspd-silver);
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-top: 5px;
         }
 
-        /* Lado derecho - Formulario de login */
+        .security-level {
+            position: relative;
+            z-index: 1;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .level-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .level-text {
+            color: var(--lspd-silver);
+            font-size: 0.8rem;
+        }
+
+        .level-badge {
+            color: var(--lspd-gold);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 98%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--lspd-gold), var(--lspd-gold-dark));
+            animation: fillProgress 2s ease-out;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0%; }
+            to { width: 98%; }
+        }
+
+        /* Lado derecho - Formulario */
         .login-form-container {
             flex: 1;
-            padding: 50px 40px;
-            background: rgba(26, 26, 26, 0.95);
+            padding: 50px 45px;
+            background: rgba(10, 26, 47, 0.7);
+            backdrop-filter: blur(10px);
+            position: relative;
         }
 
         .form-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
         .form-header h2 {
-            color: var(--sams-white);
+            color: var(--lspd-white);
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 10px;
         }
 
-        .form-header p {
-            color: var(--sams-silver);
-            font-size: 0.9rem;
+        .form-header h2 i {
+            color: var(--lspd-gold);
+            margin-right: 10px;
         }
 
+        .form-header p {
+            color: var(--lspd-silver);
+            font-size: 0.85rem;
+        }
+
+        /* Alertas */
         .alert-message {
-            background: rgba(139, 0, 0, 0.2);
-            border-left: 3px solid var(--sams-red);
+            background: rgba(139, 0, 0, 0.15);
+            border-left: 3px solid var(--lspd-red);
             padding: 12px 15px;
             border-radius: var(--border-radius);
             margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             color: #ff6b6b;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            animation: slideInLeft 0.3s ease;
         }
 
-        .alert-message i {
-            font-size: 1rem;
+        .alert-success {
+            background: rgba(212, 175, 55, 0.1);
+            border-left-color: var(--lspd-gold);
+            color: var(--lspd-gold);
         }
 
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Input groups */
         .input-group {
             margin-bottom: 25px;
         }
 
         .input-group label {
             display: block;
-            color: var(--sams-silver);
-            font-size: 0.85rem;
+            color: var(--lspd-silver);
+            font-size: 0.8rem;
             font-weight: 500;
             margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .input-group label i {
             margin-right: 8px;
-            color: var(--sams-red);
+            color: var(--lspd-gold);
         }
 
         .input-wrapper {
@@ -278,34 +362,35 @@
             align-items: center;
         }
 
-        .input-wrapper i:first-child {
+        .input-wrapper i.input-icon {
             position: absolute;
             left: 15px;
-            color: var(--sams-red);
+            color: var(--lspd-gold);
             font-size: 1rem;
+            z-index: 1;
         }
 
         .input-wrapper input {
             width: 100%;
             padding: 14px 15px 14px 45px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(139, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: var(--border-radius);
-            color: white;
+            color: var(--lspd-white);
             font-size: 0.95rem;
-            transition: var(--transition-normal);
+            transition: all var(--transition-normal);
             font-family: 'Inter', sans-serif;
         }
 
         .input-wrapper input:focus {
             outline: none;
-            border-color: var(--sams-red);
-            background: rgba(255,255,255,0.1);
-            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.2);
+            border-color: var(--lspd-gold);
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
         }
 
         .input-wrapper input::placeholder {
-            color: rgba(224, 224, 224, 0.5);
+            color: rgba(192, 192, 192, 0.4);
         }
 
         .toggle-password {
@@ -313,21 +398,22 @@
             right: 15px;
             background: none;
             border: none;
-            color: var(--sams-silver);
+            color: var(--lspd-silver);
             cursor: pointer;
             transition: var(--transition-fast);
         }
 
         .toggle-password:hover {
-            color: var(--sams-red);
+            color: var(--lspd-gold);
         }
 
+        /* Opciones del formulario */
         .form-options {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            font-size: 0.85rem;
+            margin-bottom: 30px;
+            font-size: 0.8rem;
         }
 
         .remember-me {
@@ -335,59 +421,64 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            color: var(--sams-silver);
+            color: var(--lspd-silver);
         }
 
         .remember-me input {
             width: 16px;
             height: 16px;
             cursor: pointer;
-            accent-color: var(--sams-red);
+            accent-color: var(--lspd-gold);
         }
 
         .forgot-link {
-            color: var(--sams-red);
+            color: var(--lspd-gold);
             text-decoration: none;
             transition: var(--transition-fast);
+            font-size: 0.8rem;
         }
 
         .forgot-link:hover {
-            color: #ff4d4d;
+            color: var(--lspd-gold-dark);
             text-decoration: underline;
         }
 
+        /* Botón de login */
         .btn-login {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, var(--sams-red), var(--sams-red-dark));
+            background: linear-gradient(135deg, var(--lspd-gold), var(--lspd-gold-dark));
             border: none;
             border-radius: var(--border-radius);
-            color: white;
+            color: var(--lspd-blue-dark);
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: var(--transition-normal);
+            transition: all var(--transition-normal);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(139, 0, 0, 0.4);
+            box-shadow: var(--shadow-glow);
         }
 
         .btn-login:active {
             transform: translateY(0);
         }
 
+        /* Nota de seguridad */
         .security-note {
-            margin-top: 30px;
+            margin-top: 25px;
             text-align: center;
-            font-size: 0.75rem;
-            color: rgba(224, 224, 224, 0.6);
+            font-size: 0.7rem;
+            color: rgba(192, 192, 192, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -395,22 +486,34 @@
         }
 
         .security-note i {
-            color: var(--sams-red);
+            color: var(--lspd-gold);
         }
 
-        /* Footer del login */
-        .login-footer {
-            text-align: center;
-            margin-top: 20px;
+        .system-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-size: 0.7rem;
-            color: rgba(224, 224, 224, 0.5);
+            color: var(--lspd-silver);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #00ff00;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .login-container {
                 flex-direction: column;
-                margin: 10px;
             }
             
             .login-info {
@@ -418,35 +521,36 @@
             }
             
             .login-form-container {
-                padding: 30px 25px;
+                padding: 35px 30px;
             }
             
-            .info-content {
-                margin-top: 30px;
-            }
-            
-            .emergency-number {
-                margin-top: 30px;
+            .system-stats {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
-        /* Animación de pulso para el estado del sistema */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        @media (max-width: 600px) {
+            .system-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
-        .system-status {
+        /* Efecto de carga */
+        .loading-spinner {
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--lspd-blue-dark);
+            border-top-color: transparent;
             border-radius: 50%;
-            background-color: #00ff00;
-            margin-right: 6px;
-            animation: pulse 2s infinite;
+            animation: spin 0.8s linear infinite;
         }
 
-        /* Estilo para mensajes de error */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animación de shake para errores */
         .error-shake {
             animation: shake 0.5s ease-in-out;
         }
@@ -456,121 +560,148 @@
             25% { transform: translateX(-5px); }
             75% { transform: translateX(5px); }
         }
+
+        /* Huella digital animada */
+        .fingerprint-scan {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.3;
+            transition: var(--transition-normal);
+        }
+
+        .fingerprint-scan:hover {
+            opacity: 0.6;
+        }
+
+        .fingerprint-scan i {
+            font-size: 30px;
+            color: var(--lspd-gold);
+        }
     </style>
 </head>
 <body>
-    <!-- Luces de ambulancia modernas -->
-    <div class="ambulance-lights-modern">
-        <div class="light-bar"></div>
+    <!-- Luces policiales mejoradas -->
+    <div class="police-lights">
+        <div class="light-red"></div>
+        <div class="light-blue"></div>
+        <div class="light-red"></div>
+        <div class="light-blue"></div>
     </div>
 
-    <div class="login-container">
-        <!-- Lado izquierdo - Información SAMS -->
-        <div class="login-info">
-            <div class="sams-logo">
-                <div class="logo-icon">
-                    <i class="fas fa-ambulance"></i>
+    <!-- Scanner de seguridad -->
+    <div class="security-scanner"></div>
+
+    <div class="login-wrapper">
+        <div class="login-container">
+            <!-- Lado izquierdo - Información LSPD -->
+            <div class="login-info">
+                <div class="lspd-badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h1>LSPD</h1>
+                    <p>SISTEMA INTERNO DE SEGURIDAD</p>
                 </div>
-                <h1>SAMS</h1>
-                <p>San Andreas Medical Services</p>
-            </div>
-            
-            <div class="info-content">
-                <div class="info-title">
-                    <i class="fas fa-heartbeat"></i> Atención Médica de Excelencia
-                </div>
-                <ul class="info-features">
-                    <li>
-                        <i class="fas fa-clock"></i>
-                        <span>Servicio 24/7 - 365 días al año</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-robot"></i>
-                        <span>Sistema de gestión hospitalaria avanzado</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-chart-line"></i>
-                        <span>Monitoreo de pacientes en tiempo real</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-truck-medical"></i>
-                        <span>Flota de ambulancias con GPS integrado</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-user-md"></i>
-                        <span>Equipo médico especializado</span>
-                    </li>
-                </ul>
-                
-                <div class="emergency-number">
-                    <div class="number">911</div>
-                    <div class="label">EMERGENCIAS • ATENCIÓN INMEDIATA</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Lado derecho - Formulario de login -->
-        <div class="login-form-container">
-            <div class="form-header">
-                <h2>Acceso al Sistema</h2>
-                <p>Ingrese sus credenciales para acceder al sistema interno</p>
-            </div>
-            
-            <!-- Mensaje de alerta/seguridad -->
-            <div class="alert-message" id="securityAlert">
-                <i class="fas fa-shield-alt"></i>
-                <span>Sistema de acceso restringido. Solo personal autorizado del SAMS.</span>
-            </div>
-            
-            <form id="loginForm" action="procesar_login.php" method="POST">
-                <div class="input-group">
-                    <label for="username">
-                        <i class="fas fa-id-card"></i> Credencial / ID Médico
-                    </label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-user-md"></i>
-                        <input type="text" id="username" name="username" placeholder="Ej: SAMS-1234 o dr.martinez" required autocomplete="username">
+
+                <div class="system-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Operativo</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">247</div>
+                        <div class="stat-label">Oficiales</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Distritos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">98%</div>
+                        <div class="stat-label">Efectividad</div>
                     </div>
                 </div>
-                
-                <div class="input-group">
-                    <label for="password">
-                        <i class="fas fa-lock"></i> Contraseña de Acceso
-                    </label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-key"></i>
-                        <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
-                        <button type="button" class="toggle-password" id="togglePassword">
-                            <i class="fas fa-eye"></i>
-                        </button>
+
+                <div class="security-level">
+                    <div class="level-indicator">
+                        <span class="level-text"><i class="fas fa-shield-alt"></i> Nivel de Seguridad</span>
+                        <span class="level-badge">MAXIMO</span>
                     </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p style="font-size: 0.7rem; color: var(--lspd-silver); margin-top: 10px;">
+                        <i class="fas fa-lock"></i> Cifrado AES-256 • Autenticación Biométrica
+                    </p>
                 </div>
-                
-                <div class="form-options">
-                    <label class="remember-me">
-                        <input type="checkbox" name="remember" id="remember">
-                        <span>Mantener sesión activa</span>
-                    </label>
-                    <a href="#" class="forgot-link" id="forgotPasswordLink">
-                        <i class="fas fa-question-circle"></i> ¿Olvidó sus credenciales?
-                    </a>
+
+                <div class="fingerprint-scan">
+                    <i class="fas fa-fingerprint"></i>
                 </div>
-                
-                <button type="submit" class="btn-login" id="loginBtn">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>Ingresar al Sistema</span>
-                </button>
-                
-                <div class="security-note">
-                    <i class="fas fa-laptop"></i>
-                    <span>Sesión segura • Datos encriptados • Acceso autorizado</span>
+            </div>
+
+            <!-- Lado derecho - Formulario -->
+            <div class="login-form-container">
+                <div class="form-header">
+                    <h2>
+                        <i class="fas fa-sign-in-alt"></i>
+                        ACCESO AUTORIZADO
+                    </h2>
+                    <p>Ingrese sus credenciales para acceder al sistema interno del LSPD</p>
                 </div>
-                
-                <div class="login-footer">
-                    <span class="system-status"></span>
-                    <span>Sistema SAMS v3.0 • <?php echo date('Y'); ?></span>
-                </div>
-            </form>
+
+                <div id="alertContainer"></div>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">
+                            <i class="fas fa-id-card"></i> CREDENCIAL / BADGE NUMBER
+                        </label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user-shield input-icon"></i>
+                            <input type="text" id="username" name="username" placeholder="Ej: LSPD-247 | j.davis" required autocomplete="username">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">
+                            <i class="fas fa-key"></i> CÓDIGO DE ACCESO
+                        </label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember" id="remember">
+                            <span>Mantener sesión activa</span>
+                        </label>
+                        <a href="#" class="forgot-link" id="forgotPasswordLink">
+                            <i class="fas fa-question-circle"></i> ¿Olvidó sus credenciales?
+                        </a>
+                    </div>
+
+                    <button type="submit" class="btn-login" id="loginBtn">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>VALIDAR CREDENCIALES</span>
+                    </button>
+
+                    <div class="security-note">
+                        <i class="fas fa-laptop"></i>
+                        <span>SESIÓN SEGURA • MONITOREO EN TIEMPO REAL</span>
+                        <span class="system-status">
+                            <span class="status-dot"></span>
+                            SISTEMA ACTIVO
+                        </span>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -582,173 +713,144 @@
         const loginBtn = document.getElementById('loginBtn');
         const forgotLink = document.getElementById('forgotPasswordLink');
         const usernameInput = document.getElementById('username');
-        const securityAlert = document.getElementById('securityAlert');
-        
-        // Toggle para mostrar/ocultar contraseña
+        const alertContainer = document.getElementById('alertContainer');
+
+        // Credenciales autorizadas del LSPD
+        const authorizedCredentials = [
+            { badge: 'LSPD-247', username: 'j.davis', password: 'davis2024', rank: 'Comandante', name: 'Comandante Davis', fullAccess: true },
+            { badge: 'LSPD-089', username: 's.wilson', password: 'wilson2024', rank: 'Sargento', name: 'Sargento Wilson', fullAccess: true },
+            { badge: 'LSPD-156', username: 'm.rodriguez', password: 'rodriguez2024', rank: 'Teniente', name: 'Teniente Rodriguez', fullAccess: true },
+            { badge: 'LSPD-423', username: 'a.johnson', password: 'johnson2024', rank: 'Oficial', name: 'Oficial Johnson', fullAccess: true },
+            { badge: 'LSPD-567', username: 'c.martinez', password: 'martinez2024', rank: 'Detective', name: 'Detective Martinez', fullAccess: true },
+            { badge: 'LSPD-001', username: 'admin.lspd', password: 'admin2024', rank: 'Jefe de Policia', name: 'Jefe Administrativo', fullAccess: true }
+        ];
+
+        // Función para mostrar alertas
+        function showAlert(message, type = 'error') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert-message ${type === 'success' ? 'alert-success' : ''}`;
+            alertDiv.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alertDiv);
+            
+            // Auto-ocultar después de 5 segundos
+            setTimeout(() => {
+                if (alertDiv) {
+                    alertDiv.style.opacity = '0';
+                    setTimeout(() => {
+                        if (alertDiv.parentNode) alertDiv.remove();
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        // Toggle de contraseña
         togglePassword.addEventListener('click', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             this.querySelector('i').classList.toggle('fa-eye');
             this.querySelector('i').classList.toggle('fa-eye-slash');
-            
-            // Efecto visual
-            this.style.transform = 'scale(1.1)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 200);
         });
-        
-        // Función para mostrar mensaje de error
-        function showError(message) {
-            // Crear o actualizar mensaje de error
-            let errorDiv = document.querySelector('.error-message');
-            if (!errorDiv) {
-                errorDiv = document.createElement('div');
-                errorDiv.className = 'alert-message error-message';
-                errorDiv.style.background = 'rgba(139, 0, 0, 0.3)';
-                errorDiv.style.borderLeftColor = '#ff4d4d';
-                loginForm.insertBefore(errorDiv, loginForm.firstChild);
-            }
-            
-            errorDiv.innerHTML = `
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>${message}</span>
-            `;
-            
-            // Agregar animación de shake al formulario
-            document.querySelector('.login-form-container').classList.add('error-shake');
-            setTimeout(() => {
-                document.querySelector('.login-form-container').classList.remove('error-shake');
-            }, 500);
-            
-            // Auto-ocultar después de 5 segundos
-            setTimeout(() => {
-                if (errorDiv) {
-                    errorDiv.style.opacity = '0';
-                    setTimeout(() => {
-                        if (errorDiv && errorDiv.parentNode) {
-                            errorDiv.remove();
-                        }
-                    }, 300);
-                }
-            }, 5000);
-        }
-        
-        // Validación del formulario antes de enviar
-        loginForm.addEventListener('submit', function(e) {
+
+        // Validación y envío del formulario
+        loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const username = usernameInput.value.trim();
+            const inputValue = usernameInput.value.trim();
             const password = passwordInput.value.trim();
             
-            // Validaciones básicas
-            if (!username) {
-                showError('Por favor, ingrese su credencial o ID médico.');
+            if (!inputValue) {
+                showAlert('⚠️ ERROR: Debe ingresar su credencial o badge number.', 'error');
                 usernameInput.focus();
+                document.querySelector('.login-form-container').classList.add('error-shake');
+                setTimeout(() => document.querySelector('.login-form-container').classList.remove('error-shake'), 500);
                 return;
             }
             
             if (!password) {
-                showError('Por favor, ingrese su contraseña de acceso.');
+                showAlert('⚠️ ERROR: Debe ingresar su código de acceso.', 'error');
                 passwordInput.focus();
+                document.querySelector('.login-form-container').classList.add('error-shake');
+                setTimeout(() => document.querySelector('.login-form-container').classList.remove('error-shake'), 500);
                 return;
             }
             
-            if (password.length < 6) {
-                showError('La contraseña debe tener al menos 6 caracteres.');
-                passwordInput.focus();
-                return;
-            }
-            
-            // Efecto de carga en el botón
+            // Efecto de carga
             loginBtn.disabled = true;
             const originalText = loginBtn.innerHTML;
-            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Verificando credenciales...</span>';
+            loginBtn.innerHTML = '<span class="loading-spinner"></span><span>VALIDANDO CREDENCIALES...</span>';
             
-            // Simulación de envío (en producción, esto se enviaría al servidor)
+            // Simular verificación de seguridad
             setTimeout(() => {
-                // Credenciales de ejemplo para demostración
-                // En un entorno real, esto se manejaría con PHP en el servidor
-                const validCredentials = [
-                    { username: 'SAMS-1234', password: 'medico2024', role: 'Médico' },
-                    { username: 'dr.martinez', password: 'martinez123', role: 'Médico' },
-                    { username: 'admin.sams', password: 'admin2024', role: 'Administrador' },
-                    { username: 'enfermera.garcia', password: 'enfermera123', role: 'Enfermería' },
-                    { username: 'paramedico.rodriguez', password: 'paramedico123', role: 'Paramédico' }
-                ];
-                
-                const user = validCredentials.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+                // Buscar credenciales válidas
+                const user = authorizedCredentials.find(u => 
+                    (u.badge.toLowerCase() === inputValue.toLowerCase() || 
+                     u.username.toLowerCase() === inputValue.toLowerCase()) && 
+                    u.password === password
+                );
                 
                 if (user) {
-                    // Credenciales correctas - redirigir al dashboard
-                    showSuccessAndRedirect(user);
+                    // Acceso exitoso
+                    showAlert(`✅ ACCESO AUTORIZADO. Bienvenido, ${user.name} (${user.rank}). Redirigiendo al sistema interno...`, 'success');
+                    
+                    // Guardar sesión
+                    const rememberCheckbox = document.getElementById('remember');
+                    const sessionData = {
+                        badge: user.badge,
+                        username: user.username,
+                        rank: user.rank,
+                        name: user.name,
+                        timestamp: new Date().getTime()
+                    };
+                    
+                    if (rememberCheckbox.checked) {
+                        localStorage.setItem('lspd_session', JSON.stringify(sessionData));
+                    } else {
+                        sessionStorage.setItem('lspd_session', JSON.stringify(sessionData));
+                    }
+                    
+                    // Efecto de éxito visual
+                    loginBtn.style.background = 'linear-gradient(135deg, #00aa00, #008800)';
+                    
+                    // Redirigir al dashboard
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.php';
+                    }, 2000);
                 } else {
-                    // Credenciales incorrectas
-                    showError('Credenciales incorrectas. Por favor, verifique su ID y contraseña.');
+                    // Acceso denegado
+                    showAlert('⛔ ACCESO DENEGADO. Credenciales inválidas. Este incidente ha sido registrado.', 'error');
                     loginBtn.disabled = false;
                     loginBtn.innerHTML = originalText;
+                    loginBtn.style.background = '';
                     
-                    // Simular intento de acceso no autorizado
-                    simulateUnauthorizedAttempt();
+                    // Efecto de error
+                    document.querySelector('.login-form-container').classList.add('error-shake');
+                    setTimeout(() => document.querySelector('.login-form-container').classList.remove('error-shake'), 500);
+                    
+                    // Simular registro de intento fallido
+                    console.warn(`[LSPD SECURITY] Intento de acceso fallido - Credencial: ${inputValue} - IP: ${getRandomIP()}`);
+                    
+                    // Limpiar contraseña
+                    passwordInput.value = '';
+                    passwordInput.focus();
                 }
-            }, 1200);
+            }, 1500);
         });
-        
-        // Función para mostrar éxito y redirigir
-        function showSuccessAndRedirect(user) {
-            // Crear mensaje de éxito
-            const successDiv = document.createElement('div');
-            successDiv.className = 'alert-message';
-            successDiv.style.background = 'rgba(0, 128, 0, 0.2)';
-            successDiv.style.borderLeftColor = '#00ff00';
-            successDiv.style.color = '#90EE90';
-            successDiv.innerHTML = `
-                <i class="fas fa-check-circle"></i>
-                <span>Acceso autorizado. Bienvenido, ${user.username}. Redirigiendo al sistema...</span>
-            `;
-            loginForm.insertBefore(successDiv, loginForm.firstChild);
-            
-            // Guardar en localStorage la sesión si "recordarme" está marcado
-            const rememberCheckbox = document.getElementById('remember');
-            if (rememberCheckbox.checked) {
-                localStorage.setItem('sams_username', user.username);
-                localStorage.setItem('sams_role', user.role);
-                localStorage.setItem('sams_remember', 'true');
-            } else {
-                sessionStorage.setItem('sams_username', user.username);
-                sessionStorage.setItem('sams_role', user.role);
-            }
-            
-            // Redirigir después de 2 segundos
-            setTimeout(() => {
-                window.location.href = 'dashboard.php'; // Redirigir al dashboard principal
-            }, 2000);
+
+        // Función auxiliar para IP aleatoria (simulación)
+        function getRandomIP() {
+            return `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
         }
-        
-        // Simular intento de acceso no autorizado (efecto visual)
-        function simulateUnauthorizedAttempt() {
-            securityAlert.style.animation = 'shake 0.5s ease-in-out';
-            securityAlert.style.background = 'rgba(139, 0, 0, 0.4)';
-            
-            setTimeout(() => {
-                securityAlert.style.animation = '';
-                setTimeout(() => {
-                    securityAlert.style.background = 'rgba(139, 0, 0, 0.2)';
-                }, 500);
-            }, 500);
-        }
-        
-        // Enlace de "Olvidó sus credenciales"
+
+        // Enlace de recuperación de credenciales
         forgotLink.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Mostrar modal de recuperación (simulado)
-            showRecoveryModal();
-        });
-        
-        // Función para mostrar modal de recuperación
-        function showRecoveryModal() {
-            // Crear modal
+            // Modal de contacto con el departamento de TI
             const modal = document.createElement('div');
             modal.style.cssText = `
                 position: fixed;
@@ -756,7 +858,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0,0,0,0.8);
+                background: rgba(0, 0, 0, 0.9);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -766,93 +868,90 @@
             
             const modalContent = document.createElement('div');
             modalContent.style.cssText = `
-                background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
-                padding: 30px;
+                background: linear-gradient(135deg, #0a1a2f, #0f2b3f);
+                padding: 35px;
                 border-radius: 16px;
-                max-width: 400px;
+                max-width: 450px;
                 width: 90%;
-                border: 1px solid var(--sams-red);
+                border: 1px solid var(--lspd-gold);
                 text-align: center;
             `;
             
             modalContent.innerHTML = `
-                <i class="fas fa-ambulance" style="font-size: 48px; color: var(--sams-red); margin-bottom: 20px;"></i>
-                <h3 style="color: white; margin-bottom: 15px;">Recuperación de Credenciales</h3>
-                <p style="color: var(--sams-silver); margin-bottom: 20px; font-size: 0.9rem;">
-                    Comuníquese con el departamento de TI del SAMS o con su supervisor directo para restablecer sus credenciales.
+                <i class="fas fa-shield-alt" style="font-size: 60px; color: var(--lspd-gold); margin-bottom: 20px;"></i>
+                <h3 style="color: white; margin-bottom: 15px; font-size: 1.5rem;">RECUPERACIÓN DE CREDENCIALES</h3>
+                <p style="color: var(--lspd-silver); margin-bottom: 20px; font-size: 0.9rem;">
+                    Para restablecer sus credenciales de acceso al sistema interno del LSPD, comuníquese con el departamento de Tecnología.
                 </p>
-                <div style="background: rgba(139,0,0,0.2); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                    <p style="color: var(--sams-red); font-size: 0.85rem;">
-                        <i class="fas fa-envelope"></i> soporte@sams.gov.ls
+                <div style="background: rgba(212, 175, 55, 0.1); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                    <p style="color: var(--lspd-gold); margin-bottom: 10px;">
+                        <i class="fas fa-envelope"></i> <strong>it.support@lspd.gov.ls</strong>
                     </p>
-                    <p style="color: var(--sams-red); font-size: 0.85rem; margin-top: 8px;">
-                        <i class="fas fa-phone"></i> Ext. 4200 - Mesa de Ayuda
+                    <p style="color: var(--lspd-gold);">
+                        <i class="fas fa-phone"></i> <strong>Ext. 4200 - Mesa de Ayuda</strong>
+                    </p>
+                    <hr style="border-color: rgba(212, 175, 55, 0.3); margin: 15px 0;">
+                    <p style="color: var(--lspd-silver); font-size: 0.75rem;">
+                        <i class="fas fa-clock"></i> Horario de atención: 24/7
                     </p>
                 </div>
                 <button id="closeModalBtn" style="
-                    background: var(--sams-red);
+                    background: linear-gradient(135deg, var(--lspd-gold), var(--lspd-gold-dark));
                     border: none;
-                    padding: 10px 20px;
+                    padding: 12px 25px;
                     border-radius: 8px;
-                    color: white;
+                    color: var(--lspd-blue-dark);
                     cursor: pointer;
-                    font-weight: 600;
-                ">Cerrar</button>
+                    font-weight: 700;
+                    font-size: 0.9rem;
+                    text-transform: uppercase;
+                ">CERRAR</button>
             `;
             
             modal.appendChild(modalContent);
             document.body.appendChild(modal);
             
             const closeBtn = modalContent.querySelector('#closeModalBtn');
-            closeBtn.addEventListener('click', () => {
-                modal.remove();
-            });
-            
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.remove();
-            });
-        }
-        
-        // Auto-completar si hay sesión guardada
+            closeBtn.addEventListener('click', () => modal.remove());
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+        });
+
+        // Cargar sesión guardada
         function loadSavedSession() {
-            const savedUsername = localStorage.getItem('sams_username');
-            const savedRemember = localStorage.getItem('sams_remember');
+            const savedSession = localStorage.getItem('lspd_session');
+            const savedSessionTemp = sessionStorage.getItem('lspd_session');
             
-            if (savedUsername && savedRemember === 'true') {
-                usernameInput.value = savedUsername;
-                const rememberCheckbox = document.getElementById('remember');
-                if (rememberCheckbox) rememberCheckbox.checked = true;
-                
-                // Enfocar en la contraseña
-                passwordInput.focus();
-                
-                // Mostrar mensaje de sesión guardada
-                const sessionDiv = document.createElement('div');
-                sessionDiv.className = 'alert-message';
-                sessionDiv.style.background = 'rgba(0, 128, 0, 0.2)';
-                sessionDiv.style.borderLeftColor = '#00ff00';
-                sessionDiv.style.color = '#90EE90';
-                sessionDiv.style.marginBottom = '15px';
-                sessionDiv.innerHTML = `
-                    <i class="fas fa-save"></i>
-                    <span>Sesión guardada encontrada. Ingrese su contraseña para continuar.</span>
-                `;
-                loginForm.insertBefore(sessionDiv, loginForm.firstChild);
-                
-                setTimeout(() => {
-                    sessionDiv.style.opacity = '0';
-                    setTimeout(() => sessionDiv.remove(), 500);
-                }, 4000);
+            if (savedSession) {
+                try {
+                    const session = JSON.parse(savedSession);
+                    const now = new Date().getTime();
+                    // Si la sesión tiene menos de 24 horas, sugerir continuar
+                    if (now - session.timestamp < 86400000) {
+                        usernameInput.value = session.badge;
+                        const rememberCheckbox = document.getElementById('remember');
+                        if (rememberCheckbox) rememberCheckbox.checked = true;
+                        showAlert(`🔄 Sesión guardada encontrada para ${session.name}. Ingrese su contraseña para continuar.`, 'success');
+                        passwordInput.focus();
+                    } else {
+                        localStorage.removeItem('lspd_session');
+                    }
+                } catch(e) {}
+            } else if (savedSessionTemp) {
+                try {
+                    const session = JSON.parse(savedSessionTemp);
+                    usernameInput.value = session.badge;
+                    showAlert(`🔄 Bienvenido de vuelta, ${session.name}. Ingrese su contraseña.`, 'success');
+                    passwordInput.focus();
+                } catch(e) {}
             }
         }
         
-        // Efectos de entrada para inputs
+        // Efectos de entrada
         const inputs = document.querySelectorAll('.input-wrapper input');
         inputs.forEach(input => {
             input.addEventListener('focus', function() {
                 this.parentElement.style.transform = 'scale(1.01)';
             });
-            
             input.addEventListener('blur', function() {
                 this.parentElement.style.transform = 'scale(1)';
             });
@@ -861,30 +960,28 @@
         // Inicializar
         loadSavedSession();
         
-        // Agregar animación de fondo para las luces
+        // Agregar animación al scanner
         setInterval(() => {
-            const lightBar = document.querySelector('.light-bar');
-            if (lightBar) {
-                lightBar.style.animation = 'none';
+            const scanner = document.querySelector('.security-scanner');
+            if (scanner) {
+                scanner.style.animation = 'none';
                 setTimeout(() => {
-                    lightBar.style.animation = 'ambulanceLight 2s linear infinite';
+                    scanner.style.animation = 'scanner 3s linear infinite';
                 }, 10);
             }
-        }, 10000);
+        }, 5000);
         
-        // CSS para animación fadeIn
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-        `;
-        document.head.appendChild(style);
+        // Mensaje de consola para seguridad
+        console.log('%c⚠️ LSPD - SISTEMA INTERNO DE SEGURIDAD ⚠️', 'color: #d4af37; font-size: 16px; font-weight: bold;');
+        console.log('%cAcceso restringido. Todo intento de acceso no autorizado será registrado.', 'color: #ff0000; font-size: 12px;');
         
-        // Mensaje de bienvenida en consola (para seguridad)
-        console.log('%c⚠️ SAMS - Sistema de Gestión Médica ⚠️', 'color: #8B0000; font-size: 16px; font-weight: bold;');
-        console.log('%cAcceso restringido solo a personal autorizado.', 'color: #E0E0E0; font-size: 12px;');
+        // Animación de la huella digital
+        const fingerprint = document.querySelector('.fingerprint-scan');
+        if (fingerprint) {
+            fingerprint.addEventListener('click', () => {
+                showAlert('🔒 Autenticación biométrica disponible solo en terminales autorizadas.', 'error');
+            });
+        }
     </script>
 </body>
 </html>
