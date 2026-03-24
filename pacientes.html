@@ -361,7 +361,7 @@
 
         .patients-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
@@ -412,21 +412,6 @@
             font-size: 3rem;
         }
 
-        .status-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .status-critical { background: rgba(235, 87, 87, 0.1); color: var(--accent); border-left: 3px solid var(--accent); }
-        .status-stable { background: rgba(39, 174, 96, 0.1); color: var(--secondary); border-left: 3px solid var(--secondary); }
-        .status-observation { background: rgba(45, 156, 219, 0.1); color: var(--primary); border-left: 3px solid var(--primary); }
-        .status-discharged { background: rgba(149, 165, 166, 0.1); color: var(--gray); border-left: 3px solid var(--gray); }
-
         .card-content {
             padding: 20px;
         }
@@ -435,7 +420,7 @@
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--dark);
-            margin-bottom: 5px;
+            margin-bottom: 12px;
         }
 
         .patient-info-row {
@@ -478,25 +463,6 @@
         .doctor-name {
             font-weight: 600;
             color: var(--dark);
-        }
-
-        .doctor-specialty {
-            font-size: 0.7rem;
-            color: var(--gray);
-            margin-left: 5px;
-        }
-
-        .patient-diagnosis {
-            background: var(--light);
-            padding: 10px;
-            border-radius: var(--border-radius-sm);
-            margin: 12px 0;
-            font-size: 0.85rem;
-        }
-
-        .patient-diagnosis i {
-            color: var(--primary);
-            margin-right: 8px;
         }
 
         .card-actions {
@@ -617,8 +583,7 @@
         }
 
         .modal-content input,
-        .modal-content select,
-        .modal-content textarea {
+        .modal-content select {
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
@@ -629,8 +594,7 @@
         }
 
         .modal-content input:focus,
-        .modal-content select:focus,
-        .modal-content textarea:focus {
+        .modal-content select:focus {
             outline: none;
             border-color: var(--primary);
         }
@@ -714,15 +678,9 @@
         <div class="filters-section">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Buscar por nombre, médico o diagnóstico...">
+                <input type="text" id="searchInput" placeholder="Buscar por nombre o médico...">
             </div>
             <div class="filter-group">
-                <select class="filter-select" id="statusFilter">
-                    <option value="all">Todos los estados</option>
-                    <option value="stable">Estable</option>
-                    <option value="observation">Observación</option>
-                    <option value="critical">Crítico</option>
-                </select>
                 <select class="filter-select" id="doctorFilter">
                     <option value="all">Todos los médicos</option>
                     <option value="Dr. Martínez">Dr. Martínez</option>
@@ -752,18 +710,12 @@
                 <option value="female">Femenino</option>
                 <option value="child">Infantil</option>
             </select>
-            <select id="modalStatus">
-                <option value="stable">Estable</option>
-                <option value="observation">Observación</option>
-                <option value="critical">Crítico</option>
-            </select>
             <select id="modalDoctor">
-                <option value="Dr. Martínez">Dr. Martínez - Emergencias</option>
-                <option value="Dra. López">Dra. López - Traumatología</option>
-                <option value="Dr. Rodríguez">Dr. Rodríguez - Cirugía</option>
-                <option value="Dra. García">Dra. García - Psicología</option>
+                <option value="Dr. Martínez">Dr. Martínez</option>
+                <option value="Dra. López">Dra. López</option>
+                <option value="Dr. Rodríguez">Dr. Rodríguez</option>
+                <option value="Dra. García">Dra. García</option>
             </select>
-            <input type="text" id="modalDiagnosis" placeholder="Diagnóstico">
             <div class="modal-buttons">
                 <button class="btn-outline" id="closeModalBtn">Cancelar</button>
                 <button class="btn-primary" id="savePatientBtn">Guardar</button>
@@ -772,16 +724,16 @@
     </div>
 
     <script>
-        // Datos de pacientes con médico encargado
+        // Datos de pacientes
         let patients = [
-            { id: 1, name: 'Michael De Santa', age: 45, gender: 'male', status: 'stable', diagnosis: 'Hipertensión controlada', admissionDate: '2024-03-15', doctor: 'Dr. Martínez', doctorSpecialty: 'Emergencias' },
-            { id: 2, name: 'Franklin Clinton', age: 28, gender: 'male', status: 'observation', diagnosis: 'Fractura de tobillo', admissionDate: '2024-03-18', doctor: 'Dra. López', doctorSpecialty: 'Traumatología' },
-            { id: 3, name: 'Trevor Philips', age: 49, gender: 'male', status: 'critical', diagnosis: 'Trauma múltiple', admissionDate: '2024-03-20', doctor: 'Dr. Rodríguez', doctorSpecialty: 'Cirugía' },
-            { id: 4, name: 'Amanda De Santa', age: 42, gender: 'female', status: 'stable', diagnosis: 'Estrés postraumático', admissionDate: '2024-03-14', doctor: 'Dra. García', doctorSpecialty: 'Psicología' },
-            { id: 5, name: 'Sofia Martinez', age: 7, gender: 'child', status: 'observation', diagnosis: 'Infección respiratoria', admissionDate: '2024-03-19', doctor: 'Dr. Martínez', doctorSpecialty: 'Emergencias' },
-            { id: 6, name: 'Lester Crest', age: 55, gender: 'male', status: 'stable', diagnosis: 'Control médico rutinario', admissionDate: '2024-03-10', doctor: 'Dr. Martínez', doctorSpecialty: 'Emergencias' },
-            { id: 7, name: 'Tracey De Santa', age: 21, gender: 'female', status: 'observation', diagnosis: 'Esguince de tobillo', admissionDate: '2024-03-16', doctor: 'Dra. López', doctorSpecialty: 'Traumatología' },
-            { id: 8, name: 'Jimmy De Santa', age: 18, gender: 'male', status: 'stable', diagnosis: 'Intoxicación alimentaria', admissionDate: '2024-03-17', doctor: 'Dr. Martínez', doctorSpecialty: 'Emergencias' }
+            { id: 1, name: 'Michael De Santa', age: 45, gender: 'male', admissionDate: '2024-03-15', doctor: 'Dr. Martínez' },
+            { id: 2, name: 'Franklin Clinton', age: 28, gender: 'male', admissionDate: '2024-03-18', doctor: 'Dra. López' },
+            { id: 3, name: 'Trevor Philips', age: 49, gender: 'male', admissionDate: '2024-03-20', doctor: 'Dr. Rodríguez' },
+            { id: 4, name: 'Amanda De Santa', age: 42, gender: 'female', admissionDate: '2024-03-14', doctor: 'Dra. García' },
+            { id: 5, name: 'Sofia Martinez', age: 7, gender: 'child', admissionDate: '2024-03-19', doctor: 'Dr. Martínez' },
+            { id: 6, name: 'Lester Crest', age: 55, gender: 'male', admissionDate: '2024-03-10', doctor: 'Dr. Martínez' },
+            { id: 7, name: 'Tracey De Santa', age: 21, gender: 'female', admissionDate: '2024-03-16', doctor: 'Dra. López' },
+            { id: 8, name: 'Jimmy De Santa', age: 18, gender: 'male', admissionDate: '2024-03-17', doctor: 'Dr. Martínez' }
         ];
 
         let currentPage = 1;
@@ -805,32 +757,15 @@
             return 'fas fa-baby';
         }
 
-        function getStatusClass(status) {
-            if (status === 'critical') return 'status-critical';
-            if (status === 'stable') return 'status-stable';
-            if (status === 'observation') return 'status-observation';
-            return 'status-stable';
-        }
-
-        function getStatusText(status) {
-            if (status === 'critical') return 'Crítico';
-            if (status === 'stable') return 'Estable';
-            if (status === 'observation') return 'Observación';
-            return 'Estable';
-        }
-
         function renderPatients() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const statusFilter = document.getElementById('statusFilter').value;
             const doctorFilter = document.getElementById('doctorFilter').value;
 
             let filtered = patients.filter(p => {
                 const matchSearch = p.name.toLowerCase().includes(searchTerm) || 
-                                   p.doctor.toLowerCase().includes(searchTerm) ||
-                                   p.diagnosis.toLowerCase().includes(searchTerm);
-                const matchStatus = statusFilter === 'all' || p.status === statusFilter;
+                                   p.doctor.toLowerCase().includes(searchTerm);
                 const matchDoctor = doctorFilter === 'all' || p.doctor === doctorFilter;
-                return matchSearch && matchStatus && matchDoctor;
+                return matchSearch && matchDoctor;
             });
 
             const totalPages = Math.ceil(filtered.length / itemsPerPage);
@@ -845,7 +780,6 @@
                     <div class="patient-card">
                         <div class="card-header-image">
                             <div class="patient-silhouette ${p.gender}"><i class="${getGenderIcon(p.gender)}"></i></div>
-                            <span class="status-badge ${getStatusClass(p.status)}">${getStatusText(p.status)}</span>
                         </div>
                         <div class="card-content">
                             <h3 class="patient-name">${p.name}</h3>
@@ -855,14 +789,7 @@
                             </div>
                             <div class="doctor-info">
                                 <i class="fas fa-user-md"></i>
-                                <div>
-                                    <span class="doctor-name">${p.doctor}</span>
-                                    <span class="doctor-specialty">${p.doctorSpecialty}</span>
-                                </div>
-                            </div>
-                            <div class="patient-diagnosis">
-                                <i class="fas fa-stethoscope"></i>
-                                <strong>Diagnóstico:</strong> ${p.diagnosis}
+                                <span class="doctor-name">Médico: ${p.doctor}</span>
                             </div>
                             <div class="card-actions">
                                 <button class="btn-view" onclick="verHistoriaClinica(${p.id})"><i class="fas fa-notes-medical"></i> Historia Clínica</button>
@@ -897,9 +824,7 @@
                 document.getElementById('modalName').value = patient.name;
                 document.getElementById('modalAge').value = patient.age;
                 document.getElementById('modalGender').value = patient.gender;
-                document.getElementById('modalStatus').value = patient.status;
                 document.getElementById('modalDoctor').value = patient.doctor;
-                document.getElementById('modalDiagnosis').value = patient.diagnosis;
                 document.getElementById('patientModal').classList.add('active');
             }
         }
@@ -908,22 +833,12 @@
             const name = document.getElementById('modalName').value.trim();
             const age = parseInt(document.getElementById('modalAge').value);
             const gender = document.getElementById('modalGender').value;
-            const status = document.getElementById('modalStatus').value;
             const doctor = document.getElementById('modalDoctor').value;
-            const diagnosis = document.getElementById('modalDiagnosis').value.trim();
 
             if (!name || !age) {
                 alert('Por favor complete todos los campos obligatorios.');
                 return;
             }
-
-            // Obtener especialidad del doctor seleccionado
-            const doctorSpecialties = {
-                'Dr. Martínez': 'Emergencias',
-                'Dra. López': 'Traumatología',
-                'Dr. Rodríguez': 'Cirugía',
-                'Dra. García': 'Psicología'
-            };
 
             if (editingPatientId) {
                 // Editar paciente existente
@@ -934,10 +849,7 @@
                         name,
                         age,
                         gender,
-                        status,
-                        doctor,
-                        doctorSpecialty: doctorSpecialties[doctor],
-                        diagnosis
+                        doctor
                     };
                 }
                 editingPatientId = null;
@@ -950,11 +862,8 @@
                     name,
                     age,
                     gender,
-                    status,
-                    diagnosis,
                     admissionDate: today,
-                    doctor,
-                    doctorSpecialty: doctorSpecialties[doctor]
+                    doctor
                 });
             }
 
@@ -964,9 +873,7 @@
             document.getElementById('modalName').value = '';
             document.getElementById('modalAge').value = '';
             document.getElementById('modalGender').value = 'male';
-            document.getElementById('modalStatus').value = 'stable';
             document.getElementById('modalDoctor').value = 'Dr. Martínez';
-            document.getElementById('modalDiagnosis').value = '';
             
             renderPatients();
         }
@@ -992,7 +899,6 @@
 
         // Filtros y búsqueda
         document.getElementById('searchInput').addEventListener('input', () => { currentPage = 1; renderPatients(); });
-        document.getElementById('statusFilter').addEventListener('change', () => { currentPage = 1; renderPatients(); });
         document.getElementById('doctorFilter').addEventListener('change', () => { currentPage = 1; renderPatients(); });
 
         // Modal events
@@ -1007,9 +913,7 @@
             document.getElementById('modalName').value = '';
             document.getElementById('modalAge').value = '';
             document.getElementById('modalGender').value = 'male';
-            document.getElementById('modalStatus').value = 'stable';
             document.getElementById('modalDoctor').value = 'Dr. Martínez';
-            document.getElementById('modalDiagnosis').value = '';
             modal.classList.add('active');
         });
 
