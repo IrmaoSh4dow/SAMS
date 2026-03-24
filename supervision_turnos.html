@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ST. Fiacre Hospital | Supervisión de Turnos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Panel de supervisión de turnos del personal del ST. Fiacre Hospital">
+
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variables CSS */
+        :root {
+            --primary: #2D9CDB;
+            --secondary: #27AE60;
+            --accent: #EB5757;
+            --warning: #F39C12;
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --border-radius-sm: 12px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR MODERNA */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            padding: 10px 18px;
+            font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a i {
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: inherit;
+        }
+
+        .user-btn:hover {
+            background: var(--light-blue);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .user-role {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: white;
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--shadow-hover);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .user-menu.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .dropdown-menu a i {
+            width: 20px;
+            color: var(--primary);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #eee;
+            margin: 5px 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-header h1 i {
+            color: var(--primary);
+        }
+
+        .page-header p {
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        /* Resumen de turnos */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .summary-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .summary-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        /* Filtros */
+        .filters-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-select {
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Tabla de personal */
+        .staff-table-container {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .staff-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .staff-table th,
+        .staff-table td {
+            padding: 16px 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .staff-table th {
+            background: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.85rem;
+        }
+
+        .staff-table tr:hover {
+            background: var(--light-blue);
+        }
+
+        /* Badges de estado */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-on {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--secondary);
+        }
+
+        .status-off {
+            background: rgba(149, 165, 166, 0.1);
+            color: var(--gray);
+        }
+
+        .status-on i,
+        .status-off i {
+            font-size: 0.6rem;
+        }
+
+        .duration-badge {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .avatar-small {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        /* Paginación */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .page-btn:hover {
+            background: var(--light-blue);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        /* Botón de exportar */
+        .btn-export {
+            background: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+        .btn-export:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .footer {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .filters-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-group {
+                justify-content: space-between;
+            }
+            .staff-table {
+                display: block;
+                overflow-x: auto;
+            }
+            .summary-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="logo"><i class="fas fa-heartbeat"></i> ST. Fiacre</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a>
+                <a href="pacientes.html"><i class="fas fa-users"></i> Pacientes</a>
+                <a href="turnos.html"><i class="fas fa-calendar-alt"></i> Mis Turnos</a>
+                <a href="supervision_turnos.html" class="active"><i class="fas fa-chalkboard-user"></i> Supervisión</a>
+                <a href="personal.html"><i class="fas fa-user-md"></i> Personal</a>
+                <a href="reportes.html"><i class="fas fa-chart-line"></i> Reportes</a>
+            </div>
+            <div class="user-menu" id="userMenu">
+                <button class="user-btn" id="userBtn">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user-md"></i></div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Administrador</div>
+                        <div class="user-role" id="userRole">Supervisor</div>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a>
+                    <a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="login.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <div>
+                <h1><i class="fas fa-chalkboard-user"></i> Supervisión de Turnos</h1>
+                <p>Estado actual del personal - Control de asistencia y horas laboradas</p>
+            </div>
+            <button class="btn-export" id="exportBtn">
+                <i class="fas fa-download"></i> Exportar Reporte
+            </button>
+        </div>
+
+        <!-- Tarjetas de resumen -->
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="summary-number" id="totalPersonal">0</div>
+                <div class="summary-label">Total Personal</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-number" id="enServicio">0</div>
+                <div class="summary-label">En Servicio</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-number" id="fueraServicio">0</div>
+                <div class="summary-label">Fuera de Servicio</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-number" id="horasTotales">0</div>
+                <div class="summary-label">Horas Totales Hoy</div>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Buscar por nombre, cargo o especialidad...">
+            </div>
+            <div class="filter-group">
+                <select class="filter-select" id="statusFilter">
+                    <option value="all">Todos los estados</option>
+                    <option value="on">En servicio</option>
+                    <option value="off">Fuera de servicio</option>
+                </select>
+                <select class="filter-select" id="roleFilter">
+                    <option value="all">Todos los cargos</option>
+                    <option value="Médico">Médico</option>
+                    <option value="Enfermero/a">Enfermero/a</option>
+                    <option value="Paramédico">Paramédico</option>
+                    <option value="Administrativo">Administrativo</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Tabla de personal -->
+        <div class="staff-table-container">
+            <table class="staff-table">
+                <thead>
+                    <tr>
+                        <th>Personal</th>
+                        <th>Cargo</th>
+                        <th>Especialidad</th>
+                        <th>Estado</th>
+                        <th>Hora Entrada</th>
+                        <th>Tiempo Laborado</th>
+                    </tr>
+                </thead>
+                <tbody id="staffTableBody">
+                    <!-- Datos cargados dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination" id="pagination"></div>
+    </main>
+
+    <footer class="footer">
+        <p><i class="fas fa-heartbeat" style="color: var(--primary);"></i> ST. Fiacre Hospital - Sistema de Gestión Médica v2.0</p>
+    </footer>
+
+    <script>
+        // Datos del personal con su estado de turno
+        let staffData = [
+            { id: 1, name: 'Dr. Juan Martínez', role: 'Médico', specialty: 'Emergencias', status: 'on', shiftStart: '2024-03-25T08:00:00', shiftEnd: null, totalHours: 0 },
+            { id: 2, name: 'Dra. María López', role: 'Médico', specialty: 'Traumatología', status: 'on', shiftStart: '2024-03-25T08:30:00', shiftEnd: null, totalHours: 0 },
+            { id: 3, name: 'Dr. Carlos Rodríguez', role: 'Médico', specialty: 'Cirugía General', status: 'off', shiftStart: '2024-03-25T07:00:00', shiftEnd: '2024-03-25T15:00:00', totalHours: 8 },
+            { id: 4, name: 'Dra. Ana García', role: 'Médico', specialty: 'Psicología', status: 'on', shiftStart: '2024-03-25T09:00:00', shiftEnd: null, totalHours: 0 },
+            { id: 5, name: 'Enf. Laura Fernández', role: 'Enfermero/a', specialty: 'Urgencias', status: 'on', shiftStart: '2024-03-25T07:30:00', shiftEnd: null, totalHours: 0 },
+            { id: 6, name: 'Enf. Roberto Sánchez', role: 'Enfermero/a', specialty: 'Cuidados Intensivos', status: 'off', shiftStart: '2024-03-25T06:00:00', shiftEnd: '2024-03-25T14:00:00', totalHours: 8 },
+            { id: 7, name: 'Param. Miguel Torres', role: 'Paramédico', specialty: 'Emergencias Prehospitalarias', status: 'on', shiftStart: '2024-03-25T08:00:00', shiftEnd: null, totalHours: 0 },
+            { id: 8, name: 'Param. Silvia Ramírez', role: 'Paramédico', specialty: 'Rescate', status: 'off', shiftStart: '2024-03-25T07:00:00', shiftEnd: '2024-03-25T15:00:00', totalHours: 8 },
+            { id: 9, name: 'Admin. Patricia Mendoza', role: 'Administrativo', specialty: 'Gestión Hospitalaria', status: 'on', shiftStart: '2024-03-25T08:00:00', shiftEnd: null, totalHours: 0 },
+            { id: 10, name: 'Admin. Fernando Ortiz', role: 'Administrativo', specialty: 'Recursos Humanos', status: 'off', shiftStart: '2024-03-25T08:00:00', shiftEnd: '2024-03-25T16:00:00', totalHours: 8 },
+            { id: 11, name: 'Dr. Pablo Méndez', role: 'Médico', specialty: 'Cardiología', status: 'on', shiftStart: '2024-03-25T09:30:00', shiftEnd: null, totalHours: 0 },
+            { id: 12, name: 'Enf. Carolina Ríos', role: 'Enfermero/a', specialty: 'Pediatría', status: 'off', shiftStart: '2024-03-25T07:00:00', shiftEnd: '2024-03-25T15:00:00', totalHours: 8 }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 8;
+
+        function getUserData() {
+            const savedUser = localStorage.getItem('sams_user') || sessionStorage.getItem('sams_user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    document.getElementById('userName').textContent = user.name;
+                    document.getElementById('userRole').textContent = user.role === 'Administrador' ? 'Supervisor' : user.role;
+                } catch(e) {}
+            }
+        }
+
+        // Calcular horas laboradas en tiempo real
+        function calcularHorasLaboradas(shiftStart, status) {
+            if (status === 'off') {
+                // Para los que ya salieron, usar las horas calculadas previamente
+                const staff = staffData.find(s => s.shiftStart === shiftStart);
+                return staff ? staff.totalHours : 0;
+            }
+            
+            const start = new Date(shiftStart);
+            const now = new Date();
+            const diffMs = now - start;
+            const diffHrs = diffMs / 3600000;
+            return Math.floor(diffHrs * 10) / 10;
+        }
+
+        // Formatear duración
+        function formatDuration(hours) {
+            const h = Math.floor(hours);
+            const m = Math.floor((hours - h) * 60);
+            return `${h}h ${m}m`;
+        }
+
+        // Formatear hora de entrada
+        function formatShiftStart(shiftStart) {
+            const date = new Date(shiftStart);
+            return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Actualizar estadísticas
+        function updateStats() {
+            const total = staffData.length;
+            const enServicio = staffData.filter(s => s.status === 'on').length;
+            const fueraServicio = total - enServicio;
+            
+            let horasTotales = 0;
+            staffData.forEach(s => {
+                if (s.status === 'on') {
+                    horasTotales += calcularHorasLaboradas(s.shiftStart, s.status);
+                } else {
+                    horasTotales += s.totalHours;
+                }
+            });
+            
+            document.getElementById('totalPersonal').textContent = total;
+            document.getElementById('enServicio').textContent = enServicio;
+            document.getElementById('fueraServicio').textContent = fueraServicio;
+            document.getElementById('horasTotales').textContent = Math.floor(horasTotales);
+        }
+
+        // Renderizar tabla
+        function renderStaffTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const roleFilter = document.getElementById('roleFilter').value;
+
+            let filtered = staffData.filter(s => {
+                const matchSearch = s.name.toLowerCase().includes(searchTerm) || 
+                                   s.role.toLowerCase().includes(searchTerm) ||
+                                   s.specialty.toLowerCase().includes(searchTerm);
+                const matchStatus = statusFilter === 'all' || 
+                                   (statusFilter === 'on' && s.status === 'on') ||
+                                   (statusFilter === 'off' && s.status === 'off');
+                const matchRole = roleFilter === 'all' || s.role === roleFilter;
+                return matchSearch && matchStatus && matchRole;
+            });
+
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            const start = (currentPage - 1) * itemsPerPage;
+            const paginated = filtered.slice(start, start + itemsPerPage);
+
+            const tbody = document.getElementById('staffTableBody');
+            if (paginated.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;"><i class="fas fa-user-slash"></i> No se encontraron registros</td></tr>';
+            } else {
+                tbody.innerHTML = paginated.map(s => {
+                    const horasLaboradas = s.status === 'on' ? calcularHorasLaboradas(s.shiftStart, s.status) : s.totalHours;
+                    return `
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div class="avatar-small">${s.name.charAt(0)}${s.name.charAt(s.name.indexOf(' ') + 1)}</div>
+                                    <div>
+                                        <strong>${s.name}</strong>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${s.role}</td>
+                            <td>${s.specialty}</td>
+                            <td>
+                                <span class="status-badge ${s.status === 'on' ? 'status-on' : 'status-off'}">
+                                    <i class="fas ${s.status === 'on' ? 'fa-circle' : 'fa-circle'}"></i>
+                                    ${s.status === 'on' ? 'En servicio' : 'Fuera de servicio'}
+                                </span>
+                            </td>
+                            <td>${formatShiftStart(s.shiftStart)}</td>
+                            <td class="duration-badge">${formatDuration(horasLaboradas)}</td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            // Renderizar paginación
+            let buttons = '';
+            for (let i = 1; i <= totalPages; i++) {
+                buttons += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            document.getElementById('pagination').innerHTML = buttons;
+            
+            updateStats();
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderStaffTable();
+        }
+
+        // Exportar reporte
+        function exportReport() {
+            const now = new Date();
+            const fecha = now.toLocaleDateString('es-ES');
+            const hora = now.toLocaleTimeString('es-ES');
+            
+            let reportContent = `=========================================\n`;
+            reportContent += `ST. FIACRE HOSPITAL - REPORTE DE SUPERVISIÓN\n`;
+            reportContent += `=========================================\n`;
+            reportContent += `Fecha: ${fecha} - ${hora}\n\n`;
+            
+            reportContent += `RESUMEN GENERAL\n`;
+            reportContent += `-----------------------------------------\n`;
+            reportContent += `Total Personal: ${staffData.length}\n`;
+            reportContent += `En Servicio: ${staffData.filter(s => s.status === 'on').length}\n`;
+            reportContent += `Fuera de Servicio: ${staffData.filter(s => s.status === 'off').length}\n\n`;
+            
+            reportContent += `DETALLE DEL PERSONAL\n`;
+            reportContent += `-----------------------------------------\n`;
+            
+            staffData.forEach(s => {
+                const horasLaboradas = s.status === 'on' ? calcularHorasLaboradas(s.shiftStart, s.status) : s.totalHours;
+                reportContent += `${s.name} | ${s.role} | ${s.specialty} | ${s.status === 'on' ? 'En servicio' : 'Fuera de servicio'} | ${formatShiftStart(s.shiftStart)} | ${formatDuration(horasLaboradas)}\n`;
+            });
+            
+            reportContent += `\n=========================================\n`;
+            reportContent += `Reporte generado por ST. Fiacre Hospital\n`;
+            reportContent += `Sistema de Gestión Médica v2.0\n`;
+            
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reporte_supervision_${now.toISOString().slice(0, 10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Reporte exportado correctamente', 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--secondary)' : 'var(--primary)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                z-index: 9999;
+                animation: slideInRight 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            `;
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        const notificationStyle = document.createElement('style');
+        notificationStyle.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(notificationStyle);
+
+        // Actualizar horas en tiempo real cada minuto
+        let intervalId;
+        function startAutoUpdate() {
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(() => {
+                renderStaffTable();
+            }, 60000); // Actualizar cada minuto
+        }
+
+        // Eventos
+        const userMenu = document.getElementById('userMenu');
+        document.getElementById('userBtn').addEventListener('click', (e) => { e.stopPropagation(); userMenu.classList.toggle('active'); });
+        document.addEventListener('click', () => userMenu.classList.remove('active'));
+        
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('sams_user');
+            sessionStorage.removeItem('sams_user');
+            window.location.href = 'login.html';
+        });
+
+        document.getElementById('searchInput').addEventListener('input', () => { currentPage = 1; renderStaffTable(); });
+        document.getElementById('statusFilter').addEventListener('change', () => { currentPage = 1; renderStaffTable(); });
+        document.getElementById('roleFilter').addEventListener('change', () => { currentPage = 1; renderStaffTable(); });
+        document.getElementById('exportBtn').addEventListener('click', exportReport);
+
+        window.goToPage = goToPage;
+
+        getUserData();
+        renderStaffTable();
+        startAutoUpdate();
+    </script>
+</body>
+</html>
