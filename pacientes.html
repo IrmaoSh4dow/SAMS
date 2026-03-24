@@ -361,7 +361,7 @@
 
         .patients-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
@@ -456,6 +456,34 @@
 
         .info-item i {
             color: var(--primary);
+            width: 16px;
+        }
+
+        .doctor-info {
+            background: var(--light-blue);
+            padding: 10px 12px;
+            border-radius: var(--border-radius-sm);
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .doctor-info i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .doctor-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .doctor-specialty {
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-left: 5px;
         }
 
         .patient-diagnosis {
@@ -464,6 +492,11 @@
             border-radius: var(--border-radius-sm);
             margin: 12px 0;
             font-size: 0.85rem;
+        }
+
+        .patient-diagnosis i {
+            color: var(--primary);
+            margin-right: 8px;
         }
 
         .card-actions {
@@ -512,6 +545,11 @@
             background: white;
             cursor: pointer;
             font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .page-btn:hover {
+            background: var(--light-blue);
         }
 
         .page-btn.active {
@@ -525,6 +563,83 @@
             text-align: center;
             border-top: 1px solid #e0e0e0;
             margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Modal para nuevo/editar paciente */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            width: 90%;
+            padding: 30px;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark);
+        }
+
+        .modal-content input,
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius-sm);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .modal-content input:focus,
+        .modal-content select:focus,
+        .modal-content textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 10px;
         }
 
         @media (max-width: 768px) {
@@ -551,6 +666,7 @@
             .filters-section { flex-direction: column; align-items: stretch; }
             .filter-group { justify-content: space-between; }
             .filter-select { flex: 1; }
+            .patients-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -598,7 +714,7 @@
         <div class="filters-section">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Buscar por nombre...">
+                <input type="text" id="searchInput" placeholder="Buscar por nombre, médico o diagnóstico...">
             </div>
             <div class="filter-group">
                 <select class="filter-select" id="statusFilter">
@@ -606,6 +722,13 @@
                     <option value="stable">Estable</option>
                     <option value="observation">Observación</option>
                     <option value="critical">Crítico</option>
+                </select>
+                <select class="filter-select" id="doctorFilter">
+                    <option value="all">Todos los médicos</option>
+                    <option value="Dr. Martínez">Dr. Martínez</option>
+                    <option value="Dra. López">Dra. López</option>
+                    <option value="Dr. Rodríguez">Dr. Rodríguez</option>
+                    <option value="Dra. García">Dra. García</option>
                 </select>
             </div>
         </div>
@@ -618,16 +741,51 @@
         <p><i class="fas fa-heartbeat" style="color: var(--primary);"></i> ST. Fiacre Hospital - Sistema de Gestión Médica v2.0</p>
     </footer>
 
+    <!-- Modal para nuevo/editar paciente -->
+    <div class="modal" id="patientModal">
+        <div class="modal-content">
+            <h3 id="modalTitle"><i class="fas fa-user-plus"></i> Nuevo Paciente</h3>
+            <input type="text" id="modalName" placeholder="Nombre completo" required>
+            <input type="number" id="modalAge" placeholder="Edad" required>
+            <select id="modalGender">
+                <option value="male">Masculino</option>
+                <option value="female">Femenino</option>
+                <option value="child">Infantil</option>
+            </select>
+            <select id="modalStatus">
+                <option value="stable">Estable</option>
+                <option value="observation">Observación</option>
+                <option value="critical">Crítico</option>
+            </select>
+            <select id="modalDoctor">
+                <option value="Dr. Martínez">Dr. Martínez - Emergencias</option>
+                <option value="Dra. López">Dra. López - Traumatología</option>
+                <option value="Dr. Rodríguez">Dr. Rodríguez - Cirugía</option>
+                <option value="Dra. García">Dra. García - Psicología</option>
+            </select>
+            <input type="text" id="modalDiagnosis" placeholder="Diagnóstico">
+            <div class="modal-buttons">
+                <button class="btn-outline" id="closeModalBtn">Cancelar</button>
+                <button class="btn-primary" id="savePatientBtn">Guardar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Datos de pacientes con médico encargado
         let patients = [
-            { id: 1, name: 'Michael De Santa', age: 45, gender: 'male', status: 'stable', diagnosis: 'Hipertensión controlada', admissionDate: '2024-03-15' },
-            { id: 2, name: 'Franklin Clinton', age: 28, gender: 'male', status: 'observation', diagnosis: 'Fractura de tobillo', admissionDate: '2024-03-18' },
-            { id: 3, name: 'Trevor Philips', age: 49, gender: 'male', status: 'critical', diagnosis: 'Trauma múltiple', admissionDate: '2024-03-20' },
-            { id: 4, name: 'Amanda De Santa', age: 42, gender: 'female', status: 'stable', diagnosis: 'Estrés postraumático', admissionDate: '2024-03-14' },
-            { id: 5, name: 'Sofia Martinez', age: 7, gender: 'child', status: 'observation', diagnosis: 'Infección respiratoria', admissionDate: '2024-03-19' }
+            { id: 1, name: 'Michael De Santa', age: 45, gender: 'male', status: 'stable', diagnosis: 'Hipertensión controlada', admissionDate: '2024-03-15', doctor: 'Dr. Martínez', doctorSpecialty: 'Emergencias' },
+            { id: 2, name: 'Franklin Clinton', age: 28, gender: 'male', status: 'observation', diagnosis: 'Fractura de tobillo', admissionDate: '2024-03-18', doctor: 'Dra. López', doctorSpecialty: 'Traumatología' },
+            { id: 3, name: 'Trevor Philips', age: 49, gender: 'male', status: 'critical', diagnosis: 'Trauma múltiple', admissionDate: '2024-03-20', doctor: 'Dr. Rodríguez', doctorSpecialty: 'Cirugía' },
+            { id: 4, name: 'Amanda De Santa', age: 42, gender: 'female', status: 'stable', diagnosis: 'Estrés postraumático', admissionDate: '2024-03-14', doctor: 'Dra. García', doctorSpecialty: 'Psicología' },
+            { id: 5, name: 'Sofia Martinez', age: 7, gender: 'child', status: 'observation', diagnosis: 'Infección respiratoria', admissionDate: '2024-03-19', doctor: 'Dr. Martínez', doctorSpecialty: 'Emergencias' },
+            { id: 6, name: 'Lester Crest', age: 55, gender: 'male', status: 'stable', diagnosis: 'Control médico rutinario', admissionDate: '2024-03-10', doctor: 'Dr. Martínez', doctorSpecialty: 'Emergencias' },
+            { id: 7, name: 'Tracey De Santa', age: 21, gender: 'female', status: 'observation', diagnosis: 'Esguince de tobillo', admissionDate: '2024-03-16', doctor: 'Dra. López', doctorSpecialty: 'Traumatología' },
+            { id: 8, name: 'Jimmy De Santa', age: 18, gender: 'male', status: 'stable', diagnosis: 'Intoxicación alimentaria', admissionDate: '2024-03-17', doctor: 'Dr. Martínez', doctorSpecialty: 'Emergencias' }
         ];
 
         let currentPage = 1;
+        let editingPatientId = null;
         const itemsPerPage = 6;
 
         function getUserData() {
@@ -664,11 +822,15 @@
         function renderPatients() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const statusFilter = document.getElementById('statusFilter').value;
+            const doctorFilter = document.getElementById('doctorFilter').value;
 
             let filtered = patients.filter(p => {
-                const matchSearch = p.name.toLowerCase().includes(searchTerm);
+                const matchSearch = p.name.toLowerCase().includes(searchTerm) || 
+                                   p.doctor.toLowerCase().includes(searchTerm) ||
+                                   p.diagnosis.toLowerCase().includes(searchTerm);
                 const matchStatus = statusFilter === 'all' || p.status === statusFilter;
-                return matchSearch && matchStatus;
+                const matchDoctor = doctorFilter === 'all' || p.doctor === doctorFilter;
+                return matchSearch && matchStatus && matchDoctor;
             });
 
             const totalPages = Math.ceil(filtered.length / itemsPerPage);
@@ -691,8 +853,20 @@
                                 <div class="info-item"><i class="fas fa-calendar-alt"></i> ${p.age} años</div>
                                 <div class="info-item"><i class="fas fa-calendar-plus"></i> Ingreso: ${p.admissionDate}</div>
                             </div>
+                            <div class="doctor-info">
+                                <i class="fas fa-user-md"></i>
+                                <div>
+                                    <span class="doctor-name">${p.doctor}</span>
+                                    <span class="doctor-specialty">${p.doctorSpecialty}</span>
+                                </div>
+                            </div>
+                            <div class="patient-diagnosis">
+                                <i class="fas fa-stethoscope"></i>
+                                <strong>Diagnóstico:</strong> ${p.diagnosis}
+                            </div>
                             <div class="card-actions">
                                 <button class="btn-view" onclick="verHistoriaClinica(${p.id})"><i class="fas fa-notes-medical"></i> Historia Clínica</button>
+                                <button class="btn-edit" onclick="editarPaciente(${p.id})"><i class="fas fa-edit"></i> Editar</button>
                             </div>
                         </div>
                     </div>
@@ -706,10 +880,95 @@
             document.getElementById('pagination').innerHTML = buttons;
         }
 
-        function goToPage(page) { currentPage = page; renderPatients(); }
+        function goToPage(page) { 
+            currentPage = page; 
+            renderPatients(); 
+        }
         
         function verHistoriaClinica(id) {
             window.location.href = `historia_clinica.html?id=${id}`;
+        }
+
+        function editarPaciente(id) {
+            const patient = patients.find(p => p.id === id);
+            if (patient) {
+                editingPatientId = id;
+                document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-edit"></i> Editar Paciente';
+                document.getElementById('modalName').value = patient.name;
+                document.getElementById('modalAge').value = patient.age;
+                document.getElementById('modalGender').value = patient.gender;
+                document.getElementById('modalStatus').value = patient.status;
+                document.getElementById('modalDoctor').value = patient.doctor;
+                document.getElementById('modalDiagnosis').value = patient.diagnosis;
+                document.getElementById('patientModal').classList.add('active');
+            }
+        }
+
+        function guardarPaciente() {
+            const name = document.getElementById('modalName').value.trim();
+            const age = parseInt(document.getElementById('modalAge').value);
+            const gender = document.getElementById('modalGender').value;
+            const status = document.getElementById('modalStatus').value;
+            const doctor = document.getElementById('modalDoctor').value;
+            const diagnosis = document.getElementById('modalDiagnosis').value.trim();
+
+            if (!name || !age) {
+                alert('Por favor complete todos los campos obligatorios.');
+                return;
+            }
+
+            // Obtener especialidad del doctor seleccionado
+            const doctorSpecialties = {
+                'Dr. Martínez': 'Emergencias',
+                'Dra. López': 'Traumatología',
+                'Dr. Rodríguez': 'Cirugía',
+                'Dra. García': 'Psicología'
+            };
+
+            if (editingPatientId) {
+                // Editar paciente existente
+                const index = patients.findIndex(p => p.id === editingPatientId);
+                if (index !== -1) {
+                    patients[index] = {
+                        ...patients[index],
+                        name,
+                        age,
+                        gender,
+                        status,
+                        doctor,
+                        doctorSpecialty: doctorSpecialties[doctor],
+                        diagnosis
+                    };
+                }
+                editingPatientId = null;
+            } else {
+                // Crear nuevo paciente
+                const newId = Math.max(...patients.map(p => p.id), 0) + 1;
+                const today = new Date().toISOString().slice(0, 10);
+                patients.push({
+                    id: newId,
+                    name,
+                    age,
+                    gender,
+                    status,
+                    diagnosis,
+                    admissionDate: today,
+                    doctor,
+                    doctorSpecialty: doctorSpecialties[doctor]
+                });
+            }
+
+            // Reset modal
+            document.getElementById('patientModal').classList.remove('active');
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-plus"></i> Nuevo Paciente';
+            document.getElementById('modalName').value = '';
+            document.getElementById('modalAge').value = '';
+            document.getElementById('modalGender').value = 'male';
+            document.getElementById('modalStatus').value = 'stable';
+            document.getElementById('modalDoctor').value = 'Dr. Martínez';
+            document.getElementById('modalDiagnosis').value = '';
+            
+            renderPatients();
         }
 
         // Eventos y menús
@@ -731,8 +990,42 @@
             window.location.href = 'login.html';
         });
 
+        // Filtros y búsqueda
         document.getElementById('searchInput').addEventListener('input', () => { currentPage = 1; renderPatients(); });
         document.getElementById('statusFilter').addEventListener('change', () => { currentPage = 1; renderPatients(); });
+        document.getElementById('doctorFilter').addEventListener('change', () => { currentPage = 1; renderPatients(); });
+
+        // Modal events
+        const modal = document.getElementById('patientModal');
+        const newPatientBtn = document.getElementById('newPatientBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const savePatientBtn = document.getElementById('savePatientBtn');
+
+        newPatientBtn.addEventListener('click', () => {
+            editingPatientId = null;
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-plus"></i> Nuevo Paciente';
+            document.getElementById('modalName').value = '';
+            document.getElementById('modalAge').value = '';
+            document.getElementById('modalGender').value = 'male';
+            document.getElementById('modalStatus').value = 'stable';
+            document.getElementById('modalDoctor').value = 'Dr. Martínez';
+            document.getElementById('modalDiagnosis').value = '';
+            modal.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            editingPatientId = null;
+        });
+
+        savePatientBtn.addEventListener('click', guardarPaciente);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                editingPatientId = null;
+            }
+        });
 
         getUserData();
         renderPatients();
