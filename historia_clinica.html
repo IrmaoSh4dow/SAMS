@@ -33,7 +33,7 @@
             overflow-x: hidden;
         }
 
-        /* NAVBAR (idéntico al de pacientes) */
+        /* NAVBAR */
         .navbar {
             background: white;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -164,6 +164,18 @@
         .detail-item { display: flex; align-items: center; gap: 10px; color: var(--gray); font-size: 0.9rem; }
         .detail-item i { color: var(--primary); width: 20px; }
         
+        /* Badge de estado */
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-critical { background: rgba(235, 87, 87, 0.1); color: var(--accent); }
+        .status-stable { background: rgba(39, 174, 96, 0.1); color: var(--secondary); }
+        .status-observation { background: rgba(45, 156, 219, 0.1); color: var(--primary); }
+        
         /* Sección de tratamientos */
         .section-card {
             background: white;
@@ -230,6 +242,12 @@
             align-items: center;
             gap: 8px;
             font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 156, 219, 0.3);
         }
         .btn-back {
             background: var(--light);
@@ -242,6 +260,8 @@
             align-items: center;
             gap: 8px;
             text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
         }
         .btn-back:hover { background: var(--gray); color: white; }
         
@@ -271,6 +291,13 @@
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .modal-content h3 {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark);
+        }
         .modal-content input,
         .modal-content textarea,
         .modal-content select {
@@ -280,8 +307,15 @@
             border: 2px solid #e0e0e0;
             border-radius: var(--border-radius-sm);
             font-family: inherit;
+            transition: var(--transition);
         }
-        .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; }
+        .modal-content input:focus,
+        .modal-content textarea:focus,
+        .modal-content select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px; }
         
         .footer {
             background: white;
@@ -309,6 +343,8 @@
             }
             .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; }
             .treatments-table { display: block; overflow-x: auto; }
+            .patient-header { flex-direction: column; align-items: center; text-align: center; }
+            .patient-details-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -319,7 +355,7 @@
             <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
             <div class="nav-links" id="navLinks">
                 <a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a>
-                <a href="pacientes.html" class="active"><i class="fas fa-users"></i> Pacientes</a>
+                <a href="pacientes.html"><i class="fas fa-users"></i> Pacientes</a>
                 <a href="turnos.html"><i class="fas fa-calendar-alt"></i> Turnos</a>
                 <a href="personal.html"><i class="fas fa-user-md"></i> Personal</a>
                 <a href="comunicados.html"><i class="fas fa-bullhorn"></i> Comunicados</a>
@@ -329,7 +365,7 @@
                 <button class="user-btn" id="userBtn">
                     <div class="user-avatar" id="userAvatar"><i class="fas fa-user-md"></i></div>
                     <div class="user-info">
-                        <div class="user-name" id="userName">Dr. Martínez</div>
+                        <div class="user-name" id="userName">Dr. Juan Martínez</div>
                         <div class="user-role" id="userRole">Médico de Emergencias</div>
                     </div>
                     <i class="fas fa-chevron-down"></i>
@@ -345,12 +381,22 @@
     </nav>
 
     <main class="main-content">
-        <!-- Información del paciente (se carga dinámicamente) -->
+        <!-- Información del paciente - Ejemplo Michael De Santa -->
         <div class="patient-header" id="patientHeader">
-            <div class="patient-avatar-large" id="patientAvatar"><i class="fas fa-user"></i></div>
+            <div class="patient-avatar-large" id="patientAvatar">
+                <i class="fas fa-user"></i>
+            </div>
             <div class="patient-basic-info">
-                <h1><span id="patientName">Cargando...</span> <span class="status-badge" id="patientStatus"></span></h1>
-                <div class="patient-details-grid" id="patientDetails"></div>
+                <h1>
+                    <span id="patientName">Michael De Santa</span>
+                    <span class="status-badge status-stable" id="patientStatus">Estable</span>
+                </h1>
+                <div class="patient-details-grid" id="patientDetails">
+                    <div class="detail-item"><i class="fas fa-calendar-alt"></i> 45 años</div>
+                    <div class="detail-item"><i class="fas fa-bed"></i> Habitación 302</div>
+                    <div class="detail-item"><i class="fas fa-calendar-plus"></i> Ingreso: 15/03/2024</div>
+                    <div class="detail-item"><i class="fas fa-stethoscope"></i> Diagnóstico: Hipertensión controlada</div>
+                </div>
             </div>
         </div>
 
@@ -361,17 +407,39 @@
                 <button class="btn-add" id="addTreatmentBtn"><i class="fas fa-plus"></i> Agregar Tratamiento</button>
             </div>
             
-            <table class="treatments-table" id="treatmentsTable">
+            <table class="treatments-table">
                 <thead>
-                    <tr><th>Fecha</th><th>Tratamiento</th><th>Descripción</th><th>Médico</th><th>Precio</th><th></th></tr>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Tratamiento</th>
+                        <th>Descripción</th>
+                        <th>Médico</th>
+                        <th>Precio</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody id="treatmentsBody">
-                    <tr><td colspan="6" style="text-align:center;">Cargando tratamientos...</td></tr>
+                    <tr>
+                        <td>15/03/2024</td>
+                        <td><strong>Consulta inicial</strong></td>
+                        <td>Evaluación completa, toma de presión arterial, análisis de sangre</td>
+                        <td>Dr. Juan Martínez</td>
+                        <td class="treatment-price">150.00</td>
+                        <td><button onclick="deleteTreatment(1)" style="background:none;border:none;color:var(--accent);cursor:pointer;"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>18/03/2024</td>
+                        <td><strong>Medicación</strong></td>
+                        <td>Prescripción de Enalapril 10mg, control de presión arterial</td>
+                        <td>Dr. Juan Martínez</td>
+                        <td class="treatment-price">45.50</td>
+                        <td><button onclick="deleteTreatment(2)" style="background:none;border:none;color:var(--accent);cursor:pointer;"><i class="fas fa-trash"></i></button></td>
+                    </tr>
                 </tbody>
             </table>
             
             <div class="total-container">
-                <strong>Total tratamientos:</strong> <span id="totalAmount" class="total-amount">0</span>
+                <strong>Total tratamientos:</strong> <span id="totalAmount" class="total-amount">195.50</span>
             </div>
         </div>
         
@@ -388,10 +456,10 @@
     <div class="modal" id="treatmentModal">
         <div class="modal-content">
             <h3><i class="fas fa-plus-circle"></i> Nuevo Tratamiento</h3>
-            <input type="date" id="treatmentDate" value="<?php echo date('Y-m-d'); ?>">
+            <input type="date" id="treatmentDate" value="2024-03-25">
             <input type="text" id="treatmentName" placeholder="Nombre del tratamiento" required>
             <textarea id="treatmentDesc" rows="3" placeholder="Descripción detallada del tratamiento..."></textarea>
-            <input type="text" id="treatmentDoctor" placeholder="Médico a cargo">
+            <input type="text" id="treatmentDoctor" placeholder="Médico a cargo" value="Dr. Juan Martínez">
             <input type="number" id="treatmentPrice" placeholder="Precio del tratamiento" step="0.01">
             <div class="modal-buttons">
                 <button class="btn-back" id="closeModalBtn">Cancelar</button>
@@ -401,48 +469,13 @@
     </div>
 
     <script>
-        // Base de datos de pacientes
-        const pacientesDB = {
-            1: { id: 1, name: 'Michael De Santa', age: 45, gender: 'male', status: 'stable', diagnosis: 'Hipertensión controlada', admissionDate: '2024-03-15', room: '302' },
-            2: { id: 2, name: 'Franklin Clinton', age: 28, gender: 'male', status: 'observation', diagnosis: 'Fractura de tobillo', admissionDate: '2024-03-18', room: '204' },
-            3: { id: 3, name: 'Trevor Philips', age: 49, gender: 'male', status: 'critical', diagnosis: 'Trauma múltiple', admissionDate: '2024-03-20', room: 'ICU-2' },
-            4: { id: 4, name: 'Amanda De Santa', age: 42, gender: 'female', status: 'stable', diagnosis: 'Estrés postraumático', admissionDate: '2024-03-14', room: '105' },
-            5: { id: 5, name: 'Sofia Martinez', age: 7, gender: 'child', status: 'observation', diagnosis: 'Infección respiratoria', admissionDate: '2024-03-19', room: 'Ped-3' }
-        };
-
-        // Base de datos de tratamientos por paciente
-        let tratamientosDB = {
-            1: [
-                { id: 1, date: '2024-03-15', name: 'Consulta inicial', description: 'Evaluación completa, toma de presión arterial, análisis de sangre', doctor: 'Dr. Martínez', price: 150.00 },
-                { id: 2, date: '2024-03-18', name: 'Medicación', description: 'Prescripción de Enalapril 10mg, control de presión', doctor: 'Dr. Martínez', price: 45.50 }
-            ],
-            2: [
-                { id: 1, date: '2024-03-18', name: 'Radiografía', description: 'Radiografía de tobillo izquierdo, confirmación de fractura leve', doctor: 'Dra. López', price: 120.00 },
-                { id: 2, date: '2024-03-19', name: 'Inmovilización', description: 'Colocación de yeso y reposo indicado por 3 semanas', doctor: 'Dra. López', price: 85.00 }
-            ],
-            3: [
-                { id: 1, date: '2024-03-20', name: 'Emergencia', description: 'Atención de urgencia por trauma múltiple, estabilización', doctor: 'Dr. Martínez', price: 500.00 },
-                { id: 2, date: '2024-03-21', name: 'Cirugía', description: 'Cirugía de emergencia para reparación de fracturas', doctor: 'Dr. Rodríguez', price: 2500.00 },
-                { id: 3, date: '2024-03-22', name: 'UCI', description: 'Cuidados intensivos, monitoreo constante', doctor: 'Dr. Martínez', price: 800.00 }
-            ],
-            4: [
-                { id: 1, date: '2024-03-14', name: 'Consulta psicológica', description: 'Evaluación inicial, terapia de contención', doctor: 'Dra. García', price: 120.00 }
-            ],
-            5: [
-                { id: 1, date: '2024-03-19', name: 'Consulta pediátrica', description: 'Evaluación de síntomas respiratorios, auscultación', doctor: 'Dra. López', price: 100.00 },
-                { id: 2, date: '2024-03-20', name: 'Nebulizaciones', description: 'Tratamiento con nebulizaciones cada 6 horas', doctor: 'Dra. López', price: 60.00 }
-            ]
-        };
-
-        let currentPatientId = null;
-        let nextTreatmentId = {};
-
-        function initNextIds() {
-            for (let pid in tratamientosDB) {
-                const maxId = Math.max(...tratamientosDB[pid].map(t => t.id), 0);
-                nextTreatmentId[pid] = maxId + 1;
-            }
-        }
+        // Datos de ejemplo visibles inicialmente
+        let tratamientos = [
+            { id: 1, date: '2024-03-15', name: 'Consulta inicial', description: 'Evaluación completa, toma de presión arterial, análisis de sangre', doctor: 'Dr. Juan Martínez', price: 150.00 },
+            { id: 2, date: '2024-03-18', name: 'Medicación', description: 'Prescripción de Enalapril 10mg, control de presión arterial', doctor: 'Dr. Juan Martínez', price: 45.50 }
+        ];
+        
+        let nextId = 3;
 
         function getUserData() {
             const savedUser = localStorage.getItem('sams_user') || sessionStorage.getItem('sams_user');
@@ -455,65 +488,26 @@
             }
         }
 
-        function getStatusClass(status) {
-            if (status === 'critical') return 'status-critical';
-            if (status === 'stable') return 'status-stable';
-            if (status === 'observation') return 'status-observation';
-            return 'status-stable';
-        }
-
-        function getStatusText(status) {
-            if (status === 'critical') return 'Crítico';
-            if (status === 'stable') return 'Estable';
-            if (status === 'observation') return 'Observación';
-            return 'Estable';
-        }
-
-        function getGenderIcon(gender) {
-            if (gender === 'male') return 'fas fa-user';
-            if (gender === 'female') return 'fas fa-user-circle';
-            return 'fas fa-baby';
-        }
-
-        function loadPatientInfo() {
-            const patient = pacientesDB[currentPatientId];
-            if (!patient) return;
-
-            document.getElementById('patientName').textContent = patient.name;
-            const statusSpan = document.getElementById('patientStatus');
-            statusSpan.textContent = getStatusText(patient.status);
-            statusSpan.className = `status-badge ${getStatusClass(patient.status)}`;
-            statusSpan.style.position = 'relative';
-            statusSpan.style.top = '0';
-            statusSpan.style.right = '0';
-            
-            const avatar = document.getElementById('patientAvatar');
-            avatar.innerHTML = `<i class="${getGenderIcon(patient.gender)}"></i>`;
-            
-            document.getElementById('patientDetails').innerHTML = `
-                <div class="detail-item"><i class="fas fa-calendar-alt"></i> ${patient.age} años</div>
-                <div class="detail-item"><i class="fas fa-bed"></i> Habitación ${patient.room}</div>
-                <div class="detail-item"><i class="fas fa-calendar-plus"></i> Ingreso: ${patient.admissionDate}</div>
-                <div class="detail-item"><i class="fas fa-stethoscope"></i> Diagnóstico: ${patient.diagnosis}</div>
-            `;
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES');
         }
 
         function loadTreatments() {
-            const treatments = tratamientosDB[currentPatientId] || [];
             const tbody = document.getElementById('treatmentsBody');
             
-            if (treatments.length === 0) {
+            if (tratamientos.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No hay tratamientos registrados</td></tr>';
                 document.getElementById('totalAmount').textContent = '0';
                 return;
             }
             
             let total = 0;
-            tbody.innerHTML = treatments.map(t => {
+            tbody.innerHTML = tratamientos.map(t => {
                 total += t.price;
                 return `
                     <tr>
-                        <td>${t.date}</td>
+                        <td>${formatDate(t.date)}</td>
                         <td><strong>${t.name}</strong></td>
                         <td>${t.description}</td>
                         <td>${t.doctor}</td>
@@ -527,19 +521,14 @@
         }
 
         function addTreatment(treatment) {
-            if (!tratamientosDB[currentPatientId]) {
-                tratamientosDB[currentPatientId] = [];
-            }
-            const newId = nextTreatmentId[currentPatientId] || (tratamientosDB[currentPatientId].length + 1);
-            treatment.id = newId;
-            tratamientosDB[currentPatientId].push(treatment);
-            nextTreatmentId[currentPatientId] = newId + 1;
+            treatment.id = nextId++;
+            tratamientos.push(treatment);
             loadTreatments();
         }
 
         function deleteTreatment(id) {
             if (confirm('¿Eliminar este tratamiento del historial?')) {
-                tratamientosDB[currentPatientId] = tratamientosDB[currentPatientId].filter(t => t.id !== id);
+                tratamientos = tratamientos.filter(t => t.id !== id);
                 loadTreatments();
             }
         }
@@ -553,7 +542,7 @@
         addBtn.addEventListener('click', () => {
             document.getElementById('treatmentName').value = '';
             document.getElementById('treatmentDesc').value = '';
-            document.getElementById('treatmentDoctor').value = '';
+            document.getElementById('treatmentDoctor').value = 'Dr. Juan Martínez';
             document.getElementById('treatmentPrice').value = '';
             document.getElementById('treatmentDate').value = new Date().toISOString().slice(0,10);
             modal.classList.add('active');
@@ -565,7 +554,7 @@
         saveBtn.addEventListener('click', () => {
             const name = document.getElementById('treatmentName').value.trim();
             const description = document.getElementById('treatmentDesc').value.trim();
-            const doctor = document.getElementById('treatmentDoctor').value.trim() || 'Dr. Martínez';
+            const doctor = document.getElementById('treatmentDoctor').value.trim() || 'Dr. Juan Martínez';
             const price = parseFloat(document.getElementById('treatmentPrice').value);
             const date = document.getElementById('treatmentDate').value;
             
@@ -589,12 +578,6 @@
             modal.classList.remove('active');
         });
 
-        // Obtener ID de la URL
-        function getPatientIdFromUrl() {
-            const params = new URLSearchParams(window.location.search);
-            return parseInt(params.get('id'));
-        }
-
         // Menús y eventos
         const userMenu = document.getElementById('userMenu');
         document.getElementById('userBtn').addEventListener('click', (e) => { e.stopPropagation(); userMenu.classList.toggle('active'); });
@@ -614,18 +597,10 @@
             window.location.href = 'login.html';
         });
 
-        // Inicializar
+        // Exponer función globalmente
         window.deleteTreatment = deleteTreatment;
-        initNextIds();
+
         getUserData();
-        
-        currentPatientId = getPatientIdFromUrl();
-        if (!currentPatientId || !pacientesDB[currentPatientId]) {
-            window.location.href = 'pacientes.html';
-            return;
-        }
-        
-        loadPatientInfo();
         loadTreatments();
     </script>
 </body>
