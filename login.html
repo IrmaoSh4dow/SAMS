@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS - San Andreas Medical Services | Acceso al Sistema</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sams-red: #8B0000;
+            --sams-red-dark: #5a0000;
+            --sams-red-light: #b31b1b;
+            --sams-white: #FFFFFF;
+            --sams-silver: #E0E0E0;
+            --sams-gray: #2C2C2C;
+            --sams-dark: #1A1A1A;
+            --sams-blue: #003366;
+            --sams-blue-light: #1e4a76;
+            --border-radius: 8px;
+            --border-radius-lg: 16px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Luces de ambulancia modernas */
+        .ambulance-lights-modern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .light-bar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                var(--sams-red) 0%, 
+                #ff4d4d 20%, 
+                var(--sams-red) 40%,
+                #ff4d4d 60%,
+                var(--sams-red) 80%,
+                #ff4d4d 100%);
+            background-size: 200% 100%;
+            animation: ambulanceLight 2s linear infinite;
+        }
+
+        @keyframes ambulanceLight {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        /* Contenedor principal del login */
+        .login-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px;
+            display: flex;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Lado izquierdo - Información SAMS */
+        .login-info {
+            flex: 1;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, var(--sams-red-dark), var(--sams-red));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes moveGrid {
+            from { transform: translate(0, 0); }
+            to { transform: translate(50px, 50px); }
+        }
+
+        .sams-logo {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .logo-icon i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .sams-logo h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .sams-logo p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .info-content {
+            position: relative;
+            z-index: 1;
+            margin-top: 60px;
+        }
+
+        .info-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-left: 3px solid white;
+            padding-left: 15px;
+        }
+
+        .info-features {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .info-features li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-features li i {
+            width: 30px;
+            font-size: 1.2rem;
+        }
+
+        .info-features li span {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .emergency-number {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+        }
+
+        .emergency-number .number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .emergency-number .label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* Lado derecho - Formulario de login */
+        .login-form-container {
+            flex: 1;
+            padding: 50px 40px;
+            background: rgba(26, 26, 26, 0.95);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            color: var(--sams-white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: var(--sams-silver);
+            font-size: 0.9rem;
+        }
+
+        .alert-message {
+            background: rgba(139, 0, 0, 0.2);
+            border-left: 3px solid var(--sams-red);
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ff6b6b;
+            font-size: 0.85rem;
+        }
+
+        .alert-message i {
+            font-size: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--sams-silver);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .input-group label i {
+            margin-right: 8px;
+            color: var(--sams-red);
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i:first-child {
+            position: absolute;
+            left: 15px;
+            color: var(--sams-red);
+            font-size: 1rem;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: var(--border-radius);
+            color: white;
+            font-size: 0.95rem;
+            transition: var(--transition-normal);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: var(--sams-red);
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.2);
+        }
+
+        .input-wrapper input::placeholder {
+            color: rgba(224, 224, 224, 0.5);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--sams-silver);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .toggle-password:hover {
+            color: var(--sams-red);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--sams-silver);
+        }
+
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--sams-red);
+        }
+
+        .forgot-link {
+            color: var(--sams-red);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .forgot-link:hover {
+            color: #ff4d4d;
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--sams-red), var(--sams-red-dark));
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .security-note {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(224, 224, 224, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .security-note i {
+            color: var(--sams-red);
+        }
+
+        /* Footer del login */
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: rgba(224, 224, 224, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                margin: 10px;
+            }
+            
+            .login-info {
+                padding: 30px 25px;
+            }
+            
+            .login-form-container {
+                padding: 30px 25px;
+            }
+            
+            .info-content {
+                margin-top: 30px;
+            }
+            
+            .emergency-number {
+                margin-top: 30px;
+            }
+        }
+
+        /* Animación de pulso para el estado del sistema */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .system-status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #00ff00;
+            margin-right: 6px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Estilo para mensajes de error */
+        .error-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Luces de ambulancia modernas -->
+    <div class="ambulance-lights-modern">
+        <div class="light-bar"></div>
+    </div>
+
+    <div class="login-container">
+        <!-- Lado izquierdo - Información SAMS -->
+        <div class="login-info">
+            <div class="sams-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-ambulance"></i>
+                </div>
+                <h1>SAMS</h1>
+                <p>San Andreas Medical Services</p>
+            </div>
+            
+            <div class="info-content">
+                <div class="info-title">
+                    <i class="fas fa-heartbeat"></i> Atención Médica de Excelencia
+                </div>
+                <ul class="info-features">
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Servicio 24/7 - 365 días al año</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-robot"></i>
+                        <span>Sistema de gestión hospitalaria avanzado</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-chart-line"></i>
+                        <span>Monitoreo de pacientes en tiempo real</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-truck-medical"></i>
+                        <span>Flota de ambulancias con GPS integrado</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-md"></i>
+                        <span>Equipo médico especializado</span>
+                    </li>
+                </ul>
+                
+                <div class="emergency-number">
+                    <div class="number">911</div>
+                    <div class="label">EMERGENCIAS • ATENCIÓN INMEDIATA</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Lado derecho - Formulario de login -->
+        <div class="login-form-container">
+            <div class="form-header">
+                <h2>Acceso al Sistema</h2>
+                <p>Ingrese sus credenciales para acceder al sistema interno</p>
+            </div>
+            
+            <!-- Mensaje de alerta/seguridad -->
+            <div class="alert-message" id="securityAlert">
+                <i class="fas fa-shield-alt"></i>
+                <span>Sistema de acceso restringido. Solo personal autorizado del SAMS.</span>
+            </div>
+            
+            <form id="loginForm" action="procesar_login.php" method="POST">
+                <div class="input-group">
+                    <label for="username">
+                        <i class="fas fa-id-card"></i> Credencial / ID Médico
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user-md"></i>
+                        <input type="text" id="username" name="username" placeholder="Ej: SAMS-1234 o dr.martinez" required autocomplete="username">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Contraseña de Acceso
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-key"></i>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember" id="remember">
+                        <span>Mantener sesión activa</span>
+                    </label>
+                    <a href="#" class="forgot-link" id="forgotPasswordLink">
+                        <i class="fas fa-question-circle"></i> ¿Olvidó sus credenciales?
+                    </a>
+                </div>
+                
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Ingresar al Sistema</span>
+                </button>
+                
+                <div class="security-note">
+                    <i class="fas fa-laptop"></i>
+                    <span>Sesión segura • Datos encriptados • Acceso autorizado</span>
+                </div>
+                
+                <div class="login-footer">
+                    <span class="system-status"></span>
+                    <span>Sistema SAMS v3.0 • <?php echo date('Y'); ?></span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Elementos del DOM
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const forgotLink = document.getElementById('forgotPasswordLink');
+        const usernameInput = document.getElementById('username');
+        const securityAlert = document.getElementById('securityAlert');
+        
+        // Toggle para mostrar/ocultar contraseña
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+            
+            // Efecto visual
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+        });
+        
+        // Función para mostrar mensaje de error
+        function showError(message) {
+            // Crear o actualizar mensaje de error
+            let errorDiv = document.querySelector('.error-message');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'alert-message error-message';
+                errorDiv.style.background = 'rgba(139, 0, 0, 0.3)';
+                errorDiv.style.borderLeftColor = '#ff4d4d';
+                loginForm.insertBefore(errorDiv, loginForm.firstChild);
+            }
+            
+            errorDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>${message}</span>
+            `;
+            
+            // Agregar animación de shake al formulario
+            document.querySelector('.login-form-container').classList.add('error-shake');
+            setTimeout(() => {
+                document.querySelector('.login-form-container').classList.remove('error-shake');
+            }, 500);
+            
+            // Auto-ocultar después de 5 segundos
+            setTimeout(() => {
+                if (errorDiv) {
+                    errorDiv.style.opacity = '0';
+                    setTimeout(() => {
+                        if (errorDiv && errorDiv.parentNode) {
+                            errorDiv.remove();
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+        
+        // Validación del formulario antes de enviar
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            // Validaciones básicas
+            if (!username) {
+                showError('Por favor, ingrese su credencial o ID médico.');
+                usernameInput.focus();
+                return;
+            }
+            
+            if (!password) {
+                showError('Por favor, ingrese su contraseña de acceso.');
+                passwordInput.focus();
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('La contraseña debe tener al menos 6 caracteres.');
+                passwordInput.focus();
+                return;
+            }
+            
+            // Efecto de carga en el botón
+            loginBtn.disabled = true;
+            const originalText = loginBtn.innerHTML;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Verificando credenciales...</span>';
+            
+            // Simulación de envío (en producción, esto se enviaría al servidor)
+            setTimeout(() => {
+                // Credenciales de ejemplo para demostración
+                // En un entorno real, esto se manejaría con PHP en el servidor
+                const validCredentials = [
+                    { username: 'SAMS-1234', password: 'medico2024', role: 'Médico' },
+                    { username: 'dr.martinez', password: 'martinez123', role: 'Médico' },
+                    { username: 'admin.sams', password: 'admin2024', role: 'Administrador' },
+                    { username: 'enfermera.garcia', password: 'enfermera123', role: 'Enfermería' },
+                    { username: 'paramedico.rodriguez', password: 'paramedico123', role: 'Paramédico' }
+                ];
+                
+                const user = validCredentials.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+                
+                if (user) {
+                    // Credenciales correctas - redirigir al dashboard
+                    showSuccessAndRedirect(user);
+                } else {
+                    // Credenciales incorrectas
+                    showError('Credenciales incorrectas. Por favor, verifique su ID y contraseña.');
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = originalText;
+                    
+                    // Simular intento de acceso no autorizado
+                    simulateUnauthorizedAttempt();
+                }
+            }, 1200);
+        });
+        
+        // Función para mostrar éxito y redirigir
+        function showSuccessAndRedirect(user) {
+            // Crear mensaje de éxito
+            const successDiv = document.createElement('div');
+            successDiv.className = 'alert-message';
+            successDiv.style.background = 'rgba(0, 128, 0, 0.2)';
+            successDiv.style.borderLeftColor = '#00ff00';
+            successDiv.style.color = '#90EE90';
+            successDiv.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>Acceso autorizado. Bienvenido, ${user.username}. Redirigiendo al sistema...</span>
+            `;
+            loginForm.insertBefore(successDiv, loginForm.firstChild);
+            
+            // Guardar en localStorage la sesión si "recordarme" está marcado
+            const rememberCheckbox = document.getElementById('remember');
+            if (rememberCheckbox.checked) {
+                localStorage.setItem('sams_username', user.username);
+                localStorage.setItem('sams_role', user.role);
+                localStorage.setItem('sams_remember', 'true');
+            } else {
+                sessionStorage.setItem('sams_username', user.username);
+                sessionStorage.setItem('sams_role', user.role);
+            }
+            
+            // Redirigir después de 2 segundos
+            setTimeout(() => {
+                window.location.href = 'dashboard.php'; // Redirigir al dashboard principal
+            }, 2000);
+        }
+        
+        // Simular intento de acceso no autorizado (efecto visual)
+        function simulateUnauthorizedAttempt() {
+            securityAlert.style.animation = 'shake 0.5s ease-in-out';
+            securityAlert.style.background = 'rgba(139, 0, 0, 0.4)';
+            
+            setTimeout(() => {
+                securityAlert.style.animation = '';
+                setTimeout(() => {
+                    securityAlert.style.background = 'rgba(139, 0, 0, 0.2)';
+                }, 500);
+            }, 500);
+        }
+        
+        // Enlace de "Olvidó sus credenciales"
+        forgotLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Mostrar modal de recuperación (simulado)
+            showRecoveryModal();
+        });
+        
+        // Función para mostrar modal de recuperación
+        function showRecoveryModal() {
+            // Crear modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+                padding: 30px;
+                border-radius: 16px;
+                max-width: 400px;
+                width: 90%;
+                border: 1px solid var(--sams-red);
+                text-align: center;
+            `;
+            
+            modalContent.innerHTML = `
+                <i class="fas fa-ambulance" style="font-size: 48px; color: var(--sams-red); margin-bottom: 20px;"></i>
+                <h3 style="color: white; margin-bottom: 15px;">Recuperación de Credenciales</h3>
+                <p style="color: var(--sams-silver); margin-bottom: 20px; font-size: 0.9rem;">
+                    Comuníquese con el departamento de TI del SAMS o con su supervisor directo para restablecer sus credenciales.
+                </p>
+                <div style="background: rgba(139,0,0,0.2); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <p style="color: var(--sams-red); font-size: 0.85rem;">
+                        <i class="fas fa-envelope"></i> soporte@sams.gov.ls
+                    </p>
+                    <p style="color: var(--sams-red); font-size: 0.85rem; margin-top: 8px;">
+                        <i class="fas fa-phone"></i> Ext. 4200 - Mesa de Ayuda
+                    </p>
+                </div>
+                <button id="closeModalBtn" style="
+                    background: var(--sams-red);
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    color: white;
+                    cursor: pointer;
+                    font-weight: 600;
+                ">Cerrar</button>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            const closeBtn = modalContent.querySelector('#closeModalBtn');
+            closeBtn.addEventListener('click', () => {
+                modal.remove();
+            });
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.remove();
+            });
+        }
+        
+        // Auto-completar si hay sesión guardada
+        function loadSavedSession() {
+            const savedUsername = localStorage.getItem('sams_username');
+            const savedRemember = localStorage.getItem('sams_remember');
+            
+            if (savedUsername && savedRemember === 'true') {
+                usernameInput.value = savedUsername;
+                const rememberCheckbox = document.getElementById('remember');
+                if (rememberCheckbox) rememberCheckbox.checked = true;
+                
+                // Enfocar en la contraseña
+                passwordInput.focus();
+                
+                // Mostrar mensaje de sesión guardada
+                const sessionDiv = document.createElement('div');
+                sessionDiv.className = 'alert-message';
+                sessionDiv.style.background = 'rgba(0, 128, 0, 0.2)';
+                sessionDiv.style.borderLeftColor = '#00ff00';
+                sessionDiv.style.color = '#90EE90';
+                sessionDiv.style.marginBottom = '15px';
+                sessionDiv.innerHTML = `
+                    <i class="fas fa-save"></i>
+                    <span>Sesión guardada encontrada. Ingrese su contraseña para continuar.</span>
+                `;
+                loginForm.insertBefore(sessionDiv, loginForm.firstChild);
+                
+                setTimeout(() => {
+                    sessionDiv.style.opacity = '0';
+                    setTimeout(() => sessionDiv.remove(), 500);
+                }, 4000);
+            }
+        }
+        
+        // Efectos de entrada para inputs
+        const inputs = document.querySelectorAll('.input-wrapper input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.01)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+        
+        // Inicializar
+        loadSavedSession();
+        
+        // Agregar animación de fondo para las luces
+        setInterval(() => {
+            const lightBar = document.querySelector('.light-bar');
+            if (lightBar) {
+                lightBar.style.animation = 'none';
+                setTimeout(() => {
+                    lightBar.style.animation = 'ambulanceLight 2s linear infinite';
+                }, 10);
+            }
+        }, 10000);
+        
+        // CSS para animación fadeIn
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Mensaje de bienvenida en consola (para seguridad)
+        console.log('%c⚠️ SAMS - Sistema de Gestión Médica ⚠️', 'color: #8B0000; font-size: 16px; font-weight: bold;');
+        console.log('%cAcceso restringido solo a personal autorizado.', 'color: #E0E0E0; font-size: 12px;');
+    </script>
+</body>
+</html>
