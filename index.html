@@ -2,32 +2,34 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <title>ST. Fiacre Hospital | Next Stories RP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LSPD | Los Santos Police Department - Proteger y Servir</title>
-    <meta name="description" content="Departamento de Policía de Los Santos - Comprometidos con la seguridad y justicia en San Andreas. Únete a nuestras filas o reporta incidentes.">
+    <meta name="description" content="Hospital principal de San Andreas en Next Stories RP. Atención médica profesional con enfoque humano.">
 
-    <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Variables - Paleta LAPD / Policía */
+        /* Variables CSS modernas */
         :root {
-            --primary-navy: #0A1A3A;      /* Azul profundo LAPD */
-            --primary-blue: #1E3A8A;      /* Azul policial */
-            --accent-gold: #D4AF37;       /* Dorado insignia */
-            --accent-red: #B91C1C;        /* Rojo para emergencias */
-            --dark-charcoal: #1F2937;
-            --light-gray: #F3F4F6;
-            --medium-gray: #9CA3AF;
-            --border-gold: rgba(212, 175, 55, 0.3);
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #2D9CDB;    /* Azul amigable */
+            --secondary: #27AE60;  /* Verde médico */
+            --accent: #EB5757;     /* Rojo emergencia suave */
+            --light: #F8F9FA;
+            --light-blue: #E3F2FD;
+            --light-green: #E8F5E9;
+            --dark: #2C3E50;
+            --gray: #95A5A6;
+            --border-radius: 16px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
+        /* Reset suave */
         * {
             margin: 0;
             padding: 0;
@@ -40,249 +42,294 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FFFFFF;
-            color: var(--dark-charcoal);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
             overflow-x: hidden;
-            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
         }
 
         h1 {
-            font-size: 4rem;
-            line-height: 1.1;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
         }
 
         h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            display: inline-block;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
         }
 
-        h2:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--accent-gold);
-            border-radius: 2px;
-        }
-
-        .text-center h2:after {
-            left: 50%;
-            transform: translateX(-50%);
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
         }
 
         p {
-            color: #4B5563;
-            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
         }
 
         .container {
-            max-width: 1280px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
 
         section {
             padding: 80px 0;
+            flex: 1;
         }
 
-        /* Botones */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
+            display: inline-block;
             padding: 14px 32px;
+            background: linear-gradient(135deg, var(--primary), #1B75BB);
+            color: white;
+            border-radius: 50px;
             font-weight: 600;
             font-size: 1rem;
-            border-radius: 4px;
-            transition: var(--transition);
-            cursor: pointer;
-            text-decoration: none;
             border: none;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(45, 156, 219, 0.3);
         }
 
-        .btn-primary {
-            background: var(--primary-navy);
-            color: white;
-            border: 1px solid var(--accent-gold);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(10, 26, 58, 0.3);
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(45, 156, 219, 0.4);
         }
 
         .btn-secondary {
-            background: transparent;
-            color: var(--primary-navy);
-            border: 2px solid var(--primary-navy);
+            background: linear-gradient(135deg, var(--secondary), #219653);
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
         }
 
         .btn-secondary:hover {
-            background: var(--primary-navy);
-            color: white;
-            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
         }
 
-        .btn-gold {
-            background: var(--accent-gold);
-            color: var(--primary-navy);
-            font-weight: 700;
-        }
-
-        .btn-gold:hover {
-            background: #C4A032;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        /* Header Hero - Estilo policial con badge */
-        .hero {
-            background: linear-gradient(135deg, rgba(10, 26, 58, 0.92), rgba(30, 58, 138, 0.88)), 
-                        url('https://images.unsplash.com/photo-1581014882043-6e9e0dd2cd72?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        /* Header moderno CON IMAGEN DE FONDO */
+        header {
+            background: 
+                linear-gradient(rgba(45, 156, 219, 0.85), rgba(39, 174, 96, 0.85)),
+                url('img/encabezado.jpg');
             background-size: cover;
-            background-position: center 30%;
+            background-position: center;
             background-attachment: fixed;
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
+            padding: 120px 0 100px;
             position: relative;
             overflow: hidden;
+            animation: backgroundMove 40s infinite alternate ease-in-out;
         }
 
-        .hero::before {
+        @keyframes backgroundMove {
+            0% { background-position: center center; }
+            100% { background-position: center 30%; }
+        }
+
+        header::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 8px);
-            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(45, 156, 219, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.3) 0%, transparent 50%);
+            z-index: 0;
+            animation: pulse 8s infinite alternate;
         }
 
-        .hero-content {
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .header-content {
             position: relative;
-            z-index: 2;
-            max-width: 700px;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .badge-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--accent-gold), #F3B33D);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: floatBadge 3s ease-in-out infinite;
-        }
-
-        .badge-icon i {
-            font-size: 3rem;
-            color: var(--primary-navy);
-        }
-
-        @keyframes floatBadge {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .hero h1 {
+        .hospital-icon {
+            font-size: 4rem;
             color: white;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
         }
 
-        .hero .tagline {
-            font-size: 1.3rem;
-            color: var(--accent-gold);
-            font-weight: 600;
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
-        .hero p {
-            color: rgba(255, 255, 255, 0.9);
+        header h1 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mission {
             font-size: 1.1rem;
-            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            margin-top: 1.5rem;
+            padding: 0 20px;
+            animation: slideUp 1s ease-out 0.4s both;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+        .pulse-btn {
+            animation: pulse 2s infinite;
+            margin-top: 30px;
+            display: inline-block;
         }
 
-        /* Navegación estilo cuartel */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* NAVEGACIÓN MODERNA - CORREGIDA (igual que servicios.html) */
         nav {
             background: white;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 2px solid var(--accent-gold);
+            padding: 0 20px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.97);
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 24px;
-            max-width: 1280px;
+            max-width: 1200px;
             margin: 0 auto;
-            height: 70px;
+            padding: 15px 0;
         }
 
         .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 800;
-            font-size: 1.6rem;
-            color: var(--primary-navy);
-            text-decoration: none;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo i {
-            color: var(--accent-gold);
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 8px;
+            gap: 2px; /* Reducido para mejor ajuste */
         }
 
         .nav-links a {
-            padding: 8px 18px;
-            text-decoration: none;
-            color: var(--dark-charcoal);
+            padding: 10px 15px; /* Reducido para mejor ajuste */
             font-weight: 500;
+            color: var(--dark);
+            border-radius: 50px;
             transition: var(--transition);
-            border-radius: 4px;
-            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.95rem; /* Ligeramente más pequeño */
+            white-space: nowrap; /* Evita que el texto se rompa */
         }
 
-        .nav-links a:hover, .nav-links a.active {
-            background: var(--primary-navy);
-            color: white;
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(45, 156, 219, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            background: var(--light-blue);
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            background: var(--light-blue);
+            color: var(--primary);
+            font-weight: 600;
         }
 
         .mobile-menu-btn {
@@ -290,230 +337,471 @@
             background: none;
             border: none;
             font-size: 1.5rem;
+            color: var(--primary);
             cursor: pointer;
-            color: var(--primary-navy);
-        }
-
-        /* Sección de valores / Misión */
-        .mission-section {
-            background: var(--light-gray);
-        }
-
-        .mission-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .mission-card {
-            background: white;
-            padding: 40px 30px;
-            text-align: center;
-            border-radius: 8px;
             transition: var(--transition);
-            border-bottom: 3px solid var(--accent-gold);
-            box-shadow: var(--shadow);
         }
 
-        .mission-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
         }
 
-        .mission-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--primary-navy);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: var(--accent-gold);
-            font-size: 1.8rem;
+        /* Sección de bienvenida */
+        .welcome {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Estadísticas */
-        .stats-bar {
-            background: linear-gradient(135deg, var(--primary-navy), var(--primary-blue));
-            padding: 60px 0;
-            color: white;
+        .welcome::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            animation: lineGrow 2s ease-out;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .welcome-content {
+            max-width: 900px;
+            margin: 0 auto;
             text-align: center;
         }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--light-blue), #F5F9FF);
+            border-radius: var(--border-radius);
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transition: width 0.3s;
+        }
+
+        .highlight-box:hover::before {
+            width: 10px;
+        }
+
+        .highlight-box p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.2s; }
+        .stat-item:nth-child(2) { animation-delay: 0.4s; }
+        .stat-item:nth-child(3) { animation-delay: 0.6s; }
 
         .stat-number {
             font-size: 3rem;
-            font-weight: 800;
-            font-family: 'Rajdhani', sans-serif;
-            color: var(--accent-gold);
+            font-weight: 700;
+            color: var(--primary);
             display: block;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
         }
 
         .stat-label {
             font-size: 1rem;
+            color: var(--gray);
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        /* Divisiones / Unidades */
-        .units-grid {
+        /* Sección de valores */
+        .values {
+            background: var(--light);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .values::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            animation: linePulse 2s infinite;
+        }
+
+        @keyframes linePulse {
+            0%, 100% { width: 70px; }
+            50% { width: 100px; }
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(45, 156, 219, 0.05), transparent);
+            z-index: 0;
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--light-blue), white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.2rem;
+            color: var(--primary);
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-icon {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        /* Sección de servicios */
+        .services {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            margin-top: 40px;
         }
 
-        .unit-card {
+        .service-card {
             background: white;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
-            border: 1px solid #E5E7EB;
+            position: relative;
         }
 
-        .unit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to top, rgba(45, 156, 219, 0.1), transparent);
+            transition: height 0.3s;
         }
 
-        .unit-header {
-            background: var(--primary-navy);
-            padding: 25px;
+        .service-card:hover::after {
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-header {
+            background: linear-gradient(135deg, var(--primary), #1B75BB);
+            padding: 30px;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
         }
 
-        .unit-header i {
+        .service-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1%, transparent 1%);
+            background-size: 15px 15px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .service-header i {
             font-size: 2.5rem;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
         }
 
-        .unit-header h3 {
+        .service-header h3 {
             color: white;
-            margin: 0;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
         }
 
-        .unit-body {
-            padding: 25px;
+        .service-body {
+            padding: 30px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Llamada a la acción - Reclutamiento */
-        .recruitment {
-            background: linear-gradient(rgba(10, 26, 58, 0.95), rgba(10, 26, 58, 0.95)), 
-                        url('https://images.unsplash.com/photo-1582139329536-e7284fece509?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+        .service-body p {
+            margin-bottom: 0;
+        }
+
+        /* Sección de contacto */
+        .contact {
+            background: linear-gradient(135deg, #F8F9FA 0%, #E8F5E9 100%);
+            padding: 100px 0;
             text-align: center;
-            color: white;
+            position: relative;
         }
 
-        .recruitment h2, .recruitment p {
-            color: white;
-        }
-
-        .recruitment h2:after {
-            background: var(--accent-gold);
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* Contacto / Emergencias */
-        .contact-section {
-            background: var(--light-gray);
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%232d9cdb' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
             margin-top: 40px;
+            position: relative;
+            z-index: 1;
         }
 
-        .contact-card {
+        .contact-item {
             background: white;
-            padding: 35px;
-            text-align: center;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
+            padding: 35px 25px;
+            box-shadow: var(--shadow);
             transition: var(--transition);
-            border-top: 4px solid var(--accent-gold);
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact-card i {
-            font-size: 2.5rem;
-            color: var(--primary-navy);
-            margin-bottom: 20px;
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+            transform-origin: left;
         }
 
-        .emergency-number {
+        .contact-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--light-blue), white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
             font-size: 2rem;
-            font-weight: 800;
-            color: var(--accent-red);
-            font-family: 'Rajdhani', sans-serif;
+            color: var(--primary);
+            transition: var(--transition);
         }
 
-        /* Footer */
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1) rotate(10deg);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        /* Footer moderno */
         footer {
-            background: #111827;
-            color: #9CA3AF;
+            background: var(--dark);
+            color: white;
             padding: 60px 0 30px;
+            position: relative;
+            overflow: hidden;
+            margin-top: auto;
         }
 
-        .footer-grid {
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
             margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-logo {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
+            font-family: 'Poppins', sans-serif;
             font-weight: 700;
+            font-size: 1.8rem;
             color: white;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .footer-links h4 {
             color: white;
             margin-bottom: 20px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
         }
 
-        .footer-links ul {
-            list-style: none;
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
         }
 
-        .footer-links li {
+        .footer-links ul li {
             margin-bottom: 12px;
         }
 
         .footer-links a {
-            color: #9CA3AF;
-            text-decoration: none;
+            color: #BDC3C7;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .footer-links a:hover {
-            color: var(--accent-gold);
-            padding-left: 5px;
+            color: white;
+            padding-left: 10px;
         }
 
         .copyright {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid #1F2937;
-            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #BDC3C7;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
         }
 
         /* Animaciones */
@@ -528,23 +816,62 @@
             }
         }
 
-        .fade-up {
-            animation: fadeInUp 0.8s ease forwards;
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        /* Responsive */
-        @media (max-width: 968px) {
-            h1 { font-size: 3rem; }
-            h2 { font-size: 2rem; }
-            .stats-grid, .mission-grid, .contact-grid {
-                grid-template-columns: repeat(2, 1fr);
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .nav-links a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            header {
+                background-attachment: scroll;
+                animation: none;
+            }
+            
+            .nav-links {
+                gap: 0;
+            }
+            
+            .nav-links a {
+                padding: 10px 12px;
             }
         }
 
         @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .welcome, .values, .services, .contact {
+                padding: 60px 0;
+            }
+            
             .mobile-menu-btn {
                 display: block;
             }
+            
             .nav-links {
                 position: fixed;
                 top: 70px;
@@ -553,360 +880,476 @@
                 background: white;
                 flex-direction: column;
                 padding: 20px;
-                gap: 15px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                transform: translateY(-150%);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                transform: translateY(-100%);
                 opacity: 0;
+                visibility: hidden;
                 transition: var(--transition);
-                z-index: 999;
+                gap: 10px;
             }
+            
             .nav-links.active {
                 transform: translateY(0);
                 opacity: 1;
+                visibility: visible;
             }
+            
             .nav-links a {
-                text-align: center;
-                padding: 12px;
+                padding: 15px;
+                border-radius: 10px;
+                justify-content: center;
+                font-size: 1rem;
             }
-            .hero-buttons {
-                flex-direction: column;
-            }
-            .stats-grid, .mission-grid, .contact-grid {
+            
+            .cards-grid, .services-grid, .contact-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
-            section {
-                padding: 60px 0;
+            
+            .highlight-box {
+                padding: 30px 20px;
             }
-            .hero {
-                background-attachment: scroll;
+            
+            .header-content {
+                padding: 0 20px;
+            }
+            
+            .hospital-icon {
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+                font-size: 3.5rem;
+            }
+            
+            .stats-container {
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
             }
         }
 
         @media (max-width: 480px) {
-            h1 { font-size: 2.2rem; }
-            .badge-icon {
-                width: 70px;
-                height: 70px;
-            }
-            .badge-icon i {
+            h1 {
                 font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .card, .service-card, .contact-item {
+                padding: 25px 20px;
+            }
+            
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.95rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-links h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-links a:hover {
+                padding-left: 0;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 30px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero Section con insignia LSPD -->
-    <header class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="badge-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <div class="tagline">LOS SANTOS POLICE DEPARTMENT</div>
-                <h1>Proteger y Servir<br>con Honor</h1>
-                <p>Comprometidos con la seguridad de los ciudadanos de San Andreas. Integridad, valor y justicia son los pilares de nuestra institución.</p>
-                <div class="hero-buttons">
-                    <a href="#recruitment" class="btn btn-gold"><i class="fas fa-badge"></i> Únete al LSPD</a>
-                    <a href="#contact" class="btn btn-secondary"><i class="fas fa-phone-alt"></i> Reportar Incidente</a>
-                </div>
+    <!-- Header moderno CON IMAGEN Y ANIMACIONES -->
+    <header>
+        <div class="header-content container">
+            <div class="hospital-icon fade-in">
+                <i class="fas fa-hospital"></i>
             </div>
+            <h1 class="fade-in">ST. Fiacre Hospital</h1>
+            <p class="tagline fade-in delay-1">Servicio Médico de Emergencias · San Andreas</p>
+            <p class="mission fade-in delay-2">Salvar vidas es nuestra misión</p>
+            <a href="contacto.html" class="btn pulse-btn fade-in delay-3">
+                <i class="fas fa-phone-alt"></i> Contactar Emergencias
+            </a>
         </div>
     </header>
 
-    <!-- Navegación -->
+    <!-- Navegación moderna - CORREGIDA -->
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <i class="fas fa-star-of-life"></i> LSPD
+                <i class="fas fa-heartbeat"></i> ST. Fiacre
             </a>
+            
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
+            
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="active">Inicio</a>
-                <a href="#mission">Misión</a>
-                <a href="#units">Unidades</a>
-                <a href="#recruitment">Reclutamiento</a>
-                <a href="#contact">Contacto</a>
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Inicio</a>
+                <a href="servicios.html"><i class="fas fa-ambulance"></i> Servicios</a>
+                <a href="tratamientos.html"><i class="fas fa-stethoscope"></i> Tratamientos</a>
+                <a href="personalmedico.html"><i class="fas fa-user-md"></i> Personal Médico</a>
+                <a href="oposiciones.html"><i class="fas fa-file-contract"></i> Oposiciones</a>
+                <a href="comunicados.html"><i class="fas fa-bullhorn"></i> Comunicados</a>
+                <a href="contacto.html"><i class="fas fa-phone-alt"></i> Contacto</a>
             </div>
         </div>
     </nav>
 
-    <!-- Misión y Valores -->
-    <section id="mission" class="mission-section">
+    <!-- Sección de bienvenida -->
+    <section class="welcome">
         <div class="container">
-            <div class="text-center" style="text-align: center;">
-                <h2>Nuestra Misión</h2>
-                <p style="max-width: 700px; margin: 0 auto;">Servir a la comunidad con honor, proteger la vida y la propiedad, y mantener la paz con integridad inquebrantable.</p>
+            <div class="welcome-content">
+                <div class="highlight-box fade-in">
+                    <h2>Bienvenidos al ST. Fiacre Hospital</h2>
+                    <p>
+                        El <strong>ST. Fiacre Hospital</strong> es la institución médica principal del
+                        estado de San Andreas dentro del servidor <strong>Next Stories</strong>.
+                        Nuestro equipo de profesionales del Servicio Médico de Emergencias
+                        trabaja bajo estrictos protocolos de rol serio para garantizar una
+                        atención realista, profesional y eficiente.
+                    </p>
+                    <p>
+                        Ofrecemos atención prehospitalaria, tratamientos clínicos,
+                        evaluaciones psicológicas y servicios especializados,
+                        siempre priorizando la vida y la seguridad del paciente.
+                    </p>
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="24">0</span>
+                        <span class="stat-label">Horas de servicio</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="50">0</span>
+                        <span class="stat-label">Profesionales</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="100">0</span>
+                        <span class="stat-label">% Compromiso</span>
+                    </div>
+                </div>
+                
+                <a href="servicios.html" class="btn btn-secondary fade-in delay-1" style="margin-top: 40px;">
+                    <i class="fas fa-plus-circle"></i> Conocer Nuestros Servicios
+                </a>
             </div>
-            <div class="mission-grid">
-                <div class="mission-card fade-up">
-                    <div class="mission-icon"><i class="fas fa-balance-scale"></i></div>
-                    <h3>Justicia Imparcial</h3>
-                    <p>Aplicamos la ley sin distinción, garantizando igualdad y justicia para todos los ciudadanos de Los Santos.</p>
+        </div>
+    </section>
+
+    <!-- Sección de valores -->
+    <section class="values">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="fade-in">Nuestros Valores</h2>
+                <p class="fade-in delay-1">Los principios que guían nuestro trabajo diario</p>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Profesionalidad</h3>
+                    <p>
+                        Cada actuación médica se realiza siguiendo protocolos realistas
+                        y acordes a un entorno de rol serio. Formación continua y
+                        atención de calidad.
+                    </p>
                 </div>
-                <div class="mission-card fade-up" style="animation-delay: 0.2s;">
-                    <div class="mission-icon"><i class="fas fa-handshake"></i></div>
-                    <h3>Vínculo Comunitario</h3>
-                    <p>Trabajamos codo a codo con la comunidad para construir confianza y fortalecer la seguridad colectiva.</p>
+                
+                <div class="card fade-in delay-1">
+                    <div class="card-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Compromiso</h3>
+                    <p>
+                        Atención continua 24/7 y mejora constante del servicio médico.
+                        Nuestro equipo está comprometido con cada paciente.
+                    </p>
                 </div>
-                <div class="mission-card fade-up" style="animation-delay: 0.4s;">
-                    <div class="mission-icon"><i class="fas fa-shield-virus"></i></div>
-                    <h3>Integridad Inquebrantable</h3>
-                    <p>Actuamos con el más alto estándar ético, siendo un ejemplo de servicio público y honestidad.</p>
+                
+                <div class="card fade-in delay-2">
+                    <div class="card-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Respeto por la Vida</h3>
+                    <p>
+                        La vida del paciente es nuestra máxima prioridad.
+                        Actuamos con ética y respeto en todas nuestras intervenciones.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Estadísticas de impacto -->
-    <div class="stats-bar">
+    <!-- Sección de servicios destacados -->
+    <section class="services">
         <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-number" data-count="547">0</span>
-                    <span class="stat-label">Oficiales Activos</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-count="128">0</span>
-                    <span class="stat-label">Patrullajes Diarios</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-count="98">0</span>
-                    <span class="stat-label">Casos Resueltos</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-count="24">0</span>
-                    <span class="stat-label">Años de Servicio</span>
-                </div>
+            <div class="section-title">
+                <h2 class="fade-in">Servicios Destacados</h2>
+                <p class="fade-in delay-1">Atención médica especializada para todas las necesidades</p>
             </div>
-        </div>
-    </div>
-
-    <!-- Unidades Especializadas -->
-    <section id="units">
-        <div class="container">
-            <div class="text-center" style="text-align: center;">
-                <h2>Unidades Especializadas</h2>
-                <p>Élite policial preparada para cualquier situación</p>
-            </div>
-            <div class="units-grid">
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <i class="fas fa-car"></i>
-                        <h3>Patrulla de Carreteras</h3>
+            
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-header">
+                        <i class="fas fa-ambulance"></i>
+                        <h3>Emergencias 24/7</h3>
                     </div>
-                    <div class="unit-body">
-                        <p>Unidad de tránsito y vigilancia en autopistas. Control de velocidad, accidentes y seguridad vial en toda la red de carreteras de San Andreas.</p>
+                    <div class="service-body">
+                        <p>Respuesta rápida y atención de emergencia disponible todo el día, todos los días del año. Equipos médicos especializados listos para cualquier situación.</p>
                     </div>
                 </div>
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <i class="fas fa-skull"></i>
-                        <h3>División de Homicidios</h3>
+                
+                <div class="service-card fade-in delay-1">
+                    <div class="service-header">
+                        <i class="fas fa-user-injured"></i>
+                        <h3>Traumatología</h3>
                     </div>
-                    <div class="unit-body">
-                        <p>Investigación especializada en crímenes violentos. Detectives con alta capacitación para resolver los casos más complejos.</p>
-                    </div>
-                </div>
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <i class="fas fa-microphone-alt"></i>
-                        <h3>Negociación de Rehenes</h3>
-                    </div>
-                    <div class="unit-body">
-                        <p>Equipo táctico de crisis especializado en situaciones de alto riesgo. Prioridad: preservar vidas en escenarios críticos.</p>
+                    <div class="service-body">
+                        <p>Atención especializada en lesiones traumáticas, fracturas y accidentes de todo tipo. Tecnología de vanguardia para diagnóstico y tratamiento.</p>
                     </div>
                 </div>
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>Inteligencia Criminal</h3>
+                
+                <div class="service-card fade-in delay-2">
+                    <div class="service-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>Psicología Clínica</h3>
                     </div>
-                    <div class="unit-body">
-                        <p>Análisis de datos, vigilancia y operaciones encubiertas contra el crimen organizado en la ciudad.</p>
-                    </div>
-                </div>
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <i class="fas fa-dog"></i>
-                        <h3>Unidad K-9</h3>
-                    </div>
-                    <div class="unit-body">
-                        <p>Binomios caninos especializados en detección de narcóticos, búsqueda de personas y apoyo táctico.</p>
-                    </div>
-                </div>
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <i class="fas fa-helicopter"></i>
-                        <h3>Air Support Division</h3>
-                    </div>
-                    <div class="unit-body">
-                        <p>Vigilancia aérea, apoyo en persecuciones y rescates. Ojo de águila sobre Los Santos.</p>
+                    <div class="service-body">
+                        <p>Evaluación y tratamiento psicológico para pacientes que requieren apoyo emocional y mental. Espacios seguros y profesionales especializados.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Reclutamiento Llamada a la acción -->
-    <section id="recruitment" class="recruitment">
+    <!-- Sección de contacto rápido -->
+    <section class="contact">
         <div class="container">
-            <h2>Conviértete en Oficial del LSPD</h2>
-            <p style="max-width: 700px; margin: 0 auto 30px;">Forma parte de la familia azul. Honor, valor y compromiso. Inicia tu carrera en la academia policial.</p>
-            <a href="#" class="btn btn-gold" style="background: white; color: var(--primary-navy);"><i class="fas fa-file-alt"></i> Proceso de Reclutamiento</a>
-            <p style="margin-top: 30px; font-size: 0.9rem;">Requisitos: Mayor de 21 años, licencia de conducir válida, antecedentes limpios.</p>
-        </div>
-    </section>
-
-    <!-- Contacto y Emergencias -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="text-center" style="text-align: center;">
-                <h2>Líneas de Contacto</h2>
-                <p>Estamos disponibles 24/7 para servirte</p>
+            <div class="section-title">
+                <h2 class="fade-in">¿Necesitas Ayuda?</h2>
+                <p class="fade-in delay-1">Estamos aquí para atenderte cuando nos necesites</p>
             </div>
+            
             <div class="contact-grid">
-                <div class="contact-card">
-                    <i class="fas fa-phone-alt"></i>
-                    <h3>Emergencias</h3>
-                    <div class="emergency-number">911</div>
-                    <p>Respuesta inmediata · Disponible todo el año</p>
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Línea de Emergencia</h3>
+                    <p>911</p>
+                    <p>Disponible 24 horas</p>
                 </div>
-                <div class="contact-card">
-                    <i class="fas fa-building"></i>
-                    <h3>Sede Central</h3>
-                    <p><strong>Mission Row Police Station</strong><br>Innocence Blvd, Los Santos</p>
-                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                
+                <div class="contact-item fade-in delay-1">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Ubicación</h3>
+                    <p>Capital Boulevard, El Burro Heights</p>
+                    <p>Los Santos, San Andreas</p>
                 </div>
-                <div class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <h3>Oficina de Asuntos Internos</h3>
-                    <p>Denuncias anónimas o quejas sobre oficiales</p>
-                    <p><i class="fas fa-at"></i> internal.affairs@lspd.ls</p>
+                
+                <div class="contact-item fade-in delay-2">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Horario de Atención</h3>
+                    <p>24 horas / 7 días</p>
+                    <p>Atención continua</p>
                 </div>
             </div>
+            
+            <a href="contacto.html" class="btn fade-in delay-3" style="margin-top: 40px;">
+                <i class="fas fa-envelope"></i> Más Información de Contacto
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-grid">
-                <div>
+            <div class="footer-content">
+                <div class="footer-info">
                     <div class="footer-logo">
-                        <i class="fas fa-shield-alt"></i> LOS SANTOS PD
+                        <i class="fas fa-heartbeat"></i> ST. Fiacre
                     </div>
-                    <p style="color: #9CA3AF;">"To Protect and to Serve"<br>Departamento de Policía de Los Santos, San Andreas.</p>
+                    <p>Hospital principal de San Andreas en el servidor Next Stories RP.</p>
+                    <p>Comprometidos con la atención médica de calidad y el rol serio.</p>
                 </div>
+                
                 <div class="footer-links">
-                    <h4>Accesos Rápidos</h4>
+                    <h4>Enlaces Rápidos</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Reportar Crimen</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Solicitar Reporte</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Academia Policial</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Registro de Armas</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                        <li><a href="servicios.html"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+                        <li><a href="tratamientos.html"><i class="fas fa-chevron-right"></i> Tratamientos</a></li>
+                        <li><a href="personalmedico.html"><i class="fas fa-chevron-right"></i> Personal Médico</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-links">
-                    <h4>Recursos</h4>
+                    <h4>Más Información</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Código de Vestimenta</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Formularios Oficiales</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Normativas Internas</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Preguntas Frecuentes</a></li>
+                        <li><a href="oposiciones.html"><i class="fas fa-chevron-right"></i> Oposiciones</a></li>
+                        <li><a href="comunicados.html"><i class="fas fa-chevron-right"></i> Comunicados</a></li>
+                        <li><a href="contacto.html"><i class="fas fa-chevron-right"></i> Contacto</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-links">
-                    <h4>Horario Oficinas</h4>
+                    <h4>Contacto</h4>
                     <ul>
-                        <li>Lunes a Viernes: 8:00 - 20:00</li>
-                        <li>Emergencias: 24/7</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Mission Row, Los Santos</li>
+                        <li><a href="tel:911"><i class="fas fa-phone"></i> Emergencias: 911</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Pillbox Hill, LS</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> 24/7 - 365 días</a></li>
                     </ul>
                 </div>
             </div>
+            
             <div class="copyright">
-                <p>© 2024 Los Santos Police Department | Next Stories RP - Todos los derechos reservados</p>
-                <p style="margin-top: 10px; font-size: 0.8rem;">Para cualquier consulta oficial, acérquese a la estación de policía más cercana.</p>
+                <p>© 2023 ST. Fiacre Hospital | Next Stories RP</p>
+                <p>Web informativa para rol serio - Todos los derechos reservados</p>
+                <p style="margin-top: 10px; font-size: 0.85rem; color: #95A5A6;">
+                    Para cualquier duda, abran ticket en el apartado de tickets
+                </p>
             </div>
         </div>
     </footer>
 
     <script>
         // Menú móvil
-        const mobileBtn = document.getElementById('mobileMenuBtn');
-        const nav = document.getElementById('navLinks');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
         
-        mobileBtn.addEventListener('click', () => {
-            nav.classList.toggle('active');
-            mobileBtn.innerHTML = nav.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
         });
-
+        
+        // Cerrar menú al hacer clic en un enlace
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                nav.classList.remove('active');
-                mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
-
+        
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observar elementos con clases de animación
+        document.querySelectorAll('.fade-in, .delay-1, .delay-2, .delay-3').forEach(el => {
+            observer.observe(el);
+        });
+        
         // Contadores animados
-        function animateNumber(element, target) {
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-count'));
+            const duration = 2000; // 2 segundos
+            const step = target / (duration / 16); // 60fps
             let current = 0;
-            const increment = target / 60;
+            
             const timer = setInterval(() => {
-                current += increment;
+                current += step;
                 if (current >= target) {
                     element.textContent = target;
                     clearInterval(timer);
                 } else {
                     element.textContent = Math.floor(current);
                 }
-            }, 20);
+            }, 16);
         }
-
-        const observer = new IntersectionObserver((entries) => {
+        
+        // Iniciar contadores cuando sean visibles
+        const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const numbers = entry.target.querySelectorAll('.stat-number');
-                    numbers.forEach(num => {
-                        const target = parseInt(num.getAttribute('data-count'));
-                        animateNumber(num, target);
-                    });
-                    observer.unobserve(entry.target);
+                    const numberElement = entry.target.querySelector('.stat-number');
+                    animateCounter(numberElement);
+                    counterObserver.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
-
-        const statsContainer = document.querySelector('.stats-bar');
-        if (statsContainer) observer.observe(statsContainer);
-
-        // Animación fade al hacer scroll
-        const fadeElements = document.querySelectorAll('.mission-card, .unit-card, .contact-card');
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-up');
-                    fadeObserver.unobserve(entry.target);
+        
+        // Observar contadores
+        document.querySelectorAll('.stat-item').forEach(item => {
+            counterObserver.observe(item);
+        });
+        
+        // Efecto hover para cards
+        const cards = document.querySelectorAll('.card, .service-card, .contact-item');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                if (this.classList.contains('service-card')) {
+                    this.style.transform = 'translateY(-8px)';
+                } else if (this.classList.contains('contact-item')) {
+                    this.style.transform = 'translateY(-10px)';
+                } else {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
                 }
             });
-        }, { threshold: 0.2 });
-
-        fadeElements.forEach(el => fadeObserver.observe(el));
-
-        // Scroll suave para enlaces internos
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === "#") return;
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            card.addEventListener('mouseleave', function() {
+                if (this.classList.contains('service-card')) {
+                    this.style.transform = 'translateY(0)';
+                } else if (this.classList.contains('contact-item')) {
+                    this.style.transform = 'translateY(0)';
+                } else {
+                    this.style.transform = 'translateY(0) scale(1)';
                 }
             });
         });
+        
+        // Prevenir envío de formularios (si los hubiera)
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            if (!button.getAttribute('href')) {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Animación de pulsación
+                    button.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        button.style.transform = '';
+                    }, 200);
+                });
+            }
+        });
     </script>
+
 </body>
 </html>
